@@ -37,7 +37,7 @@ It runs `launch_game.py`. Python 3 and a desktop browser are required; Node is n
 The launcher prefers:
 
 ```text
-http://127.0.0.1:8831/maker/engine.html?game=valentine_trail
+http://127.0.0.1:8831/maker/engine.html?game=sundown_trail
 ```
 
 The original batch launcher used port 8830. The fixed launcher binds only to loopback, checks for Python, starts a ready HTTP server, and opens the default browser. If 8831 is occupied, it uses an available port and prints the address. Another port/browser/profile has separate local-storage saves. Do not open `engine.html` directly with a `file://` URL: the game loads JSON and assets through HTTP.
@@ -200,7 +200,7 @@ All exits still require applicable leaders/bosses to be defeated, plus the liste
 | 6 | Black Gold Mine | Recover gold and sabotage the weapons factory |
 | 7 | Iron Horse Express | Recover train gold |
 | 8 | Thunder Fort | Take secret documents |
-| 9 | Blackwater Swamp | Secure the ammunition store |
+| 9 | Cypress Hollow Swamp | Secure the ammunition store |
 | 10 | Frostbite Pass | Defeat the mountain boss and rescue the engineer |
 | 11 | Moonshadow Fort | Free the prisoner and take battle plans |
 | 12 | Outlaw's Run | Mounted timed mission; defeat the leader and intercept convoy supplies |
@@ -215,7 +215,7 @@ Paths below are relative to this game folder.
 | File | Purpose |
 |---|---|
 | `maker/engine.html` | Main game: inline JavaScript state, inputs, physics, combat, objectives, drawing, audio, saves, encounter patterns, developer hooks |
-| `maker/games/valentine_trail/game.json` | Campaign, original plot/mission text, placements, backgrounds, objectives, boss patterns, chase flags/timer, audio manifest |
+| `maker/games/sundown_trail/game.json` | Campaign, original plot/mission text, placements, backgrounds, objectives, boss patterns, chase flags/timer, audio manifest |
 | `art/names.js` | Original sprite/animation manifest |
 | `art/muzzle.js` | Player muzzle positioning metadata |
 | `art/sprites/` | Original sprite PNGs plus the new wagon asset |

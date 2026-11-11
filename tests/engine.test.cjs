@@ -4,7 +4,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
-const data = JSON.parse(fs.readFileSync(path.join(root, 'maker/games/valentine_trail/game.json'), 'utf8'));
+const data = JSON.parse(fs.readFileSync(path.join(root, 'maker/games/sundown_trail/game.json'), 'utf8'));
 const handlers = {};
 const noop = () => {};
 const gradient = {addColorStop:noop};

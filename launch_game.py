@@ -13,7 +13,7 @@ def main():
         server = ThreadingHTTPServer(('127.0.0.1', 8831), handler)
     except OSError:
         server = ThreadingHTTPServer(('127.0.0.1', 0), handler)
-    url = f'http://127.0.0.1:{server.server_port}/maker/engine.html?game=valentine_trail'
+    url = f'http://127.0.0.1:{server.server_port}/maker/engine.html?game=sundown_trail'
     print('The Last Outlaw - Enhanced Fixed Edition')
     print(f'Open this address if your browser does not open: {url}')
     print('Keep this window open while playing. Press Ctrl+C here to stop.')

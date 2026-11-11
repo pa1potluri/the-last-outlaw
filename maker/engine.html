@@ -15,8 +15,8 @@ canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%
 // Data-driven run-and-gun player for the Game Maker. Everything level-specific comes from game.json.
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 let VH=941,S=1,VW=1600;
-let GAME=null;const params=new URLSearchParams(location.search);const gameName=params.get("game")||"valentine_trail";
-const safeName=/^[A-Za-z0-9_-]+$/.test(gameName)?gameName:"valentine_trail";
+let GAME=null;const params=new URLSearchParams(location.search);const gameName=params.get("game")||"sundown_trail";
+const safeName=/^[A-Za-z0-9_-]+$/.test(gameName)?gameName:"sundown_trail";
 const asset=p=>p?ROOT+p:"";
 let HOR=640,LANE=[815,860,905],LSC=[.9,.95,1];
 function resize(){const d=Math.min(devicePixelRatio||1,1.5),ratio=1600/VH,w=Math.min(innerWidth,innerHeight*ratio),h=w/ratio;
