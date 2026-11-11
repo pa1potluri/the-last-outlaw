@@ -1,0 +1,2929 @@
+{
+  "title": "The Last Outlaw",
+  "world": {
+    "height": 941,
+    "horizon": 640,
+    "lanes": [
+      815,
+      860,
+      905
+    ],
+    "laneScale": [
+      0.9,
+      0.95,
+      1
+    ]
+  },
+  "player": {
+    "sprite": "hero",
+    "hp": 100,
+    "speed": 300,
+    "jump": 19,
+    "fireDelay": 0.22,
+    "face": "",
+    "sprintMul": 1.8
+  },
+  "enemies": [
+    "outlaw0",
+    "outlaw1",
+    "outlaw2",
+    "gang_1",
+    "gang_2",
+    "gang_3",
+    "gang_4"
+  ],
+  "acts": [
+    "Frontier & Canyon",
+    "Town & Mine",
+    "Train, Fort & Swamp",
+    "Mountains & Chase",
+    "Final Territory & Showdown"
+  ],
+  "levels": [
+    {
+      "name": "Dry Gulch",
+      "act": 0,
+      "time": 1,
+      "length": 8000,
+      "enemies": 12,
+      "enemyFire": 2.5,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/L03_sky.png",
+          "far": "art/trail/cut/L03_far.png",
+          "mid": [
+            "art/trail/cut/L03_mid.png",
+            "art/trail/cut/L03_mid2.png",
+            "art/trail/cut/drygulch_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/L03_ground.png",
+          "front": "art/trail/cut/L03_front.png",
+          "gate": "art/trail/cut/L02_gate.png"
+        }
+      },
+      "groundColor": "#9a7b52",
+      "kind": "town",
+      "helperLine": "Time to dust off some trouble!",
+      "card": "Defeat the local bandits and earn your first bounty.",
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "cardImage": "",
+      "spawns": [
+        {
+          "x": 1000,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1780,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1860,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2550,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 2800,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 3350,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 4180,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 4260,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 4950,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 5150,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 5980,
+          "lane": 2,
+          "type": "stand"
+        },
+        {
+          "x": 7420,
+          "lane": 1,
+          "type": "tough",
+          "hp": 8,
+          "sprite": "outlaw0",
+          "fire": 1.9,
+          "weapon": "dual"
+        }
+      ],
+      "barrels": [
+        {
+          "x": 1700,
+          "lane": 1
+        },
+        {
+          "x": 4100,
+          "lane": 1
+        },
+        {
+          "x": 4150,
+          "lane": 2
+        },
+        {
+          "x": 5930,
+          "lane": 2
+        },
+        {
+          "x": 7250,
+          "lane": 0
+        },
+        {
+          "x": 7300,
+          "lane": 2
+        }
+      ],
+      "tips": [
+        {
+          "x": 500,
+          "text": "J or click = shoot  ·  Shift = sprint"
+        },
+        {
+          "x": 1250,
+          "text": "Red barrels blow up - shoot one next to outlaws"
+        },
+        {
+          "x": 2250,
+          "text": "Watch the doors! Outlaws pop out, then hide again"
+        },
+        {
+          "x": 2900,
+          "text": "W / S = change lane. Bullets only hit in the same lane"
+        },
+        {
+          "x": 3400,
+          "text": "Space = jump over bullets"
+        },
+        {
+          "x": 6820,
+          "text": "The bandit boss has TWO guns. Drop him and take them!"
+        }
+      ],
+      "checkpoint": 4000,
+      "hearts": [
+        {
+          "x": 4400,
+          "lane": 1
+        }
+      ],
+      "gateSign": {
+        "y": 0.35,
+        "w": 0.42,
+        "dx": 0.01
+      },
+      "subtitle": "The Beginning",
+      "weather": "sun",
+      "mission": "Defeat the local bandits and earn your first bounty.",
+      "climate": "Sunny & Clear",
+      "bossTaunt": "You’ll never leave this gulch alive!",
+      "bossDown": "Guess who’s dried up now!",
+      "objectives": [],
+      "clearEnemies": true
+    },
+    {
+      "name": "Muddy Creek",
+      "subtitle": "The Flooded Settlement",
+      "act": 0,
+      "time": 1.2,
+      "weather": "rain",
+      "mission": "Rescue the villagers and recover the stolen supplies.",
+      "kind": "town",
+      "length": 7200,
+      "enemies": 13,
+      "enemyFire": 2.0,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/muddy_sky.png",
+          "far": "art/trail/cut/muddy_far.png",
+          "mid": [
+            "art/trail/cut/muddy_mid.png",
+            "art/trail/cut/muddy_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/muddy_ground.png",
+          "front": "art/trail/cut/muddy_front.png",
+          "gate": "art/trail/cut/muddy_gate.png"
+        }
+      },
+      "helperLine": "Hope my boots can handle this mess!",
+      "card": "Rescue the villagers and recover the stolen supplies.",
+      "climate": "Rainy & Muddy",
+      "cardImage": "",
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "gateSign": {
+        "y": 0.27,
+        "w": 0.2
+      },
+      "checkpoint": 3700,
+      "hearts": [
+        {
+          "x": 5200,
+          "lane": 1
+        }
+      ],
+      "barrels": [
+        {
+          "x": 2950,
+          "lane": 2
+        },
+        {
+          "x": 5650,
+          "lane": 0
+        }
+      ],
+      "villagers": [
+        {
+          "x": 1900,
+          "lane": 0,
+          "sprite": "vwoman",
+          "line": "Bless you, stranger!"
+        },
+        {
+          "x": 4300,
+          "lane": 2,
+          "sprite": "vman",
+          "line": "About time, sonny!"
+        },
+        {
+          "x": 6300,
+          "lane": 1,
+          "sprite": "vboy",
+          "line": "They took our supplies east!"
+        }
+      ],
+      "spawns": [
+        {
+          "x": 1150,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1700,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 2450,
+          "lane": 1,
+          "type": "door"
+        },
+        {
+          "x": 2600,
+          "lane": 2,
+          "type": "stand"
+        },
+        {
+          "x": 3000,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 3150,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 4000,
+          "lane": 1,
+          "type": "runner"
+        },
+        {
+          "x": 4100,
+          "lane": 2,
+          "type": "runner"
+        },
+        {
+          "x": 4800,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 4950,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 5700,
+          "lane": 0,
+          "type": "stand"
+        },
+        {
+          "x": 5800,
+          "lane": 2,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 6700,
+          "lane": 1,
+          "type": "tough",
+          "hp": 10,
+          "sprite": "gang_2",
+          "fire": 1.7,
+          "weapon": "shotgun"
+        }
+      ],
+      "tips": [
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 1500,
+          "text": "Tied-up villagers: run into them to cut them free - they give you tonic or bullets"
+        },
+        {
+          "x": 6100,
+          "text": "The gang boss has a SHOTGUN - change lane when he shouts!"
+        }
+      ],
+      "bossTaunt": "I’ll bury you in the mud, cowboy!",
+      "bossDown": "Looks like you got washed out!",
+      "objectives": [
+        {
+          "label": "Recover stolen supplies",
+          "x": 6048,
+          "lane": 1,
+          "sabotage": false,
+          "afterCombat": true
+        }
+      ],
+      "rescueRequired": true,
+      "rescueLabel": "Rescue villagers"
+    },
+    {
+      "name": "Redstone Canyon",
+      "act": 0,
+      "time": 0.0,
+      "length": 7600,
+      "enemies": 13,
+      "enemyFire": 1.6,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/L01_sky.png",
+          "far": "",
+          "mid": "art/trail/cut/L01_mid.png",
+          "props": "",
+          "ground": "art/trail/cut/L01_ground.png",
+          "front": "art/trail/cut/L01_front.png",
+          "gate": "art/trail/cut/L01_gate.png"
+        }
+      },
+      "groundColor": "#b8864b",
+      "kind": "canyon",
+      "helperLine": "Red rocks, bad folks. My kind of day!",
+      "card": "Cross the canyon and intercept the gold shipment.",
+      "spawns": [
+        {
+          "x": 1150,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1900,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 2650,
+          "lane": 0,
+          "type": "stand"
+        },
+        {
+          "x": 2720,
+          "lane": 2,
+          "type": "stand"
+        },
+        {
+          "x": 3350,
+          "lane": 1,
+          "type": "stand",
+          "fire": 0.9
+        },
+        {
+          "x": 4000,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 4700,
+          "lane": 0,
+          "type": "runner"
+        },
+        {
+          "x": 4800,
+          "lane": 2,
+          "type": "runner"
+        },
+        {
+          "x": 5400,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 5550,
+          "lane": 0,
+          "type": "stand"
+        },
+        {
+          "x": 5700,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 6300,
+          "lane": 1,
+          "type": "runner"
+        },
+        {
+          "x": 7050,
+          "lane": 1,
+          "type": "tough",
+          "hp": 10,
+          "sprite": "outlaw1",
+          "weapon": "rifle"
+        }
+      ],
+      "tips": [
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 3650,
+          "text": "Dynamite! Change lane or get clear before it blows"
+        },
+        {
+          "x": 6450,
+          "text": "The gunman has a RIFLE. Take him down and it's yours"
+        }
+      ],
+      "cardImage": "",
+      "checkpoint": 3800,
+      "subtitle": "The Ambush",
+      "weather": "wind",
+      "mission": "Cross the canyon and intercept the gold shipment.",
+      "climate": "Hot & Windy",
+      "bossTaunt": "This canyon belongs to me, stranger!",
+      "bossDown": "Rock bottom looks good on you!",
+      "objectives": [
+        {
+          "label": "Recover the gold shipment",
+          "x": 6308,
+          "lane": 1,
+          "sabotage": false,
+          "afterCombat": true
+        }
+      ]
+    },
+    {
+      "name": "Ghost Town",
+      "act": 1,
+      "time": 3.6,
+      "length": 8000,
+      "enemies": 18,
+      "enemyFire": 2.0,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/L02_sky.png",
+          "far": "art/trail/cut/L02_far.png",
+          "mid": [
+            "art/trail/cut/L02_mid.png",
+            "art/trail/cut/L02_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/L02_ground.png",
+          "front": "art/trail/cut/L02_front.png",
+          "gate": "art/trail/cut/L03_gate.png"
+        }
+      },
+      "groundColor": "#9a7b52",
+      "kind": "town",
+      "helperLine": "Anybody home? Besides the trouble, I mean!",
+      "card": "Investigate the abandoned town and uncover the gang's operation.",
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "cardImage": "",
+      "spawns": [
+        {
+          "x": 1000,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1780,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1860,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2550,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 2800,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 3350,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 3500,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 4180,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 4260,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 4300,
+          "lane": 2,
+          "type": "runner"
+        },
+        {
+          "x": 4950,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 5150,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 5850,
+          "lane": 0,
+          "type": "runner"
+        },
+        {
+          "x": 5900,
+          "lane": 1,
+          "type": "runner"
+        },
+        {
+          "x": 5980,
+          "lane": 2,
+          "type": "stand"
+        },
+        {
+          "x": 6550,
+          "lane": 2,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 6650,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 7420,
+          "lane": 1,
+          "type": "tough",
+          "hp": 12,
+          "sprite": "outlaw0",
+          "fire": 1.6,
+          "weapon": "shotgun"
+        }
+      ],
+      "barrels": [
+        {
+          "x": 1700,
+          "lane": 1
+        },
+        {
+          "x": 4100,
+          "lane": 1
+        },
+        {
+          "x": 4150,
+          "lane": 2
+        },
+        {
+          "x": 5930,
+          "lane": 2
+        },
+        {
+          "x": 7250,
+          "lane": 0
+        },
+        {
+          "x": 7300,
+          "lane": 2
+        }
+      ],
+      "tips": [
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 6820,
+          "text": "The lookout carries a shotgun. Watch for the shout!"
+        }
+      ],
+      "checkpoint": 4000,
+      "hearts": [
+        {
+          "x": 4650,
+          "lane": 1
+        }
+      ],
+      "gateSign": {
+        "y": 0.19,
+        "w": 0.34
+      },
+      "layerScale": {
+        "mid": 0.8
+      },
+      "subtitle": "The Forgotten Settlement",
+      "weather": "dust",
+      "climate": "Dusty Evening",
+      "mission": "Investigate the abandoned town and uncover the gang's operation.",
+      "bossTaunt": "Boo! Your last ride starts now!",
+      "bossDown": "Guess you’re the real ghost now!",
+      "objectives": [
+        {
+          "label": "Find the gang's ledger",
+          "x": 6720,
+          "lane": 0,
+          "sabotage": false,
+          "afterCombat": true
+        }
+      ]
+    },
+    {
+      "name": "Dead Man's Saloon",
+      "subtitle": "The Bar Fight",
+      "act": 1,
+      "time": 3,
+      "weather": "indoor",
+      "mission": "Fight through the saloon and capture the informant.",
+      "kind": "town",
+      "length": 6400,
+      "enemies": 15,
+      "enemyFire": 1.9,
+      "boss": {
+        "sprite": "jack",
+        "hp": 30,
+        "fire": 1.6,
+        "sprayAllLanes": false,
+        "weapon": "shotgun",
+        "pattern": "duelist"
+      },
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/saloon_sky.png",
+          "far": "",
+          "mid": [
+            "art/trail/cut/saloon_mid.png",
+            "art/trail/cut/saloon_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/saloon_ground.png",
+          "front": "art/trail/cut/saloon_front.png",
+          "gate": "art/trail/cut/saloon_gate.png"
+        }
+      },
+      "helperLine": "One drink, two fists, zero patience!",
+      "card": "Fight through the saloon and capture the informant.",
+      "climate": "Stormy Night (Indoor)",
+      "cardImage": "",
+      "layerSpeed": {
+        "sky": 0.3,
+        "mid": 0.6
+      },
+      "dof": {
+        "sky": 1.6,
+        "mid": 1.0
+      },
+      "gateSign": {
+        "y": 0.13,
+        "w": 0.19,
+        "dx": -0.015
+      },
+      "checkpoint": 3300,
+      "hearts": [
+        {
+          "x": 2900,
+          "lane": 1
+        },
+        {
+          "x": 5000,
+          "lane": 0
+        }
+      ],
+      "barrels": [
+        {
+          "x": 1500,
+          "lane": 2
+        },
+        {
+          "x": 2350,
+          "lane": 0
+        },
+        {
+          "x": 2400,
+          "lane": 1
+        },
+        {
+          "x": 4300,
+          "lane": 2
+        }
+      ],
+      "villagers": [
+        {
+          "x": 3600,
+          "lane": 2,
+          "sprite": "vwoman",
+          "line": "The informant ran out back!"
+        }
+      ],
+      "spawns": [
+        {
+          "x": 900,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1350,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 1600,
+          "lane": 2,
+          "type": "stand"
+        },
+        {
+          "x": 2000,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 2150,
+          "lane": 1,
+          "type": "runner"
+        },
+        {
+          "x": 2450,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 2480,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 3000,
+          "lane": 2,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 3150,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 3900,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 4000,
+          "lane": 0,
+          "type": "runner"
+        },
+        {
+          "x": 4100,
+          "lane": 2,
+          "type": "runner"
+        },
+        {
+          "x": 4350,
+          "lane": 2,
+          "type": "stand",
+          "fire": 1.0
+        },
+        {
+          "x": 4900,
+          "lane": 0,
+          "type": "door"
+        },
+        {
+          "x": 5050,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        }
+      ],
+      "tips": [
+        {
+          "x": 1200,
+          "text": "Whiskey barrels blow up too - use them!"
+        },
+        {
+          "x": 5400,
+          "text": "The saloon boss! He has a shotgun - change lane when he shouts"
+        }
+      ],
+      "bossTaunt": "I’ll make you today’s special, outlaw!",
+      "bossDown": "Last call, partner. You’re done!",
+      "poster": "poster_0",
+      "objectives": [],
+      "rescueRequired": true,
+      "rescueLabel": "Free the informant"
+    },
+    {
+      "name": "Black Gold Mine",
+      "subtitle": "The Underground Secret",
+      "act": 1,
+      "time": 3,
+      "weather": "dark",
+      "mission": "Find the stolen gold and destroy the weapons factory.",
+      "kind": "mine",
+      "length": 7000,
+      "enemies": 17,
+      "enemyFire": 1.8,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/mine_sky.png",
+          "far": "",
+          "mid": [
+            "art/trail/cut/mine_mid.png",
+            "art/trail/cut/mine_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/mine_ground.png",
+          "front": "art/trail/cut/mine_front.png",
+          "gate": "art/trail/cut/mine_gate.png"
+        }
+      },
+      "helperLine": "Digging for gold, finding trouble. Typical!",
+      "card": "Find the stolen gold and destroy the weapons factory.",
+      "climate": "Underground",
+      "cardImage": "",
+      "layerSpeed": {
+        "sky": 0.3,
+        "mid": 0.6
+      },
+      "dof": {
+        "sky": 1.8,
+        "mid": 1.1
+      },
+      "gateSign": {
+        "y": 0.24,
+        "w": 0.2
+      },
+      "checkpoint": 3600,
+      "hearts": [
+        {
+          "x": 3200,
+          "lane": 0
+        },
+        {
+          "x": 5600,
+          "lane": 2
+        }
+      ],
+      "barrels": [
+        {
+          "x": 1700,
+          "lane": 1
+        },
+        {
+          "x": 2600,
+          "lane": 2
+        },
+        {
+          "x": 2650,
+          "lane": 1
+        },
+        {
+          "x": 4300,
+          "lane": 0
+        },
+        {
+          "x": 4350,
+          "lane": 1
+        },
+        {
+          "x": 4400,
+          "lane": 2
+        },
+        {
+          "x": 6100,
+          "lane": 1
+        }
+      ],
+      "villagers": [
+        {
+          "x": 4800,
+          "lane": 0,
+          "sprite": "vman",
+          "line": "They made me dig! Blow it all up!"
+        }
+      ],
+      "spawns": [
+        {
+          "x": 1000,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1550,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 1780,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2200,
+          "lane": 2,
+          "type": "runner"
+        },
+        {
+          "x": 2300,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2700,
+          "lane": 2,
+          "type": "stand"
+        },
+        {
+          "x": 2750,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 3300,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 3450,
+          "lane": 2,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 4000,
+          "lane": 0,
+          "type": "runner"
+        },
+        {
+          "x": 4100,
+          "lane": 1,
+          "type": "runner"
+        },
+        {
+          "x": 4450,
+          "lane": 0,
+          "type": "stand"
+        },
+        {
+          "x": 4500,
+          "lane": 2,
+          "type": "stand",
+          "fire": 1.0
+        },
+        {
+          "x": 5200,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 5350,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5500,
+          "lane": 2,
+          "type": "runner"
+        },
+        {
+          "x": 6500,
+          "lane": 1,
+          "type": "tough",
+          "hp": 14,
+          "sprite": "outlaw1",
+          "weapon": "dynamite",
+          "fire": 2.0
+        }
+      ],
+      "tips": [
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 2400,
+          "text": "Dynamite crates everywhere - one shot sets off the whole row"
+        },
+        {
+          "x": 6000,
+          "text": "The factory boss throws DYNAMITE. Beat him and it's yours"
+        }
+      ],
+      "bossTaunt": "This mine will become your tomb!",
+      "bossDown": "Strike one! Gold’s mine now!",
+      "poster": "poster_1",
+      "objectives": [
+        {
+          "label": "Recover stolen gold",
+          "x": 5180,
+          "lane": 1,
+          "sabotage": false,
+          "afterCombat": true
+        },
+        {
+          "label": "Sabotage the weapons factory",
+          "x": 6160,
+          "lane": 2,
+          "sabotage": true,
+          "afterCombat": true
+        }
+      ]
+    },
+    {
+      "name": "Iron Horse Express",
+      "subtitle": "The Train Robbery",
+      "act": 2,
+      "time": 2,
+      "weather": "wind",
+      "mission": "Board the moving train and recover the stolen gold.",
+      "kind": "train",
+      "length": 7400,
+      "enemies": 15,
+      "enemyFire": 1.9,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/train_sky.png",
+          "far": "art/trail/cut/train_far.png",
+          "mid": "art/trail/cut/train_mid.png",
+          "props": "",
+          "ground": "art/trail/cut/train_ground.png",
+          "front": "art/trail/cut/train_front.png",
+          "gate": "art/trail/cut/train_gate.png"
+        }
+      },
+      "helperLine": "Next stop: trouble. All aboard!",
+      "card": "Board the moving train and recover the stolen gold.",
+      "climate": "Windy Afternoon",
+      "cardImage": "",
+      "autoScroll": 1100,
+      "lanes": [
+        652,
+        664,
+        676
+      ],
+      "laneScale": [
+        0.97,
+        0.985,
+        1
+      ],
+      "noPrevGate": true,
+      "dof": {
+        "sky": 2.4,
+        "far": 2.2,
+        "mid": 1.6
+      },
+      "frontDrop": 120,
+      "gateFit": {
+        "h": 941,
+        "bottom": 941,
+        "dx": 0.42
+      },
+      "gateSign": {
+        "y": 0.2,
+        "w": 0.15,
+        "dx": 0.04
+      },
+      "checkpoint": 3800,
+      "hearts": [
+        {
+          "x": 3400,
+          "lane": 1
+        },
+        {
+          "x": 6000,
+          "lane": 2
+        },
+        {
+          "x": 6068,
+          "lane": 1
+        }
+      ],
+      "barrels": [
+        {
+          "x": 2100,
+          "lane": 1
+        },
+        {
+          "x": 4600,
+          "lane": 0
+        },
+        {
+          "x": 4650,
+          "lane": 2
+        }
+      ],
+      "villagers": [
+        {
+          "x": 5200,
+          "lane": 1,
+          "sprite": "vboy",
+          "line": "The gold is up front with the boss!"
+        }
+      ],
+      "spawns": [
+        {
+          "x": 1000,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 1500,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 1900,
+          "lane": 0,
+          "type": "runner"
+        },
+        {
+          "x": 2000,
+          "lane": 1,
+          "type": "runner"
+        },
+        {
+          "x": 2300,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2800,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 3200,
+          "lane": 2,
+          "type": "stand",
+          "fire": 1.1
+        },
+        {
+          "x": 3300,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 4200,
+          "lane": 0,
+          "type": "runner"
+        },
+        {
+          "x": 4300,
+          "lane": 2,
+          "type": "runner"
+        },
+        {
+          "x": 4500,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 5000,
+          "lane": 2,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5600,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 5800,
+          "lane": 1,
+          "type": "stand"
+        },
+        {
+          "x": 6800,
+          "lane": 1,
+          "type": "tough",
+          "hp": 16,
+          "sprite": "outlaw1",
+          "weapon": "rifle",
+          "fire": 1.5
+        }
+      ],
+      "tips": [
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 1700,
+          "text": "Outlaws jump across the carriages - watch your back lane too"
+        },
+        {
+          "x": 6300,
+          "text": "The train boss guards the locomotive - he has a rifle!"
+        }
+      ],
+      "bossTaunt": "Nobody robs my iron horse!",
+      "bossDown": "Your train just missed its stop!",
+      "objectives": [
+        {
+          "label": "Recover the train gold",
+          "x": 6364,
+          "lane": 1,
+          "sabotage": false,
+          "afterCombat": true
+        }
+      ]
+    },
+    {
+      "name": "Thunder Fort",
+      "subtitle": "The Military Outpost",
+      "act": 2,
+      "time": 2.5,
+      "weather": "storm",
+      "mission": "Infiltrate the fort and steal the secret documents.",
+      "kind": "fort",
+      "length": 7600,
+      "enemies": 17,
+      "enemyFire": 1.8,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/fort_sky.png",
+          "far": "art/trail/cut/fort_far.png",
+          "mid": [
+            "art/trail/cut/fort_wall.png",
+            "art/trail/cut/fort_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/fort_ground.png",
+          "front": "art/trail/cut/fort_front.png",
+          "gate": "art/trail/cut/fort_gate.png"
+        }
+      },
+      "helperLine": "Storm’s coming, and I’ve brought lightning!",
+      "card": "Infiltrate the fort and steal the secret documents.",
+      "climate": "Thunderstorm",
+      "bossTaunt": "My cannons will turn you to dust!",
+      "bossDown": "That’s one less thunderhead!",
+      "cardImage": "",
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "layerScale": {
+        "mid": 0.9
+      },
+      "gateSign": {
+        "y": 0.29,
+        "w": 0.3,
+        "dx": -0.005
+      },
+      "checkpoint": 3900,
+      "hearts": [
+        {
+          "x": 3500,
+          "lane": 0
+        },
+        {
+          "x": 6100,
+          "lane": 2
+        },
+        {
+          "x": 6232,
+          "lane": 1
+        }
+      ],
+      "barrels": [
+        {
+          "x": 1800,
+          "lane": 1
+        },
+        {
+          "x": 3000,
+          "lane": 0
+        },
+        {
+          "x": 3050,
+          "lane": 1
+        },
+        {
+          "x": 5100,
+          "lane": 2
+        },
+        {
+          "x": 5150,
+          "lane": 1
+        }
+      ],
+      "villagers": [
+        {
+          "x": 4500,
+          "lane": 2,
+          "sprite": "vwoman",
+          "line": "The documents are in the gate tower!"
+        }
+      ],
+      "spawns": [
+        {
+          "x": 1000,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 1400,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 1900,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 2000,
+          "lane": 1,
+          "type": "runner"
+        },
+        {
+          "x": 2400,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2600,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_4",
+          "fire": 1.2
+        },
+        {
+          "x": 3100,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 3300,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 4100,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 4200,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 4800,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 5000,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5300,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 5600,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_2",
+          "fire": 1.1
+        },
+        {
+          "x": 6000,
+          "lane": 1,
+          "type": "runner"
+        },
+        {
+          "x": 6100,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 6900,
+          "lane": 1,
+          "type": "tough",
+          "hp": 18,
+          "sprite": "gang_2",
+          "weapon": "shotgun",
+          "fire": 1.5
+        }
+      ],
+      "tips": [
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 2200,
+          "text": "Powder kegs by the barricades - one shot clears a whole squad"
+        },
+        {
+          "x": 6400,
+          "text": "The fort commander holds the gate - shotgun! Change lane when he shouts"
+        }
+      ],
+      "objectives": [
+        {
+          "label": "Take the secret documents",
+          "x": 6384,
+          "lane": 0,
+          "sabotage": false,
+          "afterCombat": true
+        }
+      ]
+    },
+    {
+      "name": "Blackwater Swamp",
+      "subtitle": "The Deadly Bayou",
+      "act": 2,
+      "time": 2.8,
+      "weather": "fog",
+      "mission": "Find the gang's ammunition store in the swamp.",
+      "kind": "swamp",
+      "length": 7400,
+      "enemies": 16,
+      "enemyFire": 1.8,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/swamp_sky.png",
+          "far": "art/trail/cut/swamp_far.png",
+          "mid": [
+            "art/trail/cut/swamp_mid.png",
+            "art/trail/cut/swamp_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/swamp_ground.png",
+          "front": "art/trail/cut/swamp_front.png",
+          "gate": "art/trail/cut/swamp_gate.png"
+        }
+      },
+      "helperLine": "Smells like trouble. And old socks!",
+      "card": "Find the gang's ammunition store in the swamp.",
+      "climate": "Foggy & Wet",
+      "bossTaunt": "The swamp always swallows its enemies!",
+      "bossDown": "Guess the swamp spat you out!",
+      "cardImage": "art/trail/swamp_card.png",
+      "lanes": [
+        752,
+        772,
+        794
+      ],
+      "laneScale": [
+        0.95,
+        0.975,
+        1
+      ],
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "frontDrop": 160,
+      "gateSign": {
+        "y": 0.19,
+        "w": 0.3
+      },
+      "checkpoint": 3800,
+      "hearts": [
+        {
+          "x": 3300,
+          "lane": 1
+        },
+        {
+          "x": 5900,
+          "lane": 0
+        },
+        {
+          "x": 6068,
+          "lane": 1
+        }
+      ],
+      "barrels": [
+        {
+          "x": 1700,
+          "lane": 2
+        },
+        {
+          "x": 2900,
+          "lane": 0
+        },
+        {
+          "x": 2950,
+          "lane": 1
+        },
+        {
+          "x": 3000,
+          "lane": 2
+        },
+        {
+          "x": 4900,
+          "lane": 1
+        },
+        {
+          "x": 4950,
+          "lane": 0
+        },
+        {
+          "x": 6300,
+          "lane": 2
+        }
+      ],
+      "villagers": [
+        {
+          "x": 4400,
+          "lane": 0,
+          "sprite": "vman",
+          "line": "The ammo shed is at the end of the boardwalk!"
+        }
+      ],
+      "spawns": [
+        {
+          "x": 1000,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 1450,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 1800,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 2300,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2700,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_4",
+          "fire": 1.2
+        },
+        {
+          "x": 3050,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 3400,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 4000,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 4100,
+          "lane": 0,
+          "type": "runner"
+        },
+        {
+          "x": 4700,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5000,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 5400,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 5700,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_4",
+          "fire": 1.1
+        },
+        {
+          "x": 6100,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 6200,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 6900,
+          "lane": 1,
+          "type": "tough",
+          "hp": 18,
+          "sprite": "gang_1",
+          "weapon": "dual",
+          "fire": 1.4
+        }
+      ],
+      "tips": [
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 2500,
+          "text": "The gang's ammo is everywhere - shoot the kegs, not just the men"
+        },
+        {
+          "x": 6450,
+          "text": "The swamp boss fires two guns at once - keep moving!"
+        }
+      ],
+      "objectives": [
+        {
+          "label": "Secure the ammunition store",
+          "x": 6216,
+          "lane": 2,
+          "sabotage": false,
+          "afterCombat": true
+        }
+      ]
+    },
+    {
+      "name": "Frostbite Pass",
+      "subtitle": "The Frozen Mountains",
+      "act": 3,
+      "time": 1.5,
+      "weather": "snow",
+      "mission": "Cross the mountain and rescue the captured engineer.",
+      "kind": "snow",
+      "length": 6800,
+      "enemies": 11,
+      "enemyFire": 1.9,
+      "boss": {
+        "sprite": "warden",
+        "hp": 30,
+        "fire": 2.0,
+        "sprayAllLanes": false,
+        "weapon": "shotgun",
+        "pattern": "warden"
+      },
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/frost_sky.png",
+          "far": "art/trail/cut/frost_far.png",
+          "mid": [
+            "art/trail/cut/frost_mid.png",
+            "art/trail/cut/frost_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/frost_ground.png",
+          "front": "art/trail/cut/frost_front.png",
+          "gate": "art/trail/cut/frost_gate.png"
+        }
+      },
+      "helperLine": "Cold hands, warm bullets. Let’s ride!",
+      "card": "Cross the mountain and rescue the captured engineer.",
+      "climate": "Snow & Blizzard",
+      "bossTaunt": "You’ll freeze before you reach me!",
+      "bossDown": "Ice cold! Just like your aim!",
+      "hearts": [
+        {
+          "x": 3000,
+          "lane": 1
+        },
+        {
+          "x": 5200,
+          "lane": 0
+        },
+        {
+          "x": 6000,
+          "lane": 2
+        }
+      ],
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "gateSign": {
+        "y": 0.09,
+        "w": 0.28
+      },
+      "checkpoint": 3400,
+      "barrels": [
+        {
+          "x": 1900,
+          "lane": 1
+        },
+        {
+          "x": 3800,
+          "lane": 2
+        },
+        {
+          "x": 3850,
+          "lane": 0
+        }
+      ],
+      "villagers": [
+        {
+          "x": 2600,
+          "lane": 0,
+          "sprite": "vboy",
+          "line": "I'm the engineer! The Warden's at the pass!"
+        }
+      ],
+      "poster": "",
+      "spawns": [
+        {
+          "x": 900,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 1400,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 1800,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 2200,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2800,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 3200,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 3700,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 3900,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 4500,
+          "lane": 2,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 4900,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_1",
+          "fire": 1.3
+        },
+        {
+          "x": 5300,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_4"
+        }
+      ],
+      "tips": [
+        {
+          "x": 1200,
+          "text": "Snow slows nobody down - keep moving and keep shooting"
+        },
+        {
+          "x": 5700,
+          "text": "The Mountain Warden! Change lane when his shotgun glints"
+        }
+      ],
+      "objectives": [],
+      "rescueRequired": true,
+      "rescueLabel": "Rescue the engineer"
+    },
+    {
+      "name": "Moonshadow Fort",
+      "subtitle": "The Night Infiltration",
+      "act": 3,
+      "time": 3,
+      "weather": "night",
+      "mission": "Free the prisoners and steal the battle plans.",
+      "kind": "fort",
+      "length": 7260,
+      "enemies": 15,
+      "enemyFire": 1.4,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/moon_sky.png",
+          "far": "art/trail/cut/moon_far.png",
+          "mid": [
+            "art/trail/cut/moon_mid.png",
+            "art/trail/cut/moon_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/moon_ground.png",
+          "front": "art/trail/cut/moon_front.png",
+          "gate": "art/trail/cut/moon_gate.png"
+        }
+      },
+      "helperLine": "Nice moon. Shame about the company!",
+      "card": "Free the prisoners and steal the battle plans.",
+      "climate": "Moonlit & Freezing",
+      "bossTaunt": "Darkness is my greatest weapon, fool!",
+      "bossDown": "Lights out, Marshal’s little helper!",
+      "hearts": [
+        {
+          "x": 2904,
+          "lane": 1
+        },
+        {
+          "x": 4791,
+          "lane": 0
+        },
+        {
+          "x": 6171,
+          "lane": 0
+        }
+      ],
+      "spawns": [
+        {
+          "x": 873,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 1296,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 1778,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 2140,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 2495,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2902,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 3322,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 3644,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 4080,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 4362,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 4717,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 5185,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 5525,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5897,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 6560,
+          "lane": 1,
+          "type": "tough",
+          "hp": 25,
+          "sprite": "gang_4",
+          "weapon": "rifle",
+          "fire": 1.6
+        }
+      ],
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "checkpoint": 3630,
+      "barrels": [
+        {
+          "x": 1815,
+          "lane": 1
+        },
+        {
+          "x": 3267,
+          "lane": 1
+        },
+        {
+          "x": 3339,
+          "lane": 1
+        },
+        {
+          "x": 5082,
+          "lane": 1
+        }
+      ],
+      "villagers": [
+        {
+          "x": 3993,
+          "lane": 2,
+          "sprite": "vwoman",
+          "line": "Thank you! Free the prisoners"
+        }
+      ],
+      "gateSign": {
+        "y": 0.2,
+        "w": 0.25
+      },
+      "tips": [
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 6060,
+          "text": "The boss is waiting at the gate!"
+        }
+      ],
+      "objectives": [
+        {
+          "label": "Take the battle plans",
+          "x": 6244,
+          "lane": 1,
+          "sabotage": false,
+          "afterCombat": true
+        }
+      ],
+      "rescueRequired": true,
+      "rescueLabel": "Free the prisoner"
+    },
+    {
+      "name": "Outlaw's Run",
+      "subtitle": "The Horseback Chase",
+      "act": 3,
+      "time": 2.2,
+      "weather": "dust",
+      "mission": "Chase the Iron Marshal's convoy before it reaches the capital.",
+      "kind": "prairie",
+      "length": 7320,
+      "enemies": 16,
+      "enemyFire": 1.4,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/run_sky.png",
+          "far": "art/trail/cut/run_far.png",
+          "mid": [
+            "art/trail/cut/run_mid.png",
+            "art/trail/cut/run_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/run_ground.png",
+          "front": "art/trail/cut/run_front.png",
+          "gate": "art/trail/cut/run_gate.png"
+        }
+      },
+      "helperLine": "Running late? I’m running wild!",
+      "card": "Chase the Iron Marshal's convoy before it reaches the capital.",
+      "climate": "Dust Storm",
+      "bossTaunt": "Nobody outruns the law around here!",
+      "bossDown": "Looks like you ran out of road!",
+      "hearts": [
+        {
+          "x": 2928,
+          "lane": 0
+        },
+        {
+          "x": 4831,
+          "lane": 1
+        },
+        {
+          "x": 6222,
+          "lane": 2
+        }
+      ],
+      "spawns": [
+        {
+          "x": 912,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 1258,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 1595,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 1987,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "outlaw0"
+        },
+        {
+          "x": 2380,
+          "lane": 2,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2678,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 3190,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 3524,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 3805,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "outlaw0"
+        },
+        {
+          "x": 4130,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 4507,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 4933,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 5292,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5712,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 5968,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 6620,
+          "lane": 1,
+          "type": "tough",
+          "hp": 26,
+          "sprite": "gang_4",
+          "weapon": "dual",
+          "fire": 1.6
+        }
+      ],
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "checkpoint": 3660,
+      "barrels": [
+        {
+          "x": 1830,
+          "lane": 2
+        },
+        {
+          "x": 3294,
+          "lane": 1
+        },
+        {
+          "x": 3367,
+          "lane": 1
+        },
+        {
+          "x": 5124,
+          "lane": 0
+        }
+      ],
+      "villagers": [
+        {
+          "x": 4026,
+          "lane": 2,
+          "sprite": "vman",
+          "line": "Thank you! Chase the Iron Marshal's convoy before it reaches the capital."
+        }
+      ],
+      "gateSign": {
+        "y": 0.2,
+        "w": 0.25
+      },
+      "tips": [
+        {
+          "x": 240,
+          "text": "Mounted chase: reach the convoy before time runs out. Shift spurs your horse."
+        },
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 6120,
+          "text": "The boss is waiting at the gate!"
+        }
+      ],
+      "objectives": [
+        {
+          "label": "Intercept the convoy supplies",
+          "x": 6295,
+          "lane": 1,
+          "sabotage": false,
+          "afterCombat": true
+        }
+      ],
+      "mounted": true,
+      "timeLimit": 120,
+      "autoScroll": 45
+    },
+    {
+      "name": "Devil's Engine",
+      "subtitle": "The Steam Wagon",
+      "act": 4,
+      "time": 3.4,
+      "weather": "embers",
+      "mission": "Stop the giant steam-powered war wagon.",
+      "kind": "boss",
+      "length": 7380,
+      "enemies": 15,
+      "enemyFire": 1.2,
+      "boss": {
+        "sprite": "jack",
+        "hp": 34,
+        "fire": 1.9,
+        "sprayAllLanes": false,
+        "weapon": "dual",
+        "pattern": "wagon",
+        "art": "art/sprites/war_wagon_v3.png"
+      },
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/engine_sky.png",
+          "far": "art/trail/cut/engine_far.png",
+          "mid": [
+            "art/trail/cut/engine_mid.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/engine_ground.png",
+          "front": "art/trail/cut/engine_front.png",
+          "gate": "art/trail/cut/engine_gate.png"
+        }
+      },
+      "helperLine": "That engine needs a serious tune-up!",
+      "card": "Stop the giant steam-powered war wagon.",
+      "climate": "Red Sky & Smoke",
+      "bossTaunt": "My machine will crush your little dreams!",
+      "bossDown": "Engine stopped. Ego shattered!",
+      "hearts": [
+        {
+          "x": 2952,
+          "lane": 0
+        },
+        {
+          "x": 4870,
+          "lane": 0
+        },
+        {
+          "x": 6273,
+          "lane": 1
+        }
+      ],
+      "spawns": [
+        {
+          "x": 889,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 1249,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 1604,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 2017,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 2411,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2770,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 3067,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 3442,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 3796,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 4169,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 4607,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 5006,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 5265,
+          "lane": 2,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5629,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 6008,
+          "lane": 0,
+          "type": "cover"
+        }
+      ],
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "checkpoint": 3690,
+      "barrels": [
+        {
+          "x": 1845,
+          "lane": 1
+        },
+        {
+          "x": 3321,
+          "lane": 0
+        },
+        {
+          "x": 3394,
+          "lane": 0
+        },
+        {
+          "x": 5166,
+          "lane": 2
+        }
+      ],
+      "villagers": [
+        {
+          "x": 4059,
+          "lane": 2,
+          "sprite": "vboy",
+          "line": "Thank you! Stop the giant steam-powered war wagon."
+        }
+      ],
+      "gateSign": {
+        "y": 0.2,
+        "w": 0.25
+      },
+      "tips": [
+        {
+          "x": 5500,
+          "text": "War wagon: dodge marked lanes, then shoot the glowing vent."
+        },
+        {
+          "x": 240,
+          "text": "Gold diamonds mark mission targets. Stand in their lane and press E."
+        },
+        {
+          "x": 6180,
+          "text": "The boss is waiting at the gate!"
+        }
+      ],
+      "objectives": [
+        {
+          "label": "Disable the war-wagon engine",
+          "x": 6642,
+          "lane": 1,
+          "sabotage": true,
+          "afterCombat": true
+        }
+      ]
+    },
+    {
+      "name": "Blood Red City",
+      "subtitle": "The Final Territory",
+      "act": 4,
+      "time": 3.2,
+      "weather": "firestorm",
+      "mission": "Defeat the remaining gang and enter the Iron Marshal's headquarters.",
+      "kind": "town",
+      "length": 7440,
+      "enemies": 16,
+      "enemyFire": 1.2,
+      "boss": null,
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/city_sky.png",
+          "far": "art/trail/cut/city_far.png",
+          "mid": [
+            "art/trail/cut/city_mid.png",
+            "art/trail/cut/city_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/city_ground.png",
+          "front": "art/trail/cut/city_front.png",
+          "gate": "art/trail/cut/city_gate.png"
+        }
+      },
+      "helperLine": "Red streets, bad news. Let’s clean up!",
+      "card": "Defeat the remaining gang and enter the Iron Marshal's headquarters.",
+      "climate": "Rain, Lightning & Fire",
+      "bossTaunt": "This city kneels before nobody!",
+      "bossDown": "City cleanup: one bully removed!",
+      "hearts": [
+        {
+          "x": 2976,
+          "lane": 0
+        },
+        {
+          "x": 4910,
+          "lane": 0
+        },
+        {
+          "x": 6324,
+          "lane": 1
+        }
+      ],
+      "spawns": [
+        {
+          "x": 873,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 1355,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 1622,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "outlaw0"
+        },
+        {
+          "x": 2038,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 2456,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2809,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 3220,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 3549,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 3924,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 4308,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 4636,
+          "lane": 2,
+          "type": "runner",
+          "sprite": "outlaw0"
+        },
+        {
+          "x": 4983,
+          "lane": 2,
+          "type": "stand",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 5439,
+          "lane": 0,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5691,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 6159,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 6740,
+          "lane": 1,
+          "type": "tough",
+          "hp": 28,
+          "sprite": "gang_1",
+          "weapon": "rifle",
+          "fire": 1.6
+        }
+      ],
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "checkpoint": 3720,
+      "barrels": [
+        {
+          "x": 1860,
+          "lane": 1
+        },
+        {
+          "x": 3348,
+          "lane": 1
+        },
+        {
+          "x": 3422,
+          "lane": 1
+        },
+        {
+          "x": 5208,
+          "lane": 1
+        }
+      ],
+      "villagers": [
+        {
+          "x": 4092,
+          "lane": 2,
+          "sprite": "vwoman",
+          "line": "Thank you! Defeat the remaining gang"
+        }
+      ],
+      "gateSign": {
+        "y": 0.2,
+        "w": 0.25
+      },
+      "tips": [
+        {
+          "x": 6240,
+          "text": "The boss is waiting at the gate!"
+        }
+      ],
+      "objectives": [],
+      "clearEnemies": true
+    },
+    {
+      "name": "The Last Outlaw",
+      "subtitle": "The Final Showdown",
+      "act": 4,
+      "time": 4,
+      "weather": "sunrise",
+      "mission": "Duel and defeat the Iron Marshal to bring peace to the Wild West.",
+      "kind": "boss",
+      "length": 7500,
+      "enemies": 16,
+      "enemyFire": 1.2,
+      "boss": {
+        "sprite": "marshal",
+        "hp": 36,
+        "fire": 1.9,
+        "sprayAllLanes": false,
+        "weapon": "rifle",
+        "pattern": "marshal"
+      },
+      "background": {
+        "mode": "layers",
+        "layers": {
+          "sky": "art/trail/cut/final_sky.png",
+          "far": "art/trail/cut/final_far.png",
+          "mid": [
+            "art/trail/cut/final_mid.png",
+            "art/trail/cut/final_mid2.png"
+          ],
+          "props": "",
+          "ground": "art/trail/cut/final_ground.png",
+          "front": "art/trail/cut/final_front.png",
+          "gate": "art/trail/cut/final_gate.png"
+        }
+      },
+      "helperLine": "This ends today. I’ve got places to be!",
+      "card": "Duel and defeat the Iron Marshal to bring peace to the Wild West.",
+      "climate": "Storm Clearing (Sunrise)",
+      "bossTaunt": "I am the Iron Marshal. Fear me!",
+      "bossDown": "Iron rusts. Legends ride forever!",
+      "poster": "poster_2",
+      "hearts": [
+        {
+          "x": 3000,
+          "lane": 1
+        },
+        {
+          "x": 4950,
+          "lane": 2
+        },
+        {
+          "x": 6375,
+          "lane": 0
+        }
+      ],
+      "checkpoint": 3750,
+      "spawns": [
+        {
+          "x": 1009,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 1306,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 1631,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_1"
+        },
+        {
+          "x": 1969,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "outlaw0"
+        },
+        {
+          "x": 2275,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 2651,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_4"
+        },
+        {
+          "x": 3090,
+          "lane": 1,
+          "type": "cover"
+        },
+        {
+          "x": 3420,
+          "lane": 1,
+          "type": "stand",
+          "sprite": "outlaw0"
+        },
+        {
+          "x": 3715,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "outlaw0"
+        },
+        {
+          "x": 4126,
+          "lane": 0,
+          "type": "cover"
+        },
+        {
+          "x": 4378,
+          "lane": 0,
+          "type": "runner",
+          "sprite": "gang_3"
+        },
+        {
+          "x": 4867,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "outlaw0"
+        },
+        {
+          "x": 5201,
+          "lane": 1,
+          "type": "thrower",
+          "sprite": "outlaw2"
+        },
+        {
+          "x": 5569,
+          "lane": 1,
+          "type": "runner",
+          "sprite": "gang_2"
+        },
+        {
+          "x": 5838,
+          "lane": 2,
+          "type": "cover"
+        },
+        {
+          "x": 6231,
+          "lane": 0,
+          "type": "stand",
+          "sprite": "gang_3"
+        }
+      ],
+      "layerSpeed": {
+        "mid": 0.5
+      },
+      "barrels": [
+        {
+          "x": 1875,
+          "lane": 2
+        },
+        {
+          "x": 3375,
+          "lane": 2
+        },
+        {
+          "x": 3450,
+          "lane": 2
+        },
+        {
+          "x": 5250,
+          "lane": 1
+        }
+      ],
+      "villagers": [
+        {
+          "x": 4125,
+          "lane": 2,
+          "sprite": "vman",
+          "line": "Thank you! Duel"
+        }
+      ],
+      "gateSign": {
+        "y": 0.2,
+        "w": 0.25
+      },
+      "tips": [
+        {
+          "x": 5500,
+          "text": "Iron Marshal: watch the lane warnings. Jump when every lane is marked."
+        },
+        {
+          "x": 6300,
+          "text": "The boss is waiting at the gate!"
+        }
+      ],
+      "objectives": []
+    }
+  ],
+  "endTop": "The outlaw gang is finished, once and for all.",
+  "story": "Hunt the notorious Iron Marshal and bring peace to the Wild West.",
+  "titleImage": "art/_incoming/title_outlaw.png",
+  "worldMap": "art/_incoming/worldmap.png",
+  "music": true,
+  "soundFiles": {
+    "gun": "sounds/gun.wav",
+    "dual": "sounds/dual.wav",
+    "shotgun": "sounds/shotgun.wav",
+    "rifle": "sounds/rifle.wav",
+    "egun": "sounds/egun.wav",
+    "ping": "sounds/ping.wav"
+  }
+}
