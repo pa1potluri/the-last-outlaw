@@ -19,30 +19,29 @@ canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%
 #loadingDetail{margin:16px 0 0;line-height:1.5;color:#fff3d4}
 #loadingRetry{margin-top:18px;padding:10px 22px;border:1px solid #b68a43;border-radius:6px;background:#ffe2a2;color:#24170e;font:bold 18px Georgia;cursor:pointer}
 
-/* Touch controls sit in the letterbox rails, away from the unchanged artwork/HUD. */
+/* Touch-only overlays. Desktop styles and canvas layout are unchanged. */
 html.touch{--safe-left:env(safe-area-inset-left,0px);--safe-right:env(safe-area-inset-right,0px)}
 html.touch,html.touch body{overscroll-behavior:none;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
-#touchControls,#touchMenu,#rotateNotice{display:none}
+#touchControls,#touchMenu,#rotateNotice,#touchPauseMenu{display:none}
 html.touch #keyboardNotice{display:none}
-html.touch #pauseButton{top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));font-size:14px;padding:8px 12px}
+html.touch #pauseButton{top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));font-size:14px;padding:8px 12px;opacity:.55;z-index:4}
+html.touch #pauseButton[data-pressed="true"]{opacity:1}
 html.touch #touchControls:not([hidden]){display:block;position:fixed;inset:0;pointer-events:none;z-index:3}
-.touchRail{position:absolute;bottom:max(12px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(2,62px);gap:8px;pointer-events:auto}
-.touchRail.right{right:max(10px,env(safe-area-inset-right))}
-/* Thumb stick: the whole left strip is the touch zone; the visible stick sits low-left. */
-#joyZone{position:absolute;left:0;top:0;bottom:0;width:160px;pointer-events:auto;touch-action:none}
-#joyBase{position:absolute;left:max(16px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));width:116px;height:116px;border-radius:50%;background:#24170eb3;border:2px solid #b68a43;box-shadow:inset 0 0 18px #0008}
+.touchRail{position:absolute;bottom:max(16px,env(safe-area-inset-bottom));display:flex;align-items:end;gap:14px;pointer-events:none}
+.touchRail.right{right:calc(80px + env(safe-area-inset-right,0px))}
+#joyZone{position:absolute;left:0;bottom:0;width:164px;height:164px;pointer-events:auto;touch-action:none}
+#joyBase{position:absolute;left:max(16px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));width:116px;height:116px;border-radius:50%;background:#24170e;border:2px solid #b68a43;box-shadow:inset 0 0 18px #0008;opacity:.55}
+#joyZone[aria-pressed="true"] #joyBase{opacity:1}
 #joyKnob{position:absolute;left:32px;top:32px;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#c98a3f,#6b3f16);border:2px solid #ffd166;transition:transform .08s}
-#touchShoot{min-height:72px;border-radius:50%;font-size:16px}
-#touchJump{min-height:56px;border-radius:50%;align-self:end}
-#touchGun,#touchInteract{min-height:40px;font-size:12px}
-html.touch #touchMute{position:absolute;top:max(8px,env(safe-area-inset-top));right:calc(max(8px,env(safe-area-inset-right)) + 84px);min-height:36px;padding:6px 10px;pointer-events:auto}
-.touchButton{min-height:48px;padding:6px 3px;background:#24170ef2;color:#ffe2a2;border:1px solid #b68a43;border-radius:10px;font:bold 14px Georgia;touch-action:none}
-.touchButton[aria-pressed="true"],.touchButton:active{background:#8b5722;color:#fff3d4;border-color:#ffd166}
-html.touch #touchMenu:not([hidden]){display:flex;position:fixed;left:152px;right:152px;bottom:max(12px,env(safe-area-inset-bottom));gap:8px;justify-content:center;z-index:3}
-#touchMenu .touchButton{padding:8px 12px}
+#touchShoot{width:76px;height:76px;border-radius:50%;font-size:16px}
+#touchJump{width:62px;height:62px;border-radius:50%;font-size:14px}
+.touchButton{min-height:48px;padding:6px 10px;background:#24170e;color:#ffe2a2;border:1px solid #b68a43;border-radius:10px;font:bold 14px Georgia;touch-action:none;pointer-events:auto}
+#touchControls .touchButton{opacity:.55}
+#touchControls .touchButton[aria-pressed="true"]{opacity:1;background:#8b5722;color:#fff3d4;border-color:#ffd166}
+html.touch #touchMenu:not([hidden]){display:flex;position:fixed;left:16px;right:16px;bottom:max(12px,env(safe-area-inset-bottom));gap:8px;justify-content:center;z-index:3}
+html.touch #touchPauseMenu:not([hidden]){display:grid;position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom));transform:translateX(-50%);gap:12px;z-index:4}
 html.touch.portrait #rotateNotice{display:grid;position:fixed;inset:0;z-index:9;place-content:center;text-align:center;padding:24px;background:#120d0af5;font:22px/1.6 Georgia;color:#ffe2a2}
-html.touch.portrait #touchControls,html.touch.portrait #touchMenu,html.touch.portrait #pauseButton{display:none}
-@media(max-height:330px){.touchRail{gap:5px;bottom:6px}.touchButton{min-height:42px}}
+html.touch.portrait #touchControls,html.touch.portrait #touchMenu,html.touch.portrait #touchPauseMenu,html.touch.portrait #pauseButton{display:none}
 </style></head>
 <body>
 <section id="loadingScreen" aria-label="Loading The Last Outlaw" aria-busy="true">
@@ -63,13 +62,14 @@ html.touch.portrait #touchControls,html.touch.portrait #touchMenu,html.touch.por
 </nav>
 <nav id="touchControls" aria-label="Touch game controls" hidden>
  <div id="joyZone" aria-label="Move: drag left or right, push up or down to change lane, push far to sprint"><div id="joyBase"><div id="joyKnob"></div></div></div>
- <button class="touchButton" id="touchMute" type="button">Mute</button>
  <div class="touchRail right">
-  <button class="touchButton" data-touch="KeyQ" id="touchGun" type="button">Gun ↻</button>
-  <button class="touchButton" data-touch="KeyE" id="touchInteract" type="button">Use</button>
   <button class="touchButton" data-touch="Space" id="touchJump" type="button">Jump</button>
   <button class="touchButton" data-touch="KeyJ" id="touchShoot" type="button">Shoot</button>
  </div>
+</nav>
+<nav id="touchPauseMenu" aria-label="Pause menu" hidden>
+ <button class="touchButton" id="touchSound" type="button">Sound On</button>
+ <button class="touchButton" id="touchResume" type="button">Resume</button>
 </nav>
 <script>const ROOT=location.pathname.endsWith("/maker/engine.html")?"../":"./";</script>
 <script>document.write('<script src="'+ROOT+'art/names.js?v='+Date.now()+'"><\/script><script src="'+ROOT+'art/muzzle.js?v='+Date.now()+'"><\/script>');</script>
@@ -82,6 +82,11 @@ const touchDevice=(navigator.maxTouchPoints||0)>0&&matchMedia('(pointer: coarse)
 const touchPointers=new Map();
 const touchButtons=Array.from(document.querySelectorAll('[data-touch]'));
 document.documentElement.classList.toggle('touch',touchDevice);
+if(touchDevice){
+ const pause=document.getElementById('pauseButton');
+ pause.addEventListener('pointerdown',()=>pause.setAttribute('data-pressed','true'));
+ for(const event of ['pointerup','pointercancel','lostpointercapture','blur'])pause.addEventListener(event,()=>pause.setAttribute('data-pressed','false'));
+}
 const held=code=>!!K[code]||Array.from(touchPointers.values()).some(p=>p.code===code);
 function touchPortrait(){return touchDevice&&innerHeight>innerWidth}
 function syncTouchUI(){
@@ -93,15 +98,24 @@ function syncTouchUI(){
  document.getElementById('touchDifficulty').textContent=difficulty==='hard'?'Hard':'Standard';
  document.getElementById('touchNew').textContent=titleOn?'New ride':'Ride again';
  document.getElementById('touchJump').textContent=st==='card'?'Skip':'Jump';
- document.getElementById('touchMute').textContent=muted?'Unmute':'Mute';
- document.getElementById('touchInteract').style.visibility=(st==='play'&&P&&typeof nearbyObjective==='function'&&nearbyObjective())?'visible':'hidden';
+ document.getElementById('touchPauseMenu').hidden=loading||!GAME||!paused||titleOn;
+ document.getElementById('touchSound').textContent=muted?'Sound Off':'Sound On';
+ document.getElementById('touchSound').setAttribute('aria-pressed',String(!muted));
 }
 let GAME=null;const params=new URLSearchParams(location.search);const gameName=params.get("game")||"sundown_trail";
 const safeName=/^[A-Za-z0-9_-]+$/.test(gameName)?gameName:"sundown_trail";
 const asset=p=>p?ROOT+p:"";
 let HOR=640,LANE=[815,860,905],LSC=[.9,.95,1];
-function resize(){const d=Math.min(devicePixelRatio||1,1.5),ratio=1600/VH,w=Math.min(touchDevice&&!touchPortrait()?Math.max(1,innerWidth-300-(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-left'))||0)-(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-right'))||0)):innerWidth,innerHeight*ratio),h=w/ratio;
-  cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.width=w+'px';cv.style.height=h+'px';S=Math.min(cv.width/1600,cv.height/VH);VW=1600;}
+function resize(){
+ if(touchDevice&&!touchPortrait()){
+  const d=Math.min(devicePixelRatio||1,1.5);
+  cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);
+  cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';
+  S=cv.height/VH;VW=cv.width/S;return;
+ }
+ const d=Math.min(devicePixelRatio||1,1.5),ratio=1600/VH,w=Math.min(innerWidth,innerHeight*ratio),h=w/ratio;
+ cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.width=w+'px';cv.style.height=h+'px';S=Math.min(cv.width/1600,cv.height/VH);VW=1600;
+}
 addEventListener('resize',resize);resize();
 const IMG={},IMG_PROMISE={};
 function loadImage(file){
@@ -207,7 +221,7 @@ function start(i,keep){
   chaseLeft=current().timeLimit?(difficulty==='hard'?current().timeLimit*.8:current().timeLimit):0;combatChain=0;chainLeft=0;saveClock=8;
   st='card';tc=current().cardImage?4.2:2.6;if(current().cardImage)img(current().cardImage);say={who:'helper',t:4.5,text:current().helperLine||''};if(!titleOn)saveProgress();
 }
-function clearInput(){for(const key of Object.keys(K))delete K[key];touchPointers.clear();for(const button of touchButtons)button.setAttribute('aria-pressed','false')}
+function clearInput(){if(touchDevice)joyReset();for(const key of Object.keys(K))delete K[key];touchPointers.clear();for(const button of touchButtons)button.setAttribute('aria-pressed','false')}
 function setPaused(value){paused=!!value;clearInput();const button=document.getElementById('pauseButton');button.textContent=(paused?'Resume':'Pause')+(touchDevice?'':' (P)');button.setAttribute('aria-label',paused?'Resume game':'Pause game');if(BUS)BUS.gain.value=paused?0:1.8;if(MUS)MUS.muted=muted||paused;last=performance.now()}
 function newCampaign(){savedRun=null;if(storageEnabled())try{localStorage.removeItem(SAVE_KEY)}catch{}AMMO={};levelAmmo={};levelGun='revolver';gun='revolver';bounty=0;setPaused(false);start(0)}
 addEventListener('blur',()=>{if(GAME&&!titleOn)setPaused(true);else clearInput()});
@@ -261,7 +275,20 @@ for(const button of touchButtons){
 document.getElementById('touchNew').addEventListener('click',()=>touchAction(titleOn?'Enter':st==='end'?'Enter':''));
 document.getElementById('touchContinue').addEventListener('click',()=>touchAction('KeyC'));
 document.getElementById('touchDifficulty').addEventListener('click',()=>touchAction('KeyH'));
-document.getElementById('touchMute').addEventListener('click',()=>touchAction('KeyM'));
+document.getElementById('touchSound').addEventListener('click',()=>{
+ if(!touchDevice||!paused)return;
+ muted=!muted;if(MUS)MUS.muted=muted||paused;syncTouchUI();
+});
+document.getElementById('touchResume').addEventListener('click',()=>{
+ if(touchDevice&&paused){setPaused(false);startMusic()}
+});
+// HUD hit targets use the same logical coordinates as the canvas renderer.
+cv.addEventListener('pointerdown',e=>{
+ if(!touchDevice||e.pointerType==='mouse'||loading||paused||titleOn||st!=='play'||touchPortrait())return;
+ const b=cv.getBoundingClientRect(),x=(e.clientX-b.left)*VW/b.width,y=(e.clientY-b.top)*VH/b.height;
+ if(x>=24&&x<=324&&y>=108&&y<=202){e.preventDefault();touchAction('KeyQ')}
+ else if(x>=24&&x<=344&&y>=280&&y<=318+objectiveStatus().length*28){e.preventDefault();touchAction('KeyE')}
+});
 
 // On phones, keyboard hints are rewritten for the stick and buttons.
 function touchText(t){
@@ -270,7 +297,7 @@ function touchText(t){
   .replace('J or click = shoot  ·  Shift = sprint','Tap Shoot to fire  ·  push the stick far to sprint')
   .replace('W / S = change lane','Flick the stick up / down to change lane')
   .replace('Space = jump over bullets','Tap Jump to leap over bullets')
-  .replace('Stand in their lane and press E.','Stand in their lane and tap Use.')
+  .replace('Stand in their lane and press E.','Stand in their lane and tap MISSION.')
   .replace('Shift spurs your horse.','Push the stick far to spur your horse.');
 }
 
@@ -278,7 +305,7 @@ function touchText(t){
 const joy={id:null,ox:0,oy:0,lane:0,dir:0};
 const joyZone=document.getElementById('joyZone'),joyBase=document.getElementById('joyBase'),joyKnob=document.getElementById('joyKnob');
 function joySet(key,code){if(code)touchPointers.set(key,{code,button:null});else touchPointers.delete(key)}
-function joyReset(){joy.id=null;joy.lane=0;joy.dir=0;joySet('joyH',null);joySet('joySprint',null);joyKnob.style.transform=''}
+function joyReset(){joy.id=null;joy.lane=0;joy.dir=0;joySet('joyH',null);joySet('joySprint',null);joyKnob.style.transform='';joyZone.setAttribute('aria-pressed','false')}
 function joyMove(e){
  const dx=e.clientX-joy.ox,dy=e.clientY-joy.oy,r=Math.hypot(dx,dy),k=r>44?44/r:1;
  joyKnob.style.transform=`translate(${dx*k}px,${dy*k}px)`;
@@ -291,7 +318,7 @@ function joyMove(e){
 }
 joyZone.addEventListener('pointerdown',e=>{
  if(!touchDevice||e.pointerType==='mouse'||loading||!GAME||paused||titleOn||touchPortrait()||st==='end'||joy.id!==null)return;
- e.preventDefault();const b=joyBase.getBoundingClientRect();joy.id=e.pointerId;joy.ox=b.left+b.width/2;joy.oy=b.top+b.height/2;
+ e.preventDefault();joyZone.setAttribute('aria-pressed','true');const b=joyBase.getBoundingClientRect();joy.id=e.pointerId;joy.ox=b.left+b.width/2;joy.oy=b.top+b.height/2;
  try{joyZone.setPointerCapture(e.pointerId)}catch(_){};joyMove(e);
 });
 joyZone.addEventListener('pointermove',e=>{if(e.pointerId===joy.id)joyMove(e)});
@@ -500,7 +527,7 @@ function update(dt){
       else{const add=p.small?20:35;P.hp=Math.min(GAME.player.hp,P.hp+add);sfx('heart');fx({k:'txt',x:p.x,y:LANE[p.l]-200,txt:'+'+add+' energy',c:'#7be0ff',t:.9})}}}
   PK=PK.filter(p=>!p.got&&p.t<12);
   for(const gp of GP){gp.t+=dt;if(!gp.got&&gp.l==P.l&&Math.abs(gp.x-P.x)<70&&P.z<90){gp.got=1;GUNS.push(gp.w);AMMO[gp.w]=AMMO_MAX[gp.w]||0;if(!WEAPON[gp.w].throw)gun=gp.w;sfx('heart');shake=.2;
-      banner={text:'NEW GUN: '+WEAPON[gp.w].name+'   ('+(WEAPON[gp.w].throw?'press 5 or Q to use it':'Q to switch')+')',t:3.2};fx({k:'txt',x:gp.x,y:LANE[gp.l]-230,txt:WEAPON[gp.w].name+'!',c:'#ffd166',t:1.4})}}
+      banner={text:'NEW GUN: '+WEAPON[gp.w].name+'   ('+(touchDevice?'Tap WEAPON to switch':WEAPON[gp.w].throw?(touchDevice?'tap the weapon panel to use it':'press 5 or Q to use it'):(touchDevice?'tap the weapon panel to switch':'Q to switch'))+')',t:3.2};fx({k:'txt',x:gp.x,y:LANE[gp.l]-230,txt:WEAPON[gp.w].name+'!',c:'#ffd166',t:1.4})}}
   GP=GP.filter(g=>!g.got);
   for(const v of VG){if(!v.free&&v.l==P.l&&Math.abs(v.x-P.x)<70){v.free=.01;bounty+=100;levelBounty+=100;const lowHp=P.hp<GAME.player.hp*.6,ng=needAmmo();let gift;const wants=v.spr=='vwoman'?'tonic':v.spr=='vboy'?'ammo':'';if((wants=='ammo'||(!wants&&!lowHp))&&ng.length){const g=ng[0];gift='+'+giveAmmo(g,.5)+' '+WEAPON[g].name+' ammo'}else{P.hp=Math.min(GAME.player.hp,P.hp+35);gift='tonic +35'}sfx('heart');
       fx({k:'txt',x:v.x,y:LANE[v.l]-250,txt:v.line,c:'#fff3c4',t:1.6});fx({k:'txt',x:v.x,y:LANE[v.l]-200,txt:'+$100  '+gift,c:'#7be0ff',t:1.4})}
@@ -612,12 +639,12 @@ function heroAnim(){const s=heroSpr(),moving=held('KeyA')||held('KeyD')||held('A
   return moving?(has(s,'run')?'run':'walk'):'idle'}
 function fitText(text,size,maxWidth,style='bold'){ctx.font=style+' '+size+'px Georgia';while(ctx.measureText(text).width>maxWidth&&size>12){size--;ctx.font=style+' '+size+'px Georgia'}return size}
 function drawObjectives(){
-  for(const o of OBJ){if(o.done)continue;const x=o.x-cam,y=LANE[o.lane]-95;if(x<-100||x>VW+100)continue;ctx.save();ctx.translate(x,y);ctx.fillStyle='#ffd166';ctx.strokeStyle='#2a1a0a';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(0,-30);ctx.lineTo(30,0);ctx.lineTo(0,30);ctx.lineTo(-30,0);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#24170e';ctx.font='bold 24px Georgia';ctx.textAlign='center';ctx.fillText('E',0,9);ctx.restore();
+  for(const o of OBJ){if(o.done)continue;const x=o.x-cam,y=LANE[o.lane]-95;if(x<-100||x>VW+100)continue;ctx.save();ctx.translate(x,y);ctx.fillStyle='#ffd166';ctx.strokeStyle='#2a1a0a';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(0,-30);ctx.lineTo(30,0);ctx.lineTo(0,30);ctx.lineTo(-30,0);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#24170e';ctx.font='bold 24px Georgia';ctx.textAlign='center';ctx.fillText(touchDevice?'•':'E',0,9);ctx.restore();
   }
 }
-function drawObjectiveHUD(){if(st!=='play')return;const rows=objectiveStatus(),w=320,h=38+rows.length*28;ctx.save();ctx.fillStyle='rgba(30,18,8,.82)';ctx.beginPath();ctx.roundRect(24,280,w,h,10);ctx.fill();ctx.textAlign='left';ctx.fillStyle='#ffd166';ctx.font='bold 20px Georgia';ctx.fillText('MISSION',40,308);
+function drawObjectiveHUD(){if(st!=='play')return;const rows=objectiveStatus(),w=320,h=38+rows.length*28;ctx.save();ctx.fillStyle='rgba(30,18,8,.82)';ctx.beginPath();ctx.roundRect(24,280,w,h,10);ctx.fill();ctx.textAlign='left';ctx.fillStyle='#ffd166';ctx.font='bold 20px Georgia';ctx.fillText(touchDevice?'MISSION · TAP TO USE':'MISSION',40,308);
   rows.forEach((o,i)=>{ctx.fillStyle=o.done?'#91df98':'#fff3d4';fitText((o.done?'✓ ':'○ ')+o.text,19,w-32);ctx.fillText((o.done?'✓ ':'○ ')+o.text,40,336+i*28)});
-  const near=nearbyObjective();let message=near?'E — '+near.label:'';
+  const near=nearbyObjective();let message=near?(touchDevice?'Tap MISSION — ':'E — ')+near.label:'';
   if(!message&&P.x>len-650&&!canExit())message='Exit locked — finish your mission';
   if(!message&&canExit())message='Mission complete — ride to the exit →';
   if(message){ctx.textAlign='center';fitText(message,26,VW-80);ctx.lineWidth=6;ctx.strokeStyle='#24170e';ctx.strokeText(message,VW/2,VH-36);ctx.fillStyle='#ffe2a2';ctx.fillText(message,VW/2,VH-36)}
@@ -722,7 +749,7 @@ function draw(){
     else card('Level cleared',current().name,'+$'+levelBounty+' bounty  ·  next: '+(GAME.levels[lv+1]?.name||''))}
   drawObjectiveHUD();
   if(st=='end')card(GAME.endTop||'The End','THE END','Bounty $'+bounty+'  ·  Enter = ride again');
-  if(paused){ctx.fillStyle='rgba(18,10,4,.8)';ctx.fillRect(0,0,VW,VH);card('Take a breather','PAUSED','P or Esc to resume')}
+  if(paused){ctx.fillStyle='rgba(18,10,4,.8)';ctx.fillRect(0,0,VW,VH);card('Take a breather','PAUSED',touchDevice?'Tap Resume to ride on':'P or Esc to resume')}
 }
 
 // ---- encounter design, checkpoint resume, and presentation ----
@@ -792,7 +819,7 @@ function drawAmbience(){ctx.save();const mine=current().kind==='mine',inside=min
 function hudPanel(x,y,w,h){ctx.fillStyle='rgba(24,18,13,.9)';ctx.strokeStyle='rgba(202,158,89,.55)';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x,y,w,h,9);ctx.fill();ctx.stroke()}
 function drawPlayerHUD(){ctx.save();ctx.textAlign='left';hudPanel(24,22,300,76);const idl=img((fr(GAME.player.sprite,'idle')||[])[0]);ctx.save();ctx.beginPath();ctx.roundRect(32,30,58,58,6);ctx.clip();ctx.fillStyle='#c49860';ctx.fillRect(32,30,58,58);if(idl){const iw=idl.naturalWidth,c=GAME.player.faceCrop||[.22,.02,.6];ctx.drawImage(idl,iw*c[0],idl.naturalHeight*c[1],iw*c[2],iw*c[2],32,30,58,58)}ctx.restore();
   ctx.font='bold 14px Georgia';ctx.fillStyle='#c5b49a';ctx.fillText('HEALTH',104,47);ctx.textAlign='right';ctx.fillStyle='#f9edd6';ctx.fillText(Math.ceil(P.hp)+' / '+GAME.player.hp,308,47);ctx.fillStyle='#39271d';ctx.fillRect(104,61,204,16);ctx.fillStyle=P.hp>50?'#8dc276':P.hp>25?'#edbf61':'#e57459';ctx.fillRect(104,61,204*clamp(P.hp/GAME.player.hp,0,1),16);
-  hudPanel(24,108,300,94);drawGunIcon(gun,66,145,1.3);ctx.textAlign='left';ctx.fillStyle='#d2b07c';ctx.font='bold 13px Georgia';ctx.fillText('WEAPON',104,130);ctx.fillStyle='#fff0cc';fitText(WEAPON[gun].name,20,195);ctx.fillText(WEAPON[gun].name,104,153);ctx.font='16px Georgia';ctx.fillStyle='#d3c1a6';ctx.fillText('Q / 1–5 to switch',40,184);
+  hudPanel(24,108,300,94);drawGunIcon(gun,66,145,1.3);ctx.textAlign='left';ctx.fillStyle='#d2b07c';ctx.font='bold 13px Georgia';ctx.fillText('WEAPON',104,130);ctx.fillStyle='#fff0cc';fitText(WEAPON[gun].name,20,195);ctx.fillText(WEAPON[gun].name,104,153);ctx.font='16px Georgia';ctx.fillStyle='#d3c1a6';ctx.fillText(touchDevice?'Tap to switch':'Q / 1–5 to switch',40,184);
   ctx.textAlign='right';ctx.font='bold 24px Georgia';ctx.fillStyle=AMMO_MAX[gun]&&(AMMO[gun]||0)<=AMMO_MAX[gun]*.2?'#ff9c7c':'#fff1cc';ctx.fillText(AMMO_MAX[gun]?String(AMMO[gun]||0)+' / '+AMMO_MAX[gun]:'∞',308,184);
   hudPanel(24,212,300,52);ctx.textAlign='left';ctx.font='bold 14px Georgia';ctx.fillStyle='#c5b49a';ctx.fillText('BOUNTY',40,244);ctx.textAlign='right';ctx.font='bold 24px Georgia';ctx.fillStyle='#ffcf78';ctx.fillText('$'+Math.floor(bounty).toLocaleString(),308,248);
   ctx.textAlign='center';ctx.fillStyle='#d9be8f';ctx.font='bold 16px Georgia';ctx.fillText('CHAPTER '+(lv+1)+' / '+GAME.levels.length,VW/2,34);ctx.fillStyle='#fff0d2';fitText(current().name,33,VW-760);ctx.fillText(current().name,VW/2,72);

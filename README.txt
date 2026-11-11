@@ -47,7 +47,11 @@ Standard and Hard share one campaign save. Developer/test mode does not save.
 The launcher prefers 127.0.0.1:8831; if busy, a different port is used and that
 address has its own browser storage.
 
-This remains a desktop keyboard game. No touch or gamepad controls.
+PHONE (LANDSCAPE)
+The game fills the screen. Drag the thumb stick to move; push far to sprint
+and flick up/down to change lane. Tap Jump or hold Shoot. Tap the WEAPON
+panel to switch guns and MISSION to use a nearby objective. Pause contains
+Sound On/Off and Resume. Rotate to landscape to play. No gamepad controls.
 The original game folder and original art/sounds have not been modified.
 A new illustrated wagon asset was added to this fixed copy.
 See FIXES-AND-TESTS.md for the scope and validation details.

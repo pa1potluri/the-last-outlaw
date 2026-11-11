@@ -433,3 +433,33 @@ Browser test tooling: bundled playwright is at C:/Users/PKP/.cache/codex-runtime
   no physical phone or live itch.io upload was performed in this pass. Existing
   art files were not modified. The prior mobile-paused/desktop-only history
   above is historical; current main already supplies the phone thumb stick UI.
+
+
+## Minimal full-screen phone layout — 12 November 2026
+
+- Touch landscape canvas fills the viewport, retaining proportional rendering
+  and the full vertical playfield while expanding the visible horizontal area.
+  Removed touch side rails. Desktop canvas sizing/rendering stays unchanged.
+- Gameplay overlays are only the bottom-left stick, bottom-right Jump/Shoot,
+  and top-right Pause. They are 55% opaque at rest and fully opaque while held.
+  Shoot/Jump sit at least 80 CSS pixels from the right edge, reserving itch.io's
+  bottom-right 70×70 fullscreen-icon corner, plus the device safe-area inset.
+- Removed Gun, Mute and Use buttons. Tap the existing WEAPON HUD panel to
+  cycle guns ("Tap to switch"); tap MISSION to interact with a nearby objective.
+  Sound On/Off and Resume are in the touch Pause menu. Menu sound changes do
+  not unpause or emit audio while paused. Portrait rotation still pauses play.
+  Joystick pointer state/feedback now clears on pause, rotation and focus loss.
+- Passed all 38 desktop engine regressions, 44 touch-host regressions and 3
+  launcher tests. Expanded Chrome browser suite passed at 844×390, 932×430,
+  800×360 touch emulation, plus 740×360 and desktop 960×540/1280×720. Coverage
+  includes canvas edge bounds, scrolling, actual CDP multi-touch movement,
+  sprint/shoot, Jump, HUD gun cycling and mission interactions, pressed/released
+  opacity, corner clearance, pause/sound/resume, resize and Fullscreen API,
+  loading/progress/errors, all 15 scenes, and Standard/Hard campaign simulation.
+- Desktop full-page screenshots at 960×540 are SHA-256 identical to commit
+  12bc294 in deterministic title, gameplay, and paused fixtures. This verifies
+  those rendered fixtures, not every possible desktop combat frame. Gameplay
+  rules and art/audio files are unchanged; no physical-phone testing claimed.
+- Rebuilt D:\TheLastOutlaw_v3\the-last-outlaw-LIVE.zip with index.html at root
+  and the existing release exclusions. All ZIP entries were byte-checked
+  against source, and the extracted build passed browser QA.

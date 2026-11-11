@@ -21,5 +21,6 @@ For collaborations and project enquiries, [connect with Pavan Potluri on LinkedI
 ## Browser loading and display
 
 The root page shows title artwork and real loading progress immediately, then
-reveals the game in the same frame. The complete playfield fits the embed or
-fullscreen with letterboxing; phones retain their existing touch control rails.
+reveals the game in the same frame. Desktop keeps its fitted playfield. Phones fill the landscape screen with
+translucent stick, Jump, Shoot and Pause overlays. Tap WEAPON to switch guns,
+tap MISSION to use a nearby objective, and change Sound On/Off in Pause.

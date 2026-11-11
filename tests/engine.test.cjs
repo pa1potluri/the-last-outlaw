@@ -12,10 +12,10 @@ const saved = new Map();
 const context = new Proxy({}, {get:(o,k)=>k==='measureText'?s=>({width:String(s).length*13}):k==='createLinearGradient'||k==='createRadialGradient'?()=>gradient:noop,set:(o,k,v)=>(o[k]=v,true)});
 const touchMode=process.env.TOUCH_TEST==='1';
 const elements=new Map();
-const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',hidden:false,dataset:{},setAttribute:noop,setPointerCapture:noop,addEventListener:(n,f)=>handlers[id+':'+n]=f});return elements.get(id)};
+const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',hidden:false,style:{},dataset:{},setAttribute:noop,setPointerCapture:noop,addEventListener:(n,f)=>handlers[id+':'+n]=f});return elements.get(id)};
 const touchCodes=['KeyA','KeyD','KeyW','KeyS','ShiftLeft','Space','KeyJ','KeyQ','KeyE'];
 const buttons=touchCodes.map(code=>Object.assign(element(code),{dataset:{touch:code}}));
-const cv = {style:{},getContext:()=>context,addEventListener:(name,fn)=>handlers['canvas:'+name]=fn};
+const cv = {style:{},getBoundingClientRect:()=>({left:0,top:0,width:sandbox.innerWidth,height:sandbox.innerHeight}),getContext:()=>context,addEventListener:(name,fn)=>handlers['canvas:'+name]=fn};
 const sandbox = {URLSearchParams,console,navigator:{maxTouchPoints:touchMode?5:0},matchMedia:()=>({matches:touchMode}),getComputedStyle:()=>({getPropertyValue:()=>0}),innerWidth:1280,innerHeight:720,devicePixelRatio:1,performance:{now:()=>100},
  localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v),removeItem:k=>saved.delete(k)},
  location:{pathname:'/maker/engine.html',search:'?mute',origin:'http://test'},
@@ -104,6 +104,21 @@ test('touch actions do not leave keyboard keys stuck',()=>{
  assert.equal(run('P.l'),0);assert.equal(run('P.vz'),data.player.jump);assert.equal(run('Object.keys(K).length'),0);
 });
 if(touchMode){
+ test('touch canvas fills the viewport with uniform scale',()=>{
+  reset(0);sandbox.innerWidth=844;sandbox.innerHeight=390;run('resize()');
+  assert.equal(cv.style.width,'844px');assert.equal(cv.style.height,'390px');
+  assert.equal(run('VW/VH'),844/390);sandbox.innerWidth=1280;sandbox.innerHeight=720;run('resize()');
+ });
+ test('weapon HUD tap switches and pause menu sound does not resume play',()=>{
+  reset(3);run('music=1;sndLoaded=true');const previous=run('gun');
+  handlers['canvas:pointerdown']({pointerType:'touch',clientX:100/ run('VW')*1280,clientY:150/941*720,preventDefault:noop});assert.notEqual(run('gun'),previous);
+  run('setPaused(true)');const before=run('muted');handlers['touchSound:click']();assert.notEqual(run('muted'),before);assert.equal(run('paused'),true);
+  handlers['touchResume:click']();assert.equal(run('paused'),false);
+ });
+ test('pause clears joystick virtual keys and active pointer',()=>{
+  reset(0);run("joy.id=7;joySet('joyH','KeyD');joySet('joySprint','ShiftLeft');setPaused(true)");
+  assert.equal(run('joy.id'),null);assert.equal(run("held('KeyD')||held('ShiftLeft')"),false);
+ });
  const press=(code,id)=>handlers[code+':pointerdown']({pointerId:id,pointerType:'touch',preventDefault:noop});
  test('multi-touch movement sprint and fire survive partial release',()=>{
   reset(0);run('music=1;sndLoaded=true;E=[]');press('KeyD',10);press('ShiftLeft',11);press('KeyJ',12);
