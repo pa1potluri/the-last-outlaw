@@ -1,8 +1,8 @@
 # The Last Outlaw
 
-💻 Desktop/laptop only: keyboard and mouse
+💻 PC: keyboard and mouse  ·  📱 Phone: play in landscape with the on-screen stick and buttons
 
-A desktop browser western action game by PKP Studio.
+A browser western action game (PC and phone) by PKP Studio.
 
 [▶ Play on itch.io](https://pkp-studio.itch.io/the-last-outlaw)
 
