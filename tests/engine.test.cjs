@@ -16,7 +16,7 @@ const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',hidden:f
 const touchCodes=['KeyA','KeyD','KeyW','KeyS','ShiftLeft','Space','KeyJ','KeyQ','KeyE'];
 const buttons=touchCodes.map(code=>Object.assign(element(code),{dataset:{touch:code}}));
 const cv = {style:{},getContext:()=>context,addEventListener:(name,fn)=>handlers['canvas:'+name]=fn};
-const sandbox = {URLSearchParams,console,navigator:{maxTouchPoints:touchMode?5:0},getComputedStyle:()=>({getPropertyValue:()=>0}),innerWidth:1280,innerHeight:720,devicePixelRatio:1,performance:{now:()=>100},
+const sandbox = {URLSearchParams,console,navigator:{maxTouchPoints:touchMode?5:0},matchMedia:()=>({matches:touchMode}),getComputedStyle:()=>({getPropertyValue:()=>0}),innerWidth:1280,innerHeight:720,devicePixelRatio:1,performance:{now:()=>100},
  localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v),removeItem:k=>saved.delete(k)},
  location:{pathname:'/maker/engine.html',search:'?mute',origin:'http://test'},
  document:{hidden:false,documentElement:{classList:{toggle:noop}},querySelectorAll:()=>buttons,getElementById:id=>id==='c'?cv:element(id),write:noop,createElement:()=>({...cv}),addEventListener:(n,f)=>handlers['doc:'+n]=f,body:{insertAdjacentHTML:noop}},

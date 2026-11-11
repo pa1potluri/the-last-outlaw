@@ -78,7 +78,7 @@ html.touch.portrait #touchControls,html.touch.portrait #touchMenu,html.touch.por
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 let VH=941,S=1,VW=1600;
 let loading=true;
-const touchDevice=(navigator.maxTouchPoints||0)>0;
+const touchDevice=(navigator.maxTouchPoints||0)>0&&matchMedia('(pointer: coarse)').matches;
 const touchPointers=new Map();
 const touchButtons=Array.from(document.querySelectorAll('[data-touch]'));
 document.documentElement.classList.toggle('touch',touchDevice);
