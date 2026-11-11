@@ -29,7 +29,7 @@ vm.runInContext(fs.readFileSync(path.join(root,'art/muzzle.js'),'utf8'),sandbox)
 const html=fs.readFileSync(path.join(root,'maker/engine.html'),'utf8');
 for(const match of html.matchAll(/<script>([\s\S]*?)<\/script>/g))vm.runInContext(match[1],sandbox);
 const run=code=>vm.runInContext(code,sandbox);
-const reset=i=>run(`GAME=${JSON.stringify(data)};levelAmmo={};levelGun='revolver';AMMO={};paused=false;titleOn=false;muted=true;start(${i});st='play'`);
+const reset=i=>run(`GAME=${JSON.stringify(data)};loading=false;levelAmmo={};levelGun='revolver';AMMO={};paused=false;titleOn=false;muted=true;start(${i});st='play'`);
 let passed=0;
 function test(name,fn){fn();passed++;console.log('PASS '+name)}
 
@@ -64,7 +64,7 @@ test('normal mode does not allow level skip',()=>{reset(0);handlers.keydown({cod
 test('holding a toggle does not repeatedly mute',()=>{reset(0);run('music=1;sndLoaded=true');handlers.keydown({code:'KeyM',repeat:false,preventDefault:noop});const first=run('muted');handlers.keydown({code:'KeyM',repeat:true,preventDefault:noop});assert.equal(run('muted'),first)});
 test('paused weather does not move or produce invalid coordinates',()=>{reset(1);run('WX=[{x:200,y:50,r:.5}];setPaused(true);drawWeather(.1)');assert.equal(run('WX[0].x'),200);assert.equal(run('WX[0].y'),50)});
 test('ending restart prevents default Enter activation of a focused button',()=>{reset(14);run("st='end';music=1;sndLoaded=true");let prevented=false;handlers.keydown({code:'Enter',repeat:false,preventDefault:()=>prevented=true});assert.equal(prevented,true);assert.equal(run('lv'),0);assert.equal(run('paused'),false)});
-test('mixed native artwork poses face the requested direction',()=>{assert.equal(run("spriteFlip('gang_3_0.png',-1)"),1);assert.equal(run("spriteFlip('gang_3_0.png',1)"),-1);assert.equal(run("spriteFlip('gang_2_1.png',-1)"),-1);assert.equal(run("spriteFlip('marshal_0.png',-1)"),1);assert.equal(run("spriteFlip('marshal_2.png',-1)"),-1)});
+test('mixed native artwork poses face the requested direction',()=>{assert.equal(run("spriteFlip('gang_3_0.webp',-1)"),1);assert.equal(run("spriteFlip('gang_3_0.webp',1)"),-1);assert.equal(run("spriteFlip('gang_2_1.webp',-1)"),-1);assert.equal(run("spriteFlip('marshal_0.webp',-1)"),1);assert.equal(run("spriteFlip('marshal_2.webp',-1)"),-1)});
 test('runners update their facing before the early movement return',()=>{reset(0);run("E=[enemy(900,1,0,0)];E[0].run=1;P.x=160;update(.001)");assert.equal(run('E[0].face'),-1)});
 test('boss locks warned lanes before firing',()=>{reset(14);run("E=E.filter(e=>e.boss);P.l=0;E[0].patternClock=.8;updateBossPattern(E[0],.01);P.l=2;updateBossPattern(E[0],.8)");assert(run('B.some(b=>b.l===0)'));assert.equal(run('B.some(b=>b.l===2)'),false)});
 test('late Marshal phase warns all lanes and offers a jumpable shot',()=>{reset(14);run("const boss=E.find(e=>e.boss);boss.hp=boss.maxHp*.3;boss.patternClock=.8;updateBossPattern(boss,.01)");assert.deepEqual(Array.from(run('E.find(e=>e.boss).aimLanes')),[0,1,2]);run('updateBossPattern(E.find(e=>e.boss),.8)');assert(run('B.every(b=>b.z===125)'))});
@@ -77,4 +77,15 @@ test('resume restores checkpoint objectives, ammo, and defeated enemies',()=>{re
 test('invalid saves fail gracefully',()=>{reset(0);saved.set('last-outlaw-fixed-v3','{bad');assert.equal(run('readSave()'),null);assert.equal(run('resumeCampaign()'),false)});
 test('effect count stays bounded during long firefights',()=>{reset(0);run("for(let i=0;i<500;i++)fx({k:'dust',x:0,y:0})");assert.equal(run('FX.length'),260)});
 test('every campaign level can clear once its real objectives are met',()=>{for(let i=0;i<15;i++){reset(i);run('E.forEach(e=>e.hp=0);VG.forEach(v=>v.free=1);OBJ.forEach(o=>o.done=true);P.x=len+1;update(.001)');assert.equal(run('st'),i===14?'end':'clear')}});
+test('loading screen prevents keyboard and mouse from starting a campaign',()=>{
+ reset(0);run('titleOn=true;loading=true');
+ handlers.keydown({code:'Space',repeat:false,preventDefault:noop});handlers['canvas:mousedown']();
+ assert.equal(run('titleOn'),true);run('loading=false');
+});
+test('asset queue includes campaign art, mounted sprites, and all six lossless sounds',()=>{
+ const assets=Array.from(run('assetReferences(GAME,assetReferences(SPRS))'));
+ assert(assets.includes(data.titleImage));assert(assets.includes('heroride_0.webp'));
+ assert.equal(assets.filter(x=>x.endsWith('.flac')).length,6);
+ assert(assets.every(x=>!x.startsWith('/')&&!/^[a-z]+:/i.test(x)));
+});
 console.log(`${passed} regression checks passed.`);

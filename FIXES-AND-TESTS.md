@@ -60,3 +60,44 @@ Evidence in the parent outputs folder:
 ## Remaining scope
 
 Touch/gamepad input, remappable controls, comprehensive accessibility options, other-browser/hardware testing, human balance testing, and perceptual audio review remain outside this pass. The new chase is a timed mounted interception mission; it does not add a separate moving-convoy simulation. The wagon and Marshal are playable encounter upgrades rather than new cinematic sequences.
+
+
+## Lossless itch.io packing — 11 November 2026
+
+Current working folder: `D:\TheLastOutlaw_v3\outputs\TheLastOutlaw_v2_FIXED`.
+
+- Replaced all 299 PNGs under `art/` with lossless WebP using Pillow's
+  `lossless=True, exact=True, method=6, quality=100`. Exact mode preserves RGB
+  values even in fully transparent pixels. Every decoded RGBA byte matches.
+- Replaced the six PCM16 WAVs with PCM16 FLAC at the original sample rates,
+  channel counts, and frame counts. Every decoded integer sample matches.
+  No resizing, palette reduction, dithering, resampling, or lossy encoding was used.
+- Updated the engine, campaign, sprite and muzzle manifests, and regression
+  fixtures to the new filenames. Campaign values and gameplay are unchanged.
+- On WebCodecs-capable browsers, the image loader decodes straight RGBA into a
+  canvas before drawing. This avoids Chrome's native WebP alpha-premultiplication
+  rounding difference. The title, hero, and translucent wagon render with exactly
+  the same canvas pixels as their original PNGs in the tested Chrome build.
+  Browsers without WebCodecs use native lossless WebP decoding; exact canvas
+  equivalence has only been verified in Chrome, not across all browser engines.
+- Added `Loading… X%` over the title artwork. The percentage counts completed
+  image loads/decodes and sound downloads; keyboard/mouse play starts only after
+  loading completes. Audio bytes are prefetched and decoded by the existing
+  user-gesture sound path. A failed asset shows an error and Reload button.
+  Later-level scenery is released from the game's image cache after preload.
+- Added a relative root `index.html` redirect to
+  `maker/engine.html?game=sundown_trail`.
+- Restored required ASCII/CRLF batch-file line endings after the baseline
+  launcher formatting test failed; `.gitattributes` preserves CRLF on checkout.
+- Validation: 36 engine checks and 3 launcher checks pass. Chrome was exercised
+  inside a nested `/itch-build/` iframe: loading progress reached 100%, early
+  input was blocked, failed downloads showed Reload, the title/gameplay rendered,
+  all 15 levels initialized and drew, and every referenced asset returned HTTP 200.
+  All six FLACs also decoded to the exact same floating-point PCM arrays as the
+  WAVs in the browser. The actual sound path loaded all six buffers and played
+  them with a running AudioContext; no perceptual listening review is claimed.
+- Exact comparison hashes and browser results are in
+  `tests/lossless-verification.json` and `tests/lossless-browser-verification.json`.
+- `outputs/the-last-outlaw-itch.zip` has `index.html` at its root. Packaging
+  excludes `.git`, `tests`, `outputs`, Python files, batch files, and other ZIPs.
+  Upload it to itch.io as an HTML game. This remains a keyboard game.

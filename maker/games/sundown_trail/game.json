@@ -51,17 +51,17 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/L03_sky.png",
-          "far": "art/trail/cut/L03_far.png",
+          "sky": "art/trail/cut/L03_sky.webp",
+          "far": "art/trail/cut/L03_far.webp",
           "mid": [
-            "art/trail/cut/L03_mid.png",
-            "art/trail/cut/L03_mid2.png",
-            "art/trail/cut/drygulch_mid2.png"
+            "art/trail/cut/L03_mid.webp",
+            "art/trail/cut/L03_mid2.webp",
+            "art/trail/cut/drygulch_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/L03_ground.png",
-          "front": "art/trail/cut/L03_front.png",
-          "gate": "art/trail/cut/L02_gate.png"
+          "ground": "art/trail/cut/L03_ground.webp",
+          "front": "art/trail/cut/L03_front.webp",
+          "gate": "art/trail/cut/L02_gate.webp"
         }
       },
       "groundColor": "#9a7b52",
@@ -227,16 +227,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/muddy_sky.png",
-          "far": "art/trail/cut/muddy_far.png",
+          "sky": "art/trail/cut/muddy_sky.webp",
+          "far": "art/trail/cut/muddy_far.webp",
           "mid": [
-            "art/trail/cut/muddy_mid.png",
-            "art/trail/cut/muddy_mid2.png"
+            "art/trail/cut/muddy_mid.webp",
+            "art/trail/cut/muddy_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/muddy_ground.png",
-          "front": "art/trail/cut/muddy_front.png",
-          "gate": "art/trail/cut/muddy_gate.png"
+          "ground": "art/trail/cut/muddy_ground.webp",
+          "front": "art/trail/cut/muddy_front.webp",
+          "gate": "art/trail/cut/muddy_gate.webp"
         }
       },
       "helperLine": "Hope my boots can handle this mess!",
@@ -400,13 +400,13 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/L01_sky.png",
+          "sky": "art/trail/cut/L01_sky.webp",
           "far": "",
-          "mid": "art/trail/cut/L01_mid.png",
+          "mid": "art/trail/cut/L01_mid.webp",
           "props": "",
-          "ground": "art/trail/cut/L01_ground.png",
-          "front": "art/trail/cut/L01_front.png",
-          "gate": "art/trail/cut/L01_gate.png"
+          "ground": "art/trail/cut/L01_ground.webp",
+          "front": "art/trail/cut/L01_front.webp",
+          "gate": "art/trail/cut/L01_gate.webp"
         }
       },
       "groundColor": "#b8864b",
@@ -529,16 +529,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/L02_sky.png",
-          "far": "art/trail/cut/L02_far.png",
+          "sky": "art/trail/cut/L02_sky.webp",
+          "far": "art/trail/cut/L02_far.webp",
           "mid": [
-            "art/trail/cut/L02_mid.png",
-            "art/trail/cut/L02_mid2.png"
+            "art/trail/cut/L02_mid.webp",
+            "art/trail/cut/L02_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/L02_ground.png",
-          "front": "art/trail/cut/L02_front.png",
-          "gate": "art/trail/cut/L03_gate.png"
+          "ground": "art/trail/cut/L02_ground.webp",
+          "front": "art/trail/cut/L02_front.webp",
+          "gate": "art/trail/cut/L03_gate.webp"
         }
       },
       "groundColor": "#9a7b52",
@@ -736,16 +736,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/saloon_sky.png",
+          "sky": "art/trail/cut/saloon_sky.webp",
           "far": "",
           "mid": [
-            "art/trail/cut/saloon_mid.png",
-            "art/trail/cut/saloon_mid2.png"
+            "art/trail/cut/saloon_mid.webp",
+            "art/trail/cut/saloon_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/saloon_ground.png",
-          "front": "art/trail/cut/saloon_front.png",
-          "gate": "art/trail/cut/saloon_gate.png"
+          "ground": "art/trail/cut/saloon_ground.webp",
+          "front": "art/trail/cut/saloon_front.webp",
+          "gate": "art/trail/cut/saloon_gate.webp"
         }
       },
       "helperLine": "One drink, two fists, zero patience!",
@@ -915,16 +915,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/mine_sky.png",
+          "sky": "art/trail/cut/mine_sky.webp",
           "far": "",
           "mid": [
-            "art/trail/cut/mine_mid.png",
-            "art/trail/cut/mine_mid2.png"
+            "art/trail/cut/mine_mid.webp",
+            "art/trail/cut/mine_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/mine_ground.png",
-          "front": "art/trail/cut/mine_front.png",
-          "gate": "art/trail/cut/mine_gate.png"
+          "ground": "art/trail/cut/mine_ground.webp",
+          "front": "art/trail/cut/mine_front.webp",
+          "gate": "art/trail/cut/mine_gate.webp"
         }
       },
       "helperLine": "Digging for gold, finding trouble. Typical!",
@@ -1137,13 +1137,13 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/train_sky.png",
-          "far": "art/trail/cut/train_far.png",
-          "mid": "art/trail/cut/train_mid.png",
+          "sky": "art/trail/cut/train_sky.webp",
+          "far": "art/trail/cut/train_far.webp",
+          "mid": "art/trail/cut/train_mid.webp",
           "props": "",
-          "ground": "art/trail/cut/train_ground.png",
-          "front": "art/trail/cut/train_front.png",
-          "gate": "art/trail/cut/train_gate.png"
+          "ground": "art/trail/cut/train_ground.webp",
+          "front": "art/trail/cut/train_front.webp",
+          "gate": "art/trail/cut/train_gate.webp"
         }
       },
       "helperLine": "Next stop: trouble. All aboard!",
@@ -1341,16 +1341,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/fort_sky.png",
-          "far": "art/trail/cut/fort_far.png",
+          "sky": "art/trail/cut/fort_sky.webp",
+          "far": "art/trail/cut/fort_far.webp",
           "mid": [
-            "art/trail/cut/fort_wall.png",
-            "art/trail/cut/fort_mid2.png"
+            "art/trail/cut/fort_wall.webp",
+            "art/trail/cut/fort_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/fort_ground.png",
-          "front": "art/trail/cut/fort_front.png",
-          "gate": "art/trail/cut/fort_gate.png"
+          "ground": "art/trail/cut/fort_ground.webp",
+          "front": "art/trail/cut/fort_front.webp",
+          "gate": "art/trail/cut/fort_gate.webp"
         }
       },
       "helperLine": "Storm’s coming, and I’ve brought lightning!",
@@ -1558,16 +1558,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/swamp_sky.png",
-          "far": "art/trail/cut/swamp_far.png",
+          "sky": "art/trail/cut/swamp_sky.webp",
+          "far": "art/trail/cut/swamp_far.webp",
           "mid": [
-            "art/trail/cut/swamp_mid.png",
-            "art/trail/cut/swamp_mid2.png"
+            "art/trail/cut/swamp_mid.webp",
+            "art/trail/cut/swamp_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/swamp_ground.png",
-          "front": "art/trail/cut/swamp_front.png",
-          "gate": "art/trail/cut/swamp_gate.png"
+          "ground": "art/trail/cut/swamp_ground.webp",
+          "front": "art/trail/cut/swamp_front.webp",
+          "gate": "art/trail/cut/swamp_gate.webp"
         }
       },
       "helperLine": "Smells like trouble. And old socks!",
@@ -1575,7 +1575,7 @@
       "climate": "Foggy & Wet",
       "bossTaunt": "The swamp always swallows its enemies!",
       "bossDown": "Guess the swamp spat you out!",
-      "cardImage": "art/trail/swamp_card.png",
+      "cardImage": "art/trail/swamp_card.webp",
       "lanes": [
         752,
         772,
@@ -1792,16 +1792,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/frost_sky.png",
-          "far": "art/trail/cut/frost_far.png",
+          "sky": "art/trail/cut/frost_sky.webp",
+          "far": "art/trail/cut/frost_far.webp",
           "mid": [
-            "art/trail/cut/frost_mid.png",
-            "art/trail/cut/frost_mid2.png"
+            "art/trail/cut/frost_mid.webp",
+            "art/trail/cut/frost_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/frost_ground.png",
-          "front": "art/trail/cut/frost_front.png",
-          "gate": "art/trail/cut/frost_gate.png"
+          "ground": "art/trail/cut/frost_ground.webp",
+          "front": "art/trail/cut/frost_front.webp",
+          "gate": "art/trail/cut/frost_gate.webp"
         }
       },
       "helperLine": "Cold hands, warm bullets. Let’s ride!",
@@ -1950,16 +1950,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/moon_sky.png",
-          "far": "art/trail/cut/moon_far.png",
+          "sky": "art/trail/cut/moon_sky.webp",
+          "far": "art/trail/cut/moon_far.webp",
           "mid": [
-            "art/trail/cut/moon_mid.png",
-            "art/trail/cut/moon_mid2.png"
+            "art/trail/cut/moon_mid.webp",
+            "art/trail/cut/moon_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/moon_ground.png",
-          "front": "art/trail/cut/moon_front.png",
-          "gate": "art/trail/cut/moon_gate.png"
+          "ground": "art/trail/cut/moon_ground.webp",
+          "front": "art/trail/cut/moon_front.webp",
+          "gate": "art/trail/cut/moon_gate.webp"
         }
       },
       "helperLine": "Nice moon. Shame about the company!",
@@ -2144,16 +2144,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/run_sky.png",
-          "far": "art/trail/cut/run_far.png",
+          "sky": "art/trail/cut/run_sky.webp",
+          "far": "art/trail/cut/run_far.webp",
           "mid": [
-            "art/trail/cut/run_mid.png",
-            "art/trail/cut/run_mid2.png"
+            "art/trail/cut/run_mid.webp",
+            "art/trail/cut/run_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/run_ground.png",
-          "front": "art/trail/cut/run_front.png",
-          "gate": "art/trail/cut/run_gate.png"
+          "ground": "art/trail/cut/run_ground.webp",
+          "front": "art/trail/cut/run_front.webp",
+          "gate": "art/trail/cut/run_gate.webp"
         }
       },
       "helperLine": "Running late? I’m running wild!",
@@ -2351,20 +2351,20 @@
         "sprayAllLanes": false,
         "weapon": "dual",
         "pattern": "wagon",
-        "art": "art/sprites/war_wagon_v3.png"
+        "art": "art/sprites/war_wagon_v3.webp"
       },
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/engine_sky.png",
-          "far": "art/trail/cut/engine_far.png",
+          "sky": "art/trail/cut/engine_sky.webp",
+          "far": "art/trail/cut/engine_far.webp",
           "mid": [
-            "art/trail/cut/engine_mid.png"
+            "art/trail/cut/engine_mid.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/engine_ground.png",
-          "front": "art/trail/cut/engine_front.png",
-          "gate": "art/trail/cut/engine_gate.png"
+          "ground": "art/trail/cut/engine_ground.webp",
+          "front": "art/trail/cut/engine_front.webp",
+          "gate": "art/trail/cut/engine_gate.webp"
         }
       },
       "helperLine": "That engine needs a serious tune-up!",
@@ -2547,16 +2547,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/city_sky.png",
-          "far": "art/trail/cut/city_far.png",
+          "sky": "art/trail/cut/city_sky.webp",
+          "far": "art/trail/cut/city_far.webp",
           "mid": [
-            "art/trail/cut/city_mid.png",
-            "art/trail/cut/city_mid2.png"
+            "art/trail/cut/city_mid.webp",
+            "art/trail/cut/city_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/city_ground.png",
-          "front": "art/trail/cut/city_front.png",
-          "gate": "art/trail/cut/city_gate.png"
+          "ground": "art/trail/cut/city_ground.webp",
+          "front": "art/trail/cut/city_front.webp",
+          "gate": "art/trail/cut/city_gate.webp"
         }
       },
       "helperLine": "Red streets, bad news. Let’s clean up!",
@@ -2740,16 +2740,16 @@
       "background": {
         "mode": "layers",
         "layers": {
-          "sky": "art/trail/cut/final_sky.png",
-          "far": "art/trail/cut/final_far.png",
+          "sky": "art/trail/cut/final_sky.webp",
+          "far": "art/trail/cut/final_far.webp",
           "mid": [
-            "art/trail/cut/final_mid.png",
-            "art/trail/cut/final_mid2.png"
+            "art/trail/cut/final_mid.webp",
+            "art/trail/cut/final_mid2.webp"
           ],
           "props": "",
-          "ground": "art/trail/cut/final_ground.png",
-          "front": "art/trail/cut/final_front.png",
-          "gate": "art/trail/cut/final_gate.png"
+          "ground": "art/trail/cut/final_ground.webp",
+          "front": "art/trail/cut/final_front.webp",
+          "gate": "art/trail/cut/final_gate.webp"
         }
       },
       "helperLine": "This ends today. I’ve got places to be!",
@@ -2915,15 +2915,15 @@
   ],
   "endTop": "The outlaw gang is finished, once and for all.",
   "story": "Hunt the notorious Iron Marshal and bring peace to the Wild West.",
-  "titleImage": "art/_incoming/title_outlaw.png",
-  "worldMap": "art/_incoming/worldmap.png",
+  "titleImage": "art/_incoming/title_outlaw.webp",
+  "worldMap": "art/_incoming/worldmap.webp",
   "music": true,
   "soundFiles": {
-    "gun": "sounds/gun.wav",
-    "dual": "sounds/dual.wav",
-    "shotgun": "sounds/shotgun.wav",
-    "rifle": "sounds/rifle.wav",
-    "egun": "sounds/egun.wav",
-    "ping": "sounds/ping.wav"
+    "gun": "sounds/gun.flac",
+    "dual": "sounds/dual.flac",
+    "shotgun": "sounds/shotgun.flac",
+    "rifle": "sounds/rifle.flac",
+    "egun": "sounds/egun.flac",
+    "ping": "sounds/ping.flac"
   }
 }

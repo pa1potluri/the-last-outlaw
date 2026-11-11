@@ -7,14 +7,35 @@ canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%
 #pauseButton{position:fixed;right:16px;top:16px;z-index:2;background:#24170ee8;color:#ffe2a2;border:1px solid #b68a43;border-radius:8px;padding:9px 14px;font:16px Georgia;cursor:pointer}
 #keyboardNotice{display:none;position:fixed;bottom:24px;left:16px;right:16px;text-align:center;font:16px/1.5 Georgia}
 @media(max-aspect-ratio:1/1){#keyboardNotice{display:block}}
+
+#loadingScreen{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:linear-gradient(#120d0a44,#120d0ab8),url('../art/_incoming/title_outlaw.webp') center/cover no-repeat,#120d0a}
+#loadingScreen[hidden]{display:none}
+.loadingPanel{width:min(460px,80vw);box-sizing:border-box;padding:28px;text-align:center;border:1px solid #b68a43;border-radius:12px;background:#24170eeb;box-shadow:0 12px 50px #0009}
+.loadingPanel h1{margin:0 0 20px;color:#ffe2a2;font-size:clamp(24px,4vw,36px)}
+#loadingBar{display:block;width:100%;height:20px;accent-color:#eeb45e}
+#loadingBar::-webkit-progress-bar{background:#120d0a;border-radius:5px}
+#loadingBar::-webkit-progress-value{background:#eeb45e;border-radius:5px}
+#loadingBar::-moz-progress-bar{background:#eeb45e;border-radius:5px}
+#loadingDetail{margin:16px 0 0;line-height:1.5;color:#fff3d4}
+#loadingRetry{margin-top:18px;padding:10px 22px;border:1px solid #b68a43;border-radius:6px;background:#ffe2a2;color:#24170e;font:bold 18px Georgia;cursor:pointer}
 </style></head>
-<body><canvas id="c" aria-label="The Last Outlaw game. Keyboard controls are listed in README.txt."></canvas><button id="pauseButton" type="button" aria-label="Pause game">Pause (P)</button><p id="keyboardNotice">Keyboard required · Landscape gives a larger view<br>A/D move · W/S lane · J fire · E interact · P pause</p>
+<body>
+<section id="loadingScreen" aria-label="Loading The Last Outlaw" aria-busy="true">
+ <div class="loadingPanel">
+  <h1 id="loadingText" role="status" aria-live="polite">Loading… 0%</h1>
+  <progress id="loadingBar" max="100" value="0" aria-label="Game asset loading progress">0%</progress>
+  <p id="loadingDetail">Getting your ride ready…</p>
+  <button id="loadingRetry" type="button" hidden>Reload</button>
+ </div>
+</section>
+<canvas id="c" aria-label="The Last Outlaw game. Keyboard controls are listed in README.txt."></canvas><button id="pauseButton" type="button" aria-label="Pause game">Pause (P)</button><p id="keyboardNotice">Keyboard required · Landscape gives a larger view<br>A/D move · W/S lane · J fire · E interact · P pause</p>
 <script>const ROOT=location.pathname.endsWith("/maker/engine.html")?"../":"./";</script>
 <script>document.write('<script src="'+ROOT+'art/names.js?v='+Date.now()+'"><\/script><script src="'+ROOT+'art/muzzle.js?v='+Date.now()+'"><\/script>');</script>
 <script>
 // Data-driven run-and-gun player for the Game Maker. Everything level-specific comes from game.json.
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 let VH=941,S=1,VW=1600;
+let loading=true;
 let GAME=null;const params=new URLSearchParams(location.search);const gameName=params.get("game")||"sundown_trail";
 const safeName=/^[A-Za-z0-9_-]+$/.test(gameName)?gameName:"sundown_trail";
 const asset=p=>p?ROOT+p:"";
@@ -22,12 +43,43 @@ let HOR=640,LANE=[815,860,905],LSC=[.9,.95,1];
 function resize(){const d=Math.min(devicePixelRatio||1,1.5),ratio=1600/VH,w=Math.min(innerWidth,innerHeight*ratio),h=w/ratio;
   cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.width=w+'px';cv.style.height=h+'px';S=cv.height/VH;VW=cv.width/S;}
 addEventListener('resize',resize);resize();
-const IMG={};function img(f){if(!f)return null;if(!IMG[f]){const i=new Image();i.src=asset(f.includes('/')?f:'art/sprites/'+f);IMG[f]=i;}return IMG[f].complete&&IMG[f].naturalWidth?IMG[f]:null;}
+const IMG={},IMG_PROMISE={};
+function loadImage(file){
+ if(IMG_PROMISE[file])return IMG_PROMISE[file];
+ const url=asset(file.includes('/')?file:'art/sprites/'+file);
+ const pending=(async()=>{
+  if(typeof ImageDecoder==='function'&&file.endsWith('.webp')){
+   const response=await fetch(url);if(!response.ok)throw Error('Could not load '+file);
+   const decoder=new ImageDecoder({data:await response.arrayBuffer(),type:'image/webp',premultiplyAlpha:'none',colorSpaceConversion:'none'});
+   try{
+    const {image}=await decoder.decode();
+    try{
+     const w=image.displayWidth,h=image.displayHeight,pixels=new Uint8ClampedArray(w*h*4);
+     await image.copyTo(pixels,{format:'RGBA'});
+     // Match the PNG canvas path's alpha rounding, rather than libwebp's
+     // premultiplied Image fast path, without changing any RGBA samples.
+     const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+     canvas.getContext('2d').putImageData(new ImageData(pixels,w,h),0,0);
+     canvas.naturalWidth=w;canvas.naturalHeight=h;canvas.complete=true;canvas.src=url;
+     return canvas;
+    }finally{image.close()}
+   }finally{decoder.close()}
+  }
+  // Browsers without WebCodecs still decode the lossless WebP natively.
+  return new Promise((resolve,reject)=>{
+   const image=new Image();image.onload=()=>resolve(image);
+   image.onerror=()=>reject(Error('Could not load '+file));image.src=url;
+  });
+ })();
+ const task=pending.then(image=>{if(IMG_PROMISE[file]===task)IMG[file]=image;return image});
+ IMG_PROMISE[file]=task;task.catch(()=>{});return task;
+}
+function img(file){if(!file)return null;if(!IMG_PROMISE[file])loadImage(file);return IMG[file]?.complete&&IMG[file].naturalWidth?IMG[file]:null;}
 const SPRS=window.SPR||{};
-SPRS.hero_mounted={h:300,anim:{idle:['heroride_0.png'],walk:['heroride_1.png','heroride_2.png','heroride_3.png','heroride_4.png'],run:['heroride_1.png','heroride_2.png','heroride_3.png','heroride_4.png'],aim:['heroride_0.png'],runshoot:['heroride_1.png'],jump:['heroride_4.png']}};
-SPRS.outlaw_mounted={h:280,anim:{idle:['gangride_a_0.png'],aim:['gangride_a_5.png'],walk:['gangride_a_1.png','gangride_a_2.png','gangride_a_3.png','gangride_a_4.png'],down:['gangride_a_5.png']}};
+SPRS.hero_mounted={h:300,anim:{idle:['heroride_0.webp'],walk:['heroride_1.webp','heroride_2.webp','heroride_3.webp','heroride_4.webp'],run:['heroride_1.webp','heroride_2.webp','heroride_3.webp','heroride_4.webp'],aim:['heroride_0.webp'],runshoot:['heroride_1.webp'],jump:['heroride_4.webp']}};
+SPRS.outlaw_mounted={h:280,anim:{idle:['gangride_a_0.webp'],aim:['gangride_a_5.webp'],walk:['gangride_a_1.webp','gangride_a_2.webp','gangride_a_3.webp','gangride_a_4.webp'],down:['gangride_a_5.webp']}};
 // Actual drawing direction varies between poses, even within one character.
-const LEFT_FRAMES=new Set(['gang_1_0.png','gang_1_1.png','gang_2_0.png','gang_3_0.png','gang_3_1.png','gang_4_0.png','gang_4_1.png','warden_2.png','warden_3.png','marshal_0.png','marshal_1.png']);
+const LEFT_FRAMES=new Set(['gang_1_0.webp','gang_1_1.webp','gang_2_0.webp','gang_3_0.webp','gang_3_1.webp','gang_4_0.webp','gang_4_1.webp','warden_2.webp','warden_3.webp','marshal_0.webp','marshal_1.webp']);
 const frameFacing=file=>LEFT_FRAMES.has(file)?-1:1;
 const spriteFlip=(file,face)=>frameFacing(file)*(face<0?-1:1);
 for(const s of Object.values(SPRS))for(const fr of Object.values(s.anim||{}))fr.forEach(img);
@@ -100,10 +152,10 @@ function setPaused(value){paused=!!value;clearInput();const button=document.getE
 function newCampaign(){savedRun=null;if(storageEnabled())try{localStorage.removeItem(SAVE_KEY)}catch{}AMMO={};levelAmmo={};levelGun='revolver';gun='revolver';bounty=0;setPaused(false);start(0)}
 addEventListener('blur',()=>{if(GAME&&!titleOn)setPaused(true);else clearInput()});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(GAME&&!titleOn)setPaused(true);else clearInput()}});
-document.getElementById('pauseButton').addEventListener('click',()=>{if(GAME&&!titleOn){setPaused(!paused);if(!paused)startMusic()}});
+document.getElementById('pauseButton').addEventListener('click',()=>{if(!loading&&GAME&&!titleOn){setPaused(!paused);if(!paused)startMusic()}});
 addEventListener('keydown',e=>{
   if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();
-  if(!GAME||!P)return;
+  if(loading||!GAME||!P)return;
   if(e.code==='Enter'&&(titleOn||st==='end'))e.preventDefault();
   if(e.code==='KeyP'||e.code==='Escape'){if(!e.repeat&&!titleOn){setPaused(!paused);if(!paused)startMusic()}return}
   if(paused)return;
@@ -123,7 +175,7 @@ addEventListener('keydown',e=>{
   else if(st==='end'&&e.code==='Enter')newCampaign();
 });
 addEventListener('keyup',e=>delete K[e.code]);
-cv.addEventListener('mousedown',()=>{if(!GAME||paused)return;if(titleOn){titleOn=false;newCampaign();startMusic();return}K.Mouse=1;startMusic();if(st==='card')tc=0});
+cv.addEventListener('mousedown',()=>{if(loading||!GAME||paused)return;if(titleOn){titleOn=false;newCampaign();startMusic();return}K.Mouse=1;startMusic();if(st==='card')tc=0});
 addEventListener('mouseup',()=>delete K.Mouse);
 
 // ---- sound (Episode 1 sound kit, kept quiet: music + action sounds only) ----
@@ -138,7 +190,7 @@ function tone(f,t,dur,vol,type='sawtooth',cut=1800,slide){const a=ac(),o=a.creat
   g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.01);g.gain.exponentialRampToValueAtTime(.001,t+dur);o.connect(fl).connect(g).connect(bus());o.start(t);o.stop(t+dur+.02)}
 const SND={},SNDK=['gun','dual','shotgun','rifle','egun','hit','ping','boom','wood','hurt','jump','coin','heart','down'];let sndLoaded=false;
 function loadSounds(){if(sndLoaded)return;sndLoaded=true;const a=ac();
-  for(const [key,path] of Object.entries(GAME.soundFiles||{}))fetch(asset(path)).then(r=>{if(!r.ok)throw Error('Sound unavailable');return r.arrayBuffer()}).then(b=>a.decodeAudioData(b)).then(buf=>SND[key]=buf).catch(()=>{});
+  for(const [key,path] of Object.entries(GAME.soundFiles||{}))(SOUND_BYTES[path]?Promise.resolve(SOUND_BYTES[path].slice(0)):fetch(asset(path)).then(r=>{if(!r.ok)throw Error('Sound unavailable');return r.arrayBuffer()})).then(b=>a.decodeAudioData(b)).then(buf=>SND[key]=buf).catch(()=>{});
 }
 function playFile(k,v){const b=SND[k];if(!b)return false;v*=1.6;const a=ac(),n=a.createBufferSource(),g=a.createGain();n.buffer=b;n.playbackRate.value=rnd(.9,1.08);   // small random pitch so repeats never sound identical
   g.gain.value=v;n.connect(g).connect(bus());n.start();return true}
@@ -252,7 +304,7 @@ function kill(e){const boss=e.boss,runId=startId;if((boss||e.guard)&&current().b
   const g=gunOf(e);if((boss||e.guard)&&g!='revolver'&&!GUNS.includes(g))GP.push({x:e.x+40,l:e.l,w:g,t:0})}
 
 function update(dt){
-  if(!GAME||!P||titleOn||paused)return;const run=startId;tickTimers(dt);if(startId!==run)return;time+=dt;if(say&&st!='card'&&(say.t-=dt)<0)say=null;shake=Math.max(0,shake-dt);redT=Math.max(0,redT-dt);   // say: her line starts counting when play starts
+  if(loading||!GAME||!P||titleOn||paused)return;const run=startId;tickTimers(dt);if(startId!==run)return;time+=dt;if(say&&st!='card'&&(say.t-=dt)<0)say=null;shake=Math.max(0,shake-dt);redT=Math.max(0,redT-dt);   // say: her line starts counting when play starts
   for(const f of FX){f.t-=dt;f.x+=f.vx*dt+(f.follow?P.x-(f.px??P.x):0);f.px=P.x;f.y+=f.vy*dt;if(f.k=='spark'||f.k=='hat'||f.k=='chip')f.vy+=1400*dt;if(f.k=='dust')f.vx*=.95;if(f.k=='hat')f.rot+=8*dt}
   FX=FX.filter(f=>f.t>0);
   if(st=='card'){if((tc-=dt)<=0)st='play';return}
@@ -451,7 +503,7 @@ function drawTitle(){const ti=img(GAME.titleImage);ctx.setTransform(S,0,0,S,0,0)
   if(savedRun){ctx.fillStyle='#b7e2bd';ctx.fillText('C · Continue Level '+(savedRun.level+1)+' — '+GAME.levels[savedRun.level].name,VW/2,VH*.85)}
   if(Math.floor(time*2)%2){ctx.font='bold 34px Georgia';ctx.lineWidth=6;ctx.strokeText('SPACE · New ride',VW/2,VH*.92);ctx.fillStyle='#ffd166';ctx.fillText('SPACE · New ride',VW/2,VH*.92)}}
 function draw(){
-  if(!GAME||!P)return;if(titleOn){time+=1/60;drawTitle();return}const sx=shake>0?rnd(-1,1)*shake*30:0,sy=(shake>0?rnd(-1,1)*shake*20:0)+(current().autoScroll?Math.sin(time*19)*1.6+(Math.sin(time*3.1)>.97?3:0):0);
+  if(loading||!GAME||!P)return;if(titleOn){time+=1/60;drawTitle();return}const sx=shake>0?rnd(-1,1)*shake*30:0,sy=(shake>0?rnd(-1,1)*shake*20:0)+(current().autoScroll?Math.sin(time*19)*1.6+(Math.sin(time*3.1)>.97?3:0):0);
   ctx.setTransform(S,0,0,S,sx*S,sy*S);drawBG();drawGate();drawFlag();drawObjectives();
   const list=[];
   if(say&&say.who=='helper'&&GAME.helper)list.push({l:0,d:()=>sprite(GAME.helper.sprite,GAME.helper.anim||'point',0,520,0,1,0,1,0,'',0,+(GAME.helper.scale||1))});
@@ -624,11 +676,67 @@ let last=performance.now();
 function loop(t){const dt=Math.min(.05,Math.max(0,(t-last)/1000));last=t;update(dt);draw();requestAnimationFrame(loop)}
 async function reloadGame(data,level){
  GAME=data;VH=+GAME.world?.height||941;HOR=+GAME.world?.horizon||640;LANE=GAME.world?.lanes||[815,860,905];LSC=GAME.world?.laneScale||[.9,.95,1];
- for(const k of Object.keys(IMG))if(!k.startsWith('art/sprites/')&&!/^[\w.-]+\.png$/.test(k))delete IMG[k];
+ for(const k of Object.keys(IMG))if(!k.startsWith('art/sprites/')&&!/^[\w.-]+\.webp$/.test(k)){delete IMG[k];delete IMG_PROMISE[k]}
  savedRun=readSave();levelAmmo={};levelGun='revolver';AMMO={};setPaused(false);resize();suspendSave=true;start(clamp(level||0,0,GAME.levels.length-1));suspendSave=false;if(params.has('preview')){st='play';say=null}
 }
 window.addEventListener('message',e=>{if(e.origin!==location.origin)return;if(e.data?.type==='maker:update')reloadGame(e.data.game,e.data.level)});
-fetch(ROOT+'maker/games/'+safeName+'/game.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Game not found');return r.json()}).then(g=>reloadGame(g,Number(params.get('level'))||0)).catch(e=>{document.body.insertAdjacentHTML('beforeend','<p style="position:absolute;color:white;top:1em;left:1em">'+String(e.message).replace(/[<>]/g,'')+'</p>')});
+// Preload lossless assets before accepting input. Keep only the title, sprite,
+// and opening-level images resident; later scenery remains in the HTTP cache.
+const SOUND_BYTES=Object.create(null);
+function assetReferences(value, refs=new Set()){
+ if(typeof value==='string'&&/\.(webp|flac)$/i.test(value))refs.add(value);
+ else if(value&&typeof value==='object')for(const child of Object.values(value))assetReferences(child,refs);
+ return refs;
+}
+function loadingProgress(done,total){
+ const percent=Math.floor(done/total*100),label='Loading… '+percent+'%';
+ document.getElementById('loadingText').textContent=label;
+ const bar=document.getElementById('loadingBar');bar.value=percent;bar.textContent=percent+'%';
+ document.getElementById('loadingDetail').textContent=done+' / '+total+' assets ready';
+}
+async function preloadImage(file){await loadImage(file);}
+async function preloadGame(data){
+ const references=assetReferences(data,assetReferences(SPRS));
+ references.add('art/sprites/war_wagon_v3.webp');
+ const files=[...references],retain=assetReferences(data.levels[Number(params.get('level'))||0]||data.levels[0],assetReferences(SPRS));
+ retain.add(data.titleImage);retain.add(data.worldMap);
+ let done=0,next=0;loadingProgress(done,files.length);
+ // Show the title art before the larger scenery queue starts.
+ if(data.titleImage)await preloadImage(data.titleImage);
+ async function worker(){
+  while(next<files.length){const file=files[next++];
+   if(file.endsWith('.flac')){
+    const response=await fetch(asset(file));if(!response.ok)throw Error('Could not load '+file);
+    SOUND_BYTES[file]=await response.arrayBuffer();
+   }else{
+    await preloadImage(file);
+    if(!retain.has(file)){delete IMG[file];delete IMG_PROMISE[file]}
+   }
+   loadingProgress(++done,files.length);
+  }
+ }
+ const results=await Promise.allSettled(Array.from({length:6},worker));
+ const failed=results.find(result=>result.status==='rejected');if(failed)throw failed.reason;
+}
+async function loadGame(){
+ try{
+  const response=await fetch(ROOT+'maker/games/'+safeName+'/game.json',{cache:'no-store'});
+  if(!response.ok)throw Error('Game not found');const data=await response.json();
+  await reloadGame(data,Number(params.get('level'))||0);await preloadGame(data);
+  // Paint the completed bar before revealing the playable title.
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  document.getElementById('loadingScreen').hidden=true;
+  document.getElementById('loadingScreen').setAttribute('aria-busy','false');
+  loading=false;
+ }catch(error){
+  document.getElementById('loadingText').textContent='Loading failed';
+  document.getElementById('loadingDetail').textContent=error.message+'. Reload to try again.';
+  document.getElementById('loadingScreen').setAttribute('aria-busy','false');
+  document.getElementById('loadingRetry').hidden=false;
+ }
+}
+document.getElementById('loadingRetry').addEventListener('click',()=>location.reload());
+loadGame();
 requestAnimationFrame(loop);
 window.G={get objectives(){return objectiveStatus()},canExit,newCampaign,setPaused,get paused(){return paused},get AMMO(){return AMMO},get gun(){return gun},get GUNS(){return GUNS},get GP(){return GP},get P(){return P},get E(){return E},get B(){return B},start,get st(){return st},get lv(){return lv},reloadGame,update,draw};   // test hooks
 </script></body></html>

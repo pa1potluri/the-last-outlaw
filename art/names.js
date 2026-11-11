@@ -3,31 +3,31 @@ window.SPR={
   "h": 230,
   "anim": {
    "idle": [
-    "hero_0.png"
+    "hero_0.webp"
    ],
    "walk": [
-    "hero_1.png",
-    "hero_2.png",
-    "hero_3.png",
-    "hero_4.png"
+    "hero_1.webp",
+    "hero_2.webp",
+    "hero_3.webp",
+    "hero_4.webp"
    ],
    "aim": [
-    "hero_5.png"
+    "hero_5.webp"
    ],
    "ride": [
-    "hero_6.png"
+    "hero_6.webp"
    ],
    "run": [
-    "herorun_0.png",
-    "herorun_1.png",
-    "herorun_2.png",
-    "herorun_3.png"
+    "herorun_0.webp",
+    "herorun_1.webp",
+    "herorun_2.webp",
+    "herorun_3.webp"
    ],
    "jump": [
-    "herorun_4.png"
+    "herorun_4.webp"
    ],
    "runshoot": [
-    "herorun_5.png"
+    "herorun_5.webp"
    ]
   }
  },
@@ -35,18 +35,18 @@ window.SPR={
   "h": 140,
   "anim": {
    "idle": [
-    "pavi_0.png"
+    "pavi_0.webp"
    ],
    "walk": [
-    "pavi_1.png",
-    "pavi_2.png",
-    "pavi_3.png"
+    "pavi_1.webp",
+    "pavi_2.webp",
+    "pavi_3.webp"
    ],
    "scared": [
-    "pavi_4.png"
+    "pavi_4.webp"
    ],
    "cheer": [
-    "pavi_5.png"
+    "pavi_5.webp"
    ]
   }
  },
@@ -54,18 +54,18 @@ window.SPR={
   "h": 135,
   "anim": {
    "idle": [
-    "siri_0.png"
+    "siri_0.webp"
    ],
    "walk": [
-    "siri_1.png",
-    "siri_2.png",
-    "siri_3.png"
+    "siri_1.webp",
+    "siri_2.webp",
+    "siri_3.webp"
    ],
    "point": [
-    "siri_4.png"
+    "siri_4.webp"
    ],
    "hips": [
-    "siri_5.png"
+    "siri_5.webp"
    ]
   }
  },
@@ -73,16 +73,16 @@ window.SPR={
   "h": 260,
   "anim": {
    "idle": [
-    "horse_0.png"
+    "horse_0.webp"
    ],
    "gallop": [
-    "horse_1.png",
-    "horse_2.png",
-    "horse_3.png",
-    "horse_4.png"
+    "horse_1.webp",
+    "horse_2.webp",
+    "horse_3.webp",
+    "horse_4.webp"
    ],
    "rear": [
-    "horse_5.png"
+    "horse_5.webp"
    ]
   }
  },
@@ -90,16 +90,16 @@ window.SPR={
   "h": 245,
   "anim": {
    "idle": [
-    "jack_0.png"
+    "jack_0.webp"
    ],
    "aim": [
-    "jack_1.png"
+    "jack_1.webp"
    ],
    "undies": [
-    "jack_2.png"
+    "jack_2.webp"
    ],
    "down": [
-    "jack_3.png"
+    "jack_3.webp"
    ]
   }
  },
@@ -107,22 +107,22 @@ window.SPR={
   "h": 220,
   "anim": {
    "idle": [
-    "outlaws_0.png"
+    "outlaws_0.webp"
    ],
    "aim": [
-    "outlaws_0.png"
+    "outlaws_0.webp"
    ],
    "walk": [
-    "owalk_1_0.png",
-    "owalk_1_1.png",
-    "owalk_1_2.png",
-    "owalk_1_3.png"
+    "owalk_1_0.webp",
+    "owalk_1_1.webp",
+    "owalk_1_2.webp",
+    "owalk_1_3.webp"
    ],
    "crouch": [
-    "outlaws_1.png"
+    "outlaws_1.webp"
    ],
    "down": [
-    "outlaws_2.png"
+    "outlaws_2.webp"
    ]
   }
  },
@@ -130,22 +130,22 @@ window.SPR={
   "h": 225,
   "anim": {
    "idle": [
-    "outlaws_3.png"
+    "outlaws_3.webp"
    ],
    "aim": [
-    "outlaws_3.png"
+    "outlaws_3.webp"
    ],
    "walk": [
-    "owalk_2_0.png",
-    "owalk_2_1.png",
-    "owalk_2_2.png",
-    "owalk_2_3.png"
+    "owalk_2_0.webp",
+    "owalk_2_1.webp",
+    "owalk_2_2.webp",
+    "owalk_2_3.webp"
    ],
    "crouch": [
-    "outlaws_4.png"
+    "outlaws_4.webp"
    ],
    "down": [
-    "outlaws_5.png"
+    "outlaws_5.webp"
    ]
   }
  },
@@ -153,22 +153,22 @@ window.SPR={
   "h": 195,
   "anim": {
    "idle": [
-    "outlaws_6.png"
+    "outlaws_6.webp"
    ],
    "aim": [
-    "outlaws_6.png"
+    "outlaws_6.webp"
    ],
    "walk": [
-    "owalk_3_0.png",
-    "owalk_3_1.png",
-    "owalk_3_2.png",
-    "owalk_3_3.png"
+    "owalk_3_0.webp",
+    "owalk_3_1.webp",
+    "owalk_3_2.webp",
+    "owalk_3_3.webp"
    ],
    "crouch": [
-    "outlaws_7.png"
+    "outlaws_7.webp"
    ],
    "down": [
-    "outlaws_8.png"
+    "outlaws_8.webp"
    ]
   }
  },
@@ -176,7 +176,7 @@ window.SPR={
   "h": 215,
   "anim": {
    "idle": [
-    "folk_0.png"
+    "folk_0.webp"
    ]
   }
  },
@@ -184,7 +184,7 @@ window.SPR={
   "h": 150,
   "anim": {
    "idle": [
-    "folk_1.png"
+    "folk_1.webp"
    ]
   }
  },
@@ -192,7 +192,7 @@ window.SPR={
   "h": 205,
   "anim": {
    "idle": [
-    "folk_2.png"
+    "folk_2.webp"
    ]
   }
  },
@@ -200,7 +200,7 @@ window.SPR={
   "h": 205,
   "anim": {
    "idle": [
-    "folk_3.png"
+    "folk_3.webp"
    ]
   }
  },
@@ -208,11 +208,11 @@ window.SPR={
   "h": 46,
   "anim": {
    "idle": [
-    "props_0.png"
+    "props_0.webp"
    ],
    "flap": [
-    "props_0.png",
-    "props_1.png"
+    "props_0.webp",
+    "props_1.webp"
    ]
   }
  },
@@ -220,7 +220,7 @@ window.SPR={
   "h": 105,
   "anim": {
    "idle": [
-    "props_2.png"
+    "props_2.webp"
    ]
   }
  },
@@ -228,7 +228,7 @@ window.SPR={
   "h": 100,
   "anim": {
    "idle": [
-    "props_3.png"
+    "props_3.webp"
    ]
   }
  },
@@ -236,7 +236,7 @@ window.SPR={
   "h": 38,
   "anim": {
    "idle": [
-    "props_4.png"
+    "props_4.webp"
    ]
   }
  },
@@ -244,7 +244,7 @@ window.SPR={
   "h": 34,
   "anim": {
    "idle": [
-    "props_5.png"
+    "props_5.webp"
    ]
   }
  },
@@ -252,7 +252,7 @@ window.SPR={
   "h": 70,
   "anim": {
    "idle": [
-    "props_6.png"
+    "props_6.webp"
    ]
   }
  },
@@ -260,7 +260,7 @@ window.SPR={
   "h": 130,
   "anim": {
    "idle": [
-    "props_7.png"
+    "props_7.webp"
    ]
   }
  },
@@ -268,28 +268,28 @@ window.SPR={
   "h": 316,
   "anim": {
    "idle": [
-    "heroride_0.png"
+    "heroride_0.webp"
    ],
    "gallop": [
-    "heroride_1.png",
-    "heroride_2.png",
-    "heroride_3.png",
-    "heroride_4.png"
+    "heroride_1.webp",
+    "heroride_2.webp",
+    "heroride_3.webp",
+    "heroride_4.webp"
    ],
    "rear": [
-    "heroride_5.png"
+    "heroride_5.webp"
    ],
    "mount": [
-    "heromount_0.png",
-    "heromount_1.png",
-    "heromount_2.png",
-    "heromount_3.png"
+    "heromount_0.webp",
+    "heromount_1.webp",
+    "heromount_2.webp",
+    "heromount_3.webp"
    ],
    "aim": [
-    "heromount_4.png"
+    "heromount_4.webp"
    ],
    "aimgallop": [
-    "heromount_5.png"
+    "heromount_5.webp"
    ]
   }
  },
@@ -297,16 +297,16 @@ window.SPR={
   "h": 335,
   "anim": {
    "idle": [
-    "jackride_0.png"
+    "jackride_0.webp"
    ],
    "gallop": [
-    "jackride_1.png",
-    "jackride_2.png",
-    "jackride_3.png",
-    "jackride_4.png"
+    "jackride_1.webp",
+    "jackride_2.webp",
+    "jackride_3.webp",
+    "jackride_4.webp"
    ],
    "aimback": [
-    "jackride_5.png"
+    "jackride_5.webp"
    ]
   }
  },
@@ -314,11 +314,11 @@ window.SPR={
   "h": 325,
   "anim": {
    "idle": [
-    "gangride_a_0.png"
+    "gangride_a_0.webp"
    ],
    "gallop": [
-    "gangride_a_1.png",
-    "gangride_a_2.png"
+    "gangride_a_1.webp",
+    "gangride_a_2.webp"
    ]
   }
  },
@@ -326,11 +326,11 @@ window.SPR={
   "h": 318,
   "anim": {
    "idle": [
-    "gangride_a_3.png"
+    "gangride_a_3.webp"
    ],
    "gallop": [
-    "gangride_a_4.png",
-    "gangride_a_5.png"
+    "gangride_a_4.webp",
+    "gangride_a_5.webp"
    ]
   }
  },
@@ -338,11 +338,11 @@ window.SPR={
   "h": 289,
   "anim": {
    "idle": [
-    "gangride_b_0.png"
+    "gangride_b_0.webp"
    ],
    "gallop": [
-    "gangride_b_1.png",
-    "gangride_b_2.png"
+    "gangride_b_1.webp",
+    "gangride_b_2.webp"
    ]
   }
  },
@@ -350,11 +350,11 @@ window.SPR={
   "h": 336,
   "anim": {
    "idle": [
-    "gangride_b_3.png"
+    "gangride_b_3.webp"
    ],
    "gallop": [
-    "gangride_b_4.png",
-    "gangride_b_5.png"
+    "gangride_b_4.webp",
+    "gangride_b_5.webp"
    ]
   }
  },
@@ -362,26 +362,26 @@ window.SPR={
   "h": 221.6,
   "anim": {
    "idle": [
-    "hero_dual_0.png"
+    "hero_dual_0.webp"
    ],
    "aim": [
-    "hero_dual_0.png"
+    "hero_dual_0.webp"
    ],
    "walk": [
-    "hero_dual_1.png",
-    "hero_dual_2.png",
-    "hero_dual_3.png"
+    "hero_dual_1.webp",
+    "hero_dual_2.webp",
+    "hero_dual_3.webp"
    ],
    "run": [
-    "hero_dual_1.png",
-    "hero_dual_2.png",
-    "hero_dual_3.png"
+    "hero_dual_1.webp",
+    "hero_dual_2.webp",
+    "hero_dual_3.webp"
    ],
    "jump": [
-    "hero_dual_4.png"
+    "hero_dual_4.webp"
    ],
    "runshoot": [
-    "hero_dual_5.png"
+    "hero_dual_5.webp"
    ]
   }
  },
@@ -389,26 +389,26 @@ window.SPR={
   "h": 221.6,
   "anim": {
    "idle": [
-    "hero_shotgun_0.png"
+    "hero_shotgun_0.webp"
    ],
    "aim": [
-    "hero_shotgun_0.png"
+    "hero_shotgun_0.webp"
    ],
    "walk": [
-    "hero_shotgun_1.png",
-    "hero_shotgun_2.png",
-    "hero_shotgun_3.png"
+    "hero_shotgun_1.webp",
+    "hero_shotgun_2.webp",
+    "hero_shotgun_3.webp"
    ],
    "run": [
-    "hero_shotgun_1.png",
-    "hero_shotgun_2.png",
-    "hero_shotgun_3.png"
+    "hero_shotgun_1.webp",
+    "hero_shotgun_2.webp",
+    "hero_shotgun_3.webp"
    ],
    "jump": [
-    "hero_shotgun_4.png"
+    "hero_shotgun_4.webp"
    ],
    "runshoot": [
-    "hero_shotgun_5.png"
+    "hero_shotgun_5.webp"
    ]
   }
  },
@@ -416,26 +416,26 @@ window.SPR={
   "h": 221.6,
   "anim": {
    "idle": [
-    "hero_rifle_0.png"
+    "hero_rifle_0.webp"
    ],
    "aim": [
-    "hero_rifle_0.png"
+    "hero_rifle_0.webp"
    ],
    "walk": [
-    "hero_rifle_1.png",
-    "hero_rifle_2.png",
-    "hero_rifle_3.png"
+    "hero_rifle_1.webp",
+    "hero_rifle_2.webp",
+    "hero_rifle_3.webp"
    ],
    "run": [
-    "hero_rifle_1.png",
-    "hero_rifle_2.png",
-    "hero_rifle_3.png"
+    "hero_rifle_1.webp",
+    "hero_rifle_2.webp",
+    "hero_rifle_3.webp"
    ],
    "jump": [
-    "hero_rifle_4.png"
+    "hero_rifle_4.webp"
    ],
    "runshoot": [
-    "hero_rifle_5.png"
+    "hero_rifle_5.webp"
    ]
   }
  },
@@ -443,32 +443,32 @@ window.SPR={
   "h": 221.6,
   "anim": {
    "idle": [
-    "hero_dynrun_0.png"
+    "hero_dynrun_0.webp"
    ],
    "walk": [
-    "hero_dynrun_1.png",
-    "hero_dynrun_2.png",
-    "hero_dynrun_3.png",
-    "hero_dynrun_4.png"
+    "hero_dynrun_1.webp",
+    "hero_dynrun_2.webp",
+    "hero_dynrun_3.webp",
+    "hero_dynrun_4.webp"
    ],
    "run": [
-    "hero_dynrun_1.png",
-    "hero_dynrun_2.png",
-    "hero_dynrun_3.png",
-    "hero_dynrun_4.png"
+    "hero_dynrun_1.webp",
+    "hero_dynrun_2.webp",
+    "hero_dynrun_3.webp",
+    "hero_dynrun_4.webp"
    ],
    "jump": [
-    "hero_dynrun_3.png"
+    "hero_dynrun_3.webp"
    ],
    "aim": [
-    "hero_dynamite_1.png",
-    "hero_dynamite_2.png",
-    "hero_dynamite_3.png"
+    "hero_dynamite_1.webp",
+    "hero_dynamite_2.webp",
+    "hero_dynamite_3.webp"
    ],
    "runshoot": [
-    "hero_dynamite_1.png",
-    "hero_dynamite_2.png",
-    "hero_dynamite_3.png"
+    "hero_dynamite_1.webp",
+    "hero_dynamite_2.webp",
+    "hero_dynamite_3.webp"
    ]
   }
  },
@@ -476,7 +476,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk_0.png"
+    "pk_0.webp"
    ]
   }
  },
@@ -484,7 +484,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk_1.png"
+    "pk_1.webp"
    ]
   }
  },
@@ -492,7 +492,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk_2.png"
+    "pk_2.webp"
    ]
   }
  },
@@ -500,7 +500,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk_3.png"
+    "pk_3.webp"
    ]
   }
  },
@@ -508,7 +508,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk_4.png"
+    "pk_4.webp"
    ]
   }
  },
@@ -516,7 +516,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk_5.png"
+    "pk_5.webp"
    ]
   }
  },
@@ -524,22 +524,22 @@ window.SPR={
   "h": 255,
   "anim": {
    "idle": [
-    "marshal_0.png"
+    "marshal_0.webp"
    ],
    "aim": [
-    "marshal_1.png"
+    "marshal_1.webp"
    ],
    "rifle": [
-    "marshal_2.png"
+    "marshal_2.webp"
    ],
    "walk": [
-    "marshal_3.png"
+    "marshal_3.webp"
    ],
    "hurt": [
-    "marshal_4.png"
+    "marshal_4.webp"
    ],
    "down": [
-    "marshal_5.png"
+    "marshal_5.webp"
    ]
   }
  },
@@ -547,19 +547,19 @@ window.SPR={
   "h": 220,
   "anim": {
    "idle": [
-    "gang_1_0.png"
+    "gang_1_0.webp"
    ],
    "aim": [
-    "gang_1_1.png"
+    "gang_1_1.webp"
    ],
    "walk": [
-    "gwalk_1_0.png",
-    "gwalk_1_1.png",
-    "gwalk_1_2.png",
-    "gwalk_1_3.png"
+    "gwalk_1_0.webp",
+    "gwalk_1_1.webp",
+    "gwalk_1_2.webp",
+    "gwalk_1_3.webp"
    ],
    "down": [
-    "gang_1_2.png"
+    "gang_1_2.webp"
    ]
   }
  },
@@ -567,19 +567,19 @@ window.SPR={
   "h": 232,
   "anim": {
    "idle": [
-    "gang_2_0.png"
+    "gang_2_0.webp"
    ],
    "aim": [
-    "gang_2_1.png"
+    "gang_2_1.webp"
    ],
    "walk": [
-    "gwalk_2_0.png",
-    "gwalk_2_1.png",
-    "gwalk_2_2.png",
-    "gwalk_2_3.png"
+    "gwalk_2_0.webp",
+    "gwalk_2_1.webp",
+    "gwalk_2_2.webp",
+    "gwalk_2_3.webp"
    ],
    "down": [
-    "gang_2_2.png"
+    "gang_2_2.webp"
    ]
   }
  },
@@ -587,19 +587,19 @@ window.SPR={
   "h": 220,
   "anim": {
    "idle": [
-    "gang_3_0.png"
+    "gang_3_0.webp"
    ],
    "aim": [
-    "gang_3_1.png"
+    "gang_3_1.webp"
    ],
    "walk": [
-    "gwalk_3_0.png",
-    "gwalk_3_1.png",
-    "gwalk_3_2.png",
-    "gwalk_3_3.png"
+    "gwalk_3_0.webp",
+    "gwalk_3_1.webp",
+    "gwalk_3_2.webp",
+    "gwalk_3_3.webp"
    ],
    "down": [
-    "gang_3_2.png"
+    "gang_3_2.webp"
    ]
   }
  },
@@ -607,19 +607,19 @@ window.SPR={
   "h": 220,
   "anim": {
    "idle": [
-    "gang_4_0.png"
+    "gang_4_0.webp"
    ],
    "aim": [
-    "gang_4_1.png"
+    "gang_4_1.webp"
    ],
    "walk": [
-    "gwalk_4_0.png",
-    "gwalk_4_1.png",
-    "gwalk_4_2.png",
-    "gwalk_4_3.png"
+    "gwalk_4_0.webp",
+    "gwalk_4_1.webp",
+    "gwalk_4_2.webp",
+    "gwalk_4_3.webp"
    ],
    "down": [
-    "gang_4_2.png"
+    "gang_4_2.webp"
    ]
   }
  },
@@ -627,7 +627,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "poster_0.png"
+    "poster_0.webp"
    ]
   }
  },
@@ -635,7 +635,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "poster_1.png"
+    "poster_1.webp"
    ]
   }
  },
@@ -643,7 +643,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "poster_2.png"
+    "poster_2.webp"
    ]
   }
  },
@@ -651,22 +651,22 @@ window.SPR={
   "h": 270,
   "anim": {
    "idle": [
-    "warden_0.png"
+    "warden_0.webp"
    ],
    "aim": [
-    "warden_1.png"
+    "warden_1.webp"
    ],
    "rifle": [
-    "warden_2.png"
+    "warden_2.webp"
    ],
    "walk": [
-    "warden_3.png"
+    "warden_3.webp"
    ],
    "hurt": [
-    "warden_4.png"
+    "warden_4.webp"
    ],
    "down": [
-    "warden_5.png"
+    "warden_5.webp"
    ]
   }
  },
@@ -674,21 +674,21 @@ window.SPR={
   "h": 205,
   "anim": {
    "idle": [
-    "vman_2.png"
+    "vman_2.webp"
    ],
    "tied": [
-    "vman_0.png",
-    "vman_1.png"
+    "vman_0.webp",
+    "vman_1.webp"
    ],
    "free": [
-    "vman_2.png"
+    "vman_2.webp"
    ],
    "give": [
-    "vman_3.png"
+    "vman_3.webp"
    ],
    "walk": [
-    "vman_4.png",
-    "vman_5.png"
+    "vman_4.webp",
+    "vman_5.webp"
    ]
   }
  },
@@ -696,21 +696,21 @@ window.SPR={
   "h": 195,
   "anim": {
    "idle": [
-    "vwoman_2.png"
+    "vwoman_2.webp"
    ],
    "tied": [
-    "vwoman_0.png",
-    "vwoman_1.png"
+    "vwoman_0.webp",
+    "vwoman_1.webp"
    ],
    "free": [
-    "vwoman_2.png"
+    "vwoman_2.webp"
    ],
    "give": [
-    "vwoman_3.png"
+    "vwoman_3.webp"
    ],
    "walk": [
-    "vwoman_4.png",
-    "vwoman_5.png"
+    "vwoman_4.webp",
+    "vwoman_5.webp"
    ]
   }
  },
@@ -718,21 +718,21 @@ window.SPR={
   "h": 150,
   "anim": {
    "idle": [
-    "vboy_3.png"
+    "vboy_3.webp"
    ],
    "tied": [
-    "vboy_0.png",
-    "vboy_1.png"
+    "vboy_0.webp",
+    "vboy_1.webp"
    ],
    "free": [
-    "vboy_2.png"
+    "vboy_2.webp"
    ],
    "give": [
-    "vboy_3.png"
+    "vboy_3.webp"
    ],
    "walk": [
-    "vboy_4.png",
-    "vboy_5.png"
+    "vboy_4.webp",
+    "vboy_5.webp"
    ]
   }
  },
@@ -740,7 +740,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk2_0.png"
+    "pk2_0.webp"
    ]
   }
  },
@@ -748,7 +748,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk2_1.png"
+    "pk2_1.webp"
    ]
   }
  },
@@ -756,7 +756,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk2_2.png"
+    "pk2_2.webp"
    ]
   }
  },
@@ -764,7 +764,7 @@ window.SPR={
   "h": 60,
   "anim": {
    "idle": [
-    "pk2_3.png"
+    "pk2_3.webp"
    ]
   }
  }
