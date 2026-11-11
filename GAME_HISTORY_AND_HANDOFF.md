@@ -372,3 +372,31 @@ Current working folder: `D:\TheLastOutlaw_v3\outputs\TheLastOutlaw_v2_FIXED`.
 - `outputs/the-last-outlaw-itch.zip` has `index.html` at its root. Packaging
   excludes `.git`, `tests`, `outputs`, Python files, batch files, and other ZIPs.
   Upload it to itch.io as an HTML game. This remains a keyboard game.
+
+## Mobile touch work paused at owner's request — 11 November 2026
+
+Working folder: D:\TheLastOutlaw_v3\outputs\TheLastOutlaw_v2_FIXED.
+Changes are saved on disk in maker/engine.html and tests/engine.test.cjs, but are NOT committed or pushed. The existing outputs/the-last-outlaw-itch.zip has NOT been rebuilt and still contains the previous release.
+
+Implemented pending browser QA:
+- Touch capability detection, landscape control rails with left/right, sprint, jump, shoot, weapon switch, lane up/down, and mission interaction.
+- Touch menus for new game, continue, difficulty, sound, and restart; Jump becomes Skip on level cards.
+- Independent pointer holds/capture, cancellation cleanup, keyboard/touch state separation, portrait rotate hint and pause, touch scroll/gesture suppression, safe-area spacing.
+- Existing artwork files and PC key mappings unchanged.
+
+Validation completed:
+- Baseline: 36 engine tests passed.
+- Updated: 38 engine tests passed in desktop host; 41 passed with TOUCH_TEST=1; all 3 launcher tests passed.
+- Python on PATH is only a Windows Store alias. Use C:\Users\PKP\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe.
+- Chrome 1280x720 controlled title and gameplay canvas captures before/after have identical SHA-256 hashes. This checks these rendered fixtures, not all desktop interactions.
+- Before/after capture scripts and screenshots are in C:\Users\PKP\Documents\Codex\2026-11-11\work-in-d-thelastoutlaw-v3-outputs\work.
+
+Still required before release:
+1. Actual browser touch tests at 844x390 (multi-touch move/sprint/shoot, jump, gun switch, lanes, interaction, menu/continue/end, pause, cancellation, orientation and scrolling); inspect screenshots. No mobile browser QA has been performed yet.
+2. Desktop keyboard/mouse browser interaction regression checks. Review layout on smaller touch viewports and safe-area behavior.
+3. Review implementation and update README.txt, README.md and FIXES-AND-TESTS.md with final verified behavior and test evidence.
+4. Run all tests after any fixes; rebuild outputs/the-last-outlaw-itch.zip with index.html at root, excluding .git/tests/outputs/Python/batch/other ZIPs; verify packaged game.
+5. Commit exactly "[codex] mobile touch controls" and push to origin main (previously authorized, still pending).
+6. Report itch.io upload settings: HTML game, ZIP played in browser, Mobile Friendly, landscape dimensions/orientation, fullscreen option. Official reference: https://itch.io/docs/creators/html5 . Verify exact available labels before final guidance.
+
+Browser test tooling: bundled playwright is at C:/Users/PKP/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright. Headless Chrome needed an approved sandbox escalation to launch. A task-owned Python HTTP server was started at 127.0.0.1:8842; check whether it is still running before starting another.

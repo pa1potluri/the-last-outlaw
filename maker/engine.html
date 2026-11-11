@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>The Last Outlaw — Enhanced Edition</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>
 html,body{margin:0;height:100%;background:#120d0a;overflow:hidden;color:#f1e3c6;font-family:Georgia,serif}
 canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);cursor:crosshair}
@@ -18,6 +18,23 @@ canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%
 #loadingBar::-moz-progress-bar{background:#eeb45e;border-radius:5px}
 #loadingDetail{margin:16px 0 0;line-height:1.5;color:#fff3d4}
 #loadingRetry{margin-top:18px;padding:10px 22px;border:1px solid #b68a43;border-radius:6px;background:#ffe2a2;color:#24170e;font:bold 18px Georgia;cursor:pointer}
+
+/* Touch controls sit in the letterbox rails, away from the unchanged artwork/HUD. */
+html.touch{--safe-left:env(safe-area-inset-left,0px);--safe-right:env(safe-area-inset-right,0px)}
+html.touch,html.touch body{overscroll-behavior:none;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#touchControls,#touchMenu,#rotateNotice{display:none}
+html.touch #keyboardNotice{display:none}
+html.touch #pauseButton{top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));font-size:14px;padding:8px 12px}
+html.touch #touchControls:not([hidden]){display:block;position:fixed;inset:0;pointer-events:none;z-index:3}
+.touchRail{position:absolute;bottom:max(12px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(2,62px);gap:8px;pointer-events:auto}
+.touchRail.left{left:max(8px,env(safe-area-inset-left))}.touchRail.right{right:max(8px,env(safe-area-inset-right))}
+.touchButton{min-height:48px;padding:6px 3px;background:#24170ef2;color:#ffe2a2;border:1px solid #b68a43;border-radius:10px;font:bold 14px Georgia;touch-action:none}
+.touchButton[aria-pressed="true"],.touchButton:active{background:#8b5722;color:#fff3d4;border-color:#ffd166}
+html.touch #touchMenu:not([hidden]){display:flex;position:fixed;left:152px;right:152px;bottom:max(12px,env(safe-area-inset-bottom));gap:8px;justify-content:center;z-index:3}
+#touchMenu .touchButton{padding:8px 12px}
+html.touch.portrait #rotateNotice{display:grid;position:fixed;inset:0;z-index:9;place-content:center;text-align:center;padding:24px;background:#120d0af5;font:22px/1.6 Georgia;color:#ffe2a2}
+html.touch.portrait #touchControls,html.touch.portrait #touchMenu,html.touch.portrait #pauseButton{display:none}
+@media(max-height:330px){.touchRail{gap:5px;bottom:6px}.touchButton{min-height:42px}}
 </style></head>
 <body>
 <section id="loadingScreen" aria-label="Loading The Last Outlaw" aria-busy="true">
@@ -29,6 +46,29 @@ canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%
  </div>
 </section>
 <canvas id="c" aria-label="The Last Outlaw game. Keyboard controls are listed in README.txt."></canvas><button id="pauseButton" type="button" aria-label="Pause game">Pause (P)</button><p id="keyboardNotice">Keyboard required · Landscape gives a larger view<br>A/D move · W/S lane · J fire · E interact · P pause</p>
+
+<div id="rotateNotice" role="status">Rotate your phone<br>Play in landscape · then tap Resume if paused</div>
+<nav id="touchMenu" aria-label="Touch game menu" hidden>
+ <button class="touchButton" id="touchNew" type="button">New ride</button>
+ <button class="touchButton" id="touchContinue" type="button">Continue</button>
+ <button class="touchButton" id="touchDifficulty" type="button">Standard</button>
+</nav>
+<nav id="touchControls" aria-label="Touch game controls" hidden>
+ <div class="touchRail left">
+  <button class="touchButton" data-touch="KeyW" aria-label="Move to upper lane" type="button">Lane ↑</button>
+  <button class="touchButton" data-touch="KeyS" aria-label="Move to lower lane" type="button">Lane ↓</button>
+  <button class="touchButton" data-touch="KeyA" aria-label="Move left" type="button">← Left</button>
+  <button class="touchButton" data-touch="KeyD" aria-label="Move right" type="button">Right →</button>
+  <button class="touchButton" data-touch="ShiftLeft" type="button">Sprint</button>
+  <button class="touchButton" id="touchMute" type="button">Sound</button>
+ </div>
+ <div class="touchRail right">
+  <button class="touchButton" data-touch="Space" id="touchJump" type="button">Jump</button>
+  <button class="touchButton" data-touch="KeyJ" type="button">Shoot</button>
+  <button class="touchButton" data-touch="KeyQ" type="button">Gun ↻</button>
+  <button class="touchButton" data-touch="KeyE" type="button">Interact</button>
+ </div>
+</nav>
 <script>const ROOT=location.pathname.endsWith("/maker/engine.html")?"../":"./";</script>
 <script>document.write('<script src="'+ROOT+'art/names.js?v='+Date.now()+'"><\/script><script src="'+ROOT+'art/muzzle.js?v='+Date.now()+'"><\/script>');</script>
 <script>
@@ -36,11 +76,28 @@ canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 let VH=941,S=1,VW=1600;
 let loading=true;
+const touchDevice=(navigator.maxTouchPoints||0)>0;
+const touchPointers=new Map();
+const touchButtons=Array.from(document.querySelectorAll('[data-touch]'));
+document.documentElement.classList.toggle('touch',touchDevice);
+const held=code=>!!K[code]||Array.from(touchPointers.values()).some(p=>p.code===code);
+function touchPortrait(){return touchDevice&&innerHeight>innerWidth}
+function syncTouchUI(){
+ if(!touchDevice)return;
+ document.getElementById('touchMenu').hidden=loading||!GAME||paused||(!titleOn&&st!=='end');
+ document.getElementById('touchControls').hidden=loading||!GAME||paused||titleOn||st==='end';
+ document.getElementById('touchContinue').hidden=!titleOn||!savedRun;
+ document.getElementById('touchDifficulty').hidden=!titleOn;
+ document.getElementById('touchDifficulty').textContent=difficulty==='hard'?'Hard':'Standard';
+ document.getElementById('touchNew').textContent=titleOn?'New ride':'Ride again';
+ document.getElementById('touchJump').textContent=st==='card'?'Skip':'Jump';
+ document.getElementById('touchMute').textContent=muted?'Unmute':'Mute';
+}
 let GAME=null;const params=new URLSearchParams(location.search);const gameName=params.get("game")||"sundown_trail";
 const safeName=/^[A-Za-z0-9_-]+$/.test(gameName)?gameName:"sundown_trail";
 const asset=p=>p?ROOT+p:"";
 let HOR=640,LANE=[815,860,905],LSC=[.9,.95,1];
-function resize(){const d=Math.min(devicePixelRatio||1,1.5),ratio=1600/VH,w=Math.min(innerWidth,innerHeight*ratio),h=w/ratio;
+function resize(){const d=Math.min(devicePixelRatio||1,1.5),ratio=1600/VH,w=Math.min(touchDevice&&!touchPortrait()?Math.max(1,innerWidth-300-(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-left'))||0)-(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-right'))||0)):innerWidth,innerHeight*ratio),h=w/ratio;
   cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.width=w+'px';cv.style.height=h+'px';S=cv.height/VH;VW=cv.width/S;}
 addEventListener('resize',resize);resize();
 const IMG={},IMG_PROMISE={};
@@ -147,20 +204,20 @@ function start(i,keep){
   chaseLeft=current().timeLimit?(difficulty==='hard'?current().timeLimit*.8:current().timeLimit):0;combatChain=0;chainLeft=0;saveClock=8;
   st='card';tc=current().cardImage?4.2:2.6;if(current().cardImage)img(current().cardImage);say={who:'helper',t:4.5,text:current().helperLine||''};if(!titleOn)saveProgress();
 }
-function clearInput(){for(const key of Object.keys(K))delete K[key]}
-function setPaused(value){paused=!!value;clearInput();const button=document.getElementById('pauseButton');button.textContent=paused?'Resume (P)':'Pause (P)';button.setAttribute('aria-label',paused?'Resume game':'Pause game');if(BUS)BUS.gain.value=paused?0:1.8;if(MUS)MUS.muted=muted||paused;last=performance.now()}
+function clearInput(){for(const key of Object.keys(K))delete K[key];touchPointers.clear();for(const button of touchButtons)button.setAttribute('aria-pressed','false')}
+function setPaused(value){paused=!!value;clearInput();const button=document.getElementById('pauseButton');button.textContent=(paused?'Resume':'Pause')+(touchDevice?'':' (P)');button.setAttribute('aria-label',paused?'Resume game':'Pause game');if(BUS)BUS.gain.value=paused?0:1.8;if(MUS)MUS.muted=muted||paused;last=performance.now()}
 function newCampaign(){savedRun=null;if(storageEnabled())try{localStorage.removeItem(SAVE_KEY)}catch{}AMMO={};levelAmmo={};levelGun='revolver';gun='revolver';bounty=0;setPaused(false);start(0)}
 addEventListener('blur',()=>{if(GAME&&!titleOn)setPaused(true);else clearInput()});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(GAME&&!titleOn)setPaused(true);else clearInput()}});
 document.getElementById('pauseButton').addEventListener('click',()=>{if(!loading&&GAME&&!titleOn){setPaused(!paused);if(!paused)startMusic()}});
-addEventListener('keydown',e=>{
+function inputDown(e){
   if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();
   if(loading||!GAME||!P)return;
   if(e.code==='Enter'&&(titleOn||st==='end'))e.preventDefault();
   if(e.code==='KeyP'||e.code==='Escape'){if(!e.repeat&&!titleOn){setPaused(!paused);if(!paused)startMusic()}return}
   if(paused)return;
   if(titleOn){if(e.repeat)return;if(e.code==='KeyH'){difficulty=difficulty==='hard'?'standard':'hard';return}if(e.code==='KeyC'&&resumeCampaign()){startMusic();return}if(e.code==='Space'||e.code==='Enter'){titleOn=false;newCampaign();startMusic()}return}
-  K[e.code]=1;startMusic();if(e.repeat)return;
+  if(!e.touch)K[e.code]=1;startMusic();if(e.repeat)return;
   if(e.code==='KeyM'){muted=!muted;if(MUS)MUS.muted=muted}
   if(debug&&e.shiftKey&&e.code==='KeyN'&&lv<GAME.levels.length-1)start(lv+1,true);
   if(debug&&e.shiftKey&&e.code==='KeyB'&&lv>0)start(lv-1,true);
@@ -173,10 +230,44 @@ addEventListener('keydown',e=>{
     if(e.code==='KeyE')interactObjective();
   }else if(st==='card'&&e.code==='Space')tc=0;
   else if(st==='end'&&e.code==='Enter')newCampaign();
-});
+}
+addEventListener('keydown',inputDown);
 addEventListener('keyup',e=>delete K[e.code]);
 cv.addEventListener('mousedown',()=>{if(loading||!GAME||paused)return;if(titleOn){titleOn=false;newCampaign();startMusic();return}K.Mouse=1;startMusic();if(st==='card')tc=0});
 addEventListener('mouseup',()=>delete K.Mouse);
+
+
+// Pointer capture keeps each finger independent, including releases outside a button.
+function touchAction(code){if(!touchPortrait())inputDown({code,repeat:false,touch:true,preventDefault(){}})}
+function releaseTouch(e){
+ const pointer=touchPointers.get(e.pointerId);if(!pointer)return;
+ touchPointers.delete(e.pointerId);
+ if(!Array.from(touchPointers.values()).some(p=>p.button===pointer.button))pointer.button.setAttribute('aria-pressed','false');
+}
+for(const button of touchButtons){
+ button.setAttribute('aria-pressed','false');
+ button.addEventListener('pointerdown',e=>{
+  if(!touchDevice||e.pointerType==='mouse'||loading||!GAME||paused||titleOn||touchPortrait()||st==='end')return;
+  e.preventDefault();const code=button.dataset.touch;
+  const alreadyHeld=Array.from(touchPointers.values()).some(p=>p.code===code);
+  button.setPointerCapture(e.pointerId);touchPointers.set(e.pointerId,{code,button});button.setAttribute('aria-pressed','true');
+  if(!alreadyHeld)touchAction(code);
+ });
+ for(const name of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(name,releaseTouch);
+}
+document.getElementById('touchNew').addEventListener('click',()=>touchAction(titleOn?'Enter':st==='end'?'Enter':''));
+document.getElementById('touchContinue').addEventListener('click',()=>touchAction('KeyC'));
+document.getElementById('touchDifficulty').addEventListener('click',()=>touchAction('KeyH'));
+document.getElementById('touchMute').addEventListener('click',()=>touchAction('KeyM'));
+function touchOrientation(){
+ document.documentElement.classList.toggle('portrait',touchPortrait());
+ if(touchDevice){clearInput();if(touchPortrait()&&GAME&&!titleOn)setPaused(true)}
+}
+addEventListener('resize',touchOrientation);touchOrientation();
+if(touchDevice){
+ document.addEventListener('contextmenu',e=>e.preventDefault());
+ document.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+}
 
 // ---- sound (Episode 1 sound kit, kept quiet: music + action sounds only) ----
 let AC=null,BUS=null,NB=null;
@@ -313,15 +404,15 @@ function update(dt){
   if(chainLeft>0)chainLeft=Math.max(0,chainLeft-dt);
   if(chaseLeft>0){chaseLeft-=dt;if(chaseLeft<=0){bounty=Math.max(0,bounty-levelBounty-100);start(lv);say={who:'helper',t:5,text:'The convoy escaped. Saddle up and try again!'};return}}
   if(cpHit&&(saveClock-=dt)<=0){saveProgress();saveClock=8}
-  const vx=(K.KeyD||K.ArrowRight?1:0)-(K.KeyA||K.ArrowLeft?1:0);
-  P.sprint=!!(vx&&(K.ShiftLeft||K.ShiftRight)&&P.z==0||P.sprint&&P.z>0&&vx);const spd=GAME.player.speed*(current().mounted?1.35:1)*(P.sprint?+(GAME.player.sprintMul||1.8):1);
+  const vx=(held('KeyD')||held('ArrowRight')?1:0)-(held('KeyA')||held('ArrowLeft')?1:0);
+  P.sprint=!!(vx&&(held('ShiftLeft')||held('ShiftRight'))&&P.z==0||P.sprint&&P.z>0&&vx);const spd=GAME.player.speed*(current().mounted?1.35:1)*(P.sprint?+(GAME.player.sprintMul||1.8):1);
   if(vx){P.x+=vx*spd*dt;P.face=vx;P.run+=dt*(has(GAME.player.sprite,'run')?11:9)*(P.sprint?1.5:1);if(P.z==0&&Math.random()<dt*6)dust(P.x-vx*30,P.l,1)}
   P.x+=P.kx*dt;P.kx*=Math.pow(.02,dt);
   const wasAir=P.z>0;P.vz-=48*dt;P.z=Math.max(0,P.z+P.vz*60*dt*.6);if(P.z==0){P.vz=0;if(wasAir)dust(P.x,P.l,8)}
   P.cd-=dt;P.inv-=dt;P.shot-=dt;
-  if((K.KeyJ||K.Mouse)&&P.cd<=0&&AMMO_MAX[gun]&&(AMMO[gun]??0)<=0){banner={text:'Out of '+WEAPON[gun].name+' ammo!',t:1.4};sfx('wood');gun='revolver';P.cd=.25}
-  if((K.KeyJ||K.Mouse)&&P.cd<=0&&WEAPON[gun].throw){AMMO[gun]--;P.cd=WEAPON[gun].cd;P.shot=.3;sfx('jump');DY.push({x:P.x+P.face*60,l:P.l,z:P.z+170,vx:P.face*520,vz:620,fuse:.55,me:1})}
-  else if((K.KeyJ||K.Mouse)&&P.cd<=0){if(AMMO_MAX[gun])AMMO[gun]--;const W=WEAPON[gun],[gx,gz]=muzzle(),alt=gun=='dual'&&(P.alt=!P.alt);
+  if((held('KeyJ')||held('Mouse'))&&P.cd<=0&&AMMO_MAX[gun]&&(AMMO[gun]??0)<=0){banner={text:'Out of '+WEAPON[gun].name+' ammo!',t:1.4};sfx('wood');gun='revolver';P.cd=.25}
+  if((held('KeyJ')||held('Mouse'))&&P.cd<=0&&WEAPON[gun].throw){AMMO[gun]--;P.cd=WEAPON[gun].cd;P.shot=.3;sfx('jump');DY.push({x:P.x+P.face*60,l:P.l,z:P.z+170,vx:P.face*520,vz:620,fuse:.55,me:1})}
+  else if((held('KeyJ')||held('Mouse'))&&P.cd<=0){if(AMMO_MAX[gun])AMMO[gun]--;const W=WEAPON[gun],[gx,gz]=muzzle(),alt=gun=='dual'&&(P.alt=!P.alt);
     for(let i=0;i<W.n;i++)B.push({x:gx-(alt?P.face*14:0),l:P.l,vx:P.face*W.v*(W.spread?rnd(.9,1.05):1),vz:W.spread?(i-(W.n-1)/2)*90:0,z:gz-(alt?14:0),me:1,d:W.d,left:W.range,pierce:W.pierce||1,hit:[]});
     P.cd=W.cd;P.shot=.25;sfx(SND[gun]?gun:'gun',gun=='shotgun'?1.6:gun=='rifle'?1.4:1.25);fx({k:'flash',x:gx-(alt?P.face*14:0),y:LANE[P.l]-gz+(alt?14:0),t:gun=='shotgun'?.12:.07,face:P.face,big:gun=='shotgun',follow:1});
     if(gun=='shotgun'){P.kx-=P.face*160;shake=Math.max(shake,.12)}}
@@ -342,7 +433,7 @@ function update(dt){
     if((e.boss||e.guard)&&near&&!e.taunted&&current().bossTaunt){e.taunted=1;say={who:'boss',t:3.2,text:current().bossTaunt,e}}
     if(e.boss&&current().boss.pattern&&near){updateBossPattern(e,dt);continue}
     if(e.guard&&near)updateGuardLane(e,dt);
-    if(e.type=='thrower'||gunOf(e)=='dynamite'){if(near&&(e.cd-=dt)<=0){const tx=P.x+P.face*(K.KeyD||K.KeyA?220:0),T=1.1;   // lob a stick of dynamite where he is running to
+    if(e.type=='thrower'||gunOf(e)=='dynamite'){if(near&&(e.cd-=dt)<=0){const tx=P.x+P.face*(held('KeyD')||held('KeyA')?220:0),T=1.1;   // lob a stick of dynamite where he is running to
         DY.push({x:e.x+e.face*40,l:P.l,z:190,vx:(tx-e.x)/T,vz:(T*1400)/2+(-190)/T,fuse:0});e.cd=(e.fire||2.4)+rnd(0,.8);e.throwT=.35;sfx('jump');if(e.guard)DY.push({x:e.x+e.face*40,l:clamp(P.l+(Math.random()<.5?1:-1),0,2),z:190,vx:(tx-e.x)/1.1,vz:(1.1*1400)/2-190/1.1,fuse:0})}
       e.throwT=(e.throwT||0)-dt;continue}
     if(e.cover&&near){e.upT=(e.upT||0)-dt;if(e.upT<=0){e.up=e.up?0:1;e.upT=e.up?rnd(1.5,2.1):rnd(1,1.8);if(e.up){e.cd=e.door?.85:Math.min(e.cd,.6);if(e.door){sfx('wood');fx({k:'txt',x:e.x,y:LANE[e.l]-250,txt:'!',c:'#ff5d4a',t:.6})}}}}   // a door outlaw shouts '!' and waits a beat before shooting
@@ -475,10 +566,10 @@ function drawGunIcon(w,x,y,k){const ii=iconImg(w);if(ii){const h=34*k,ww=ii.natu
   if(w=='shotgun'||w=='rifle'){const L=w=='rifle'?54:44;ctx.beginPath();ctx.rect(-L/2+10,-6,L,6);ctx.fill();ctx.stroke();if(w=='shotgun'){ctx.beginPath();ctx.rect(-L/2+10,0,L*.8,4);ctx.fill();ctx.stroke()}
     ctx.fillStyle='#7a4a24';ctx.beginPath();ctx.moveTo(-L/2+10,-6);ctx.lineTo(-L/2-12,-2);ctx.lineTo(-L/2-14,10);ctx.lineTo(-L/2+12,4);ctx.fill();ctx.stroke()}
   ctx.restore()}
-function muzzle(){if(current().mounted)return[P.x+P.face*(gun==='revolver'||gun==='dual'?67:110),P.z+185*LSC[P.l]];const s=heroSpr(),moving=K.KeyA||K.KeyD||K.ArrowLeft||K.ArrowRight,a=moving&&has(s,'runshoot')?'runshoot':'aim',f=(fr(s,a)||[])[0],m=(window.MUZ||{})[f],im=img(f),idl=img((fr(s,'idle')||[])[0]);
+function muzzle(){if(current().mounted)return[P.x+P.face*(gun==='revolver'||gun==='dual'?67:110),P.z+185*LSC[P.l]];const s=heroSpr(),moving=held('KeyA')||held('KeyD')||held('ArrowLeft')||held('ArrowRight'),a=moving&&has(s,'runshoot')?'runshoot':'aim',f=(fr(s,a)||[])[0],m=(window.MUZ||{})[f],im=img(f),idl=img((fr(s,'idle')||[])[0]);
   if(!m||!im||!idl)return[P.x+P.face*95,P.z+LSC[P.l]*148];const k=SPRS[s].h*LSC[P.l]/idl.naturalHeight,fh=im.naturalHeight*k;return[P.x+P.face*m[0]*fh,P.z+m[1]*fh]}
 const heroSpr=()=>current().mounted?'hero_mounted':SPRS[GAME.player.sprite+'_'+gun]?GAME.player.sprite+'_'+gun:GAME.player.sprite;
-function heroAnim(){const s=heroSpr(),moving=K.KeyA||K.KeyD||K.ArrowLeft||K.ArrowRight;
+function heroAnim(){const s=heroSpr(),moving=held('KeyA')||held('KeyD')||held('ArrowLeft')||held('ArrowRight');
   if(P.z>0)return has(s,'jump')?'jump':'walk';
   if(P.shot>0)return moving&&has(s,'runshoot')?'runshoot':'aim';
   return moving?(has(s,'run')?'run':'walk'):'idle'}
@@ -503,6 +594,7 @@ function drawTitle(){const ti=img(GAME.titleImage);ctx.setTransform(S,0,0,S,0,0)
   if(savedRun){ctx.fillStyle='#b7e2bd';ctx.fillText('C · Continue Level '+(savedRun.level+1)+' — '+GAME.levels[savedRun.level].name,VW/2,VH*.85)}
   if(Math.floor(time*2)%2){ctx.font='bold 34px Georgia';ctx.lineWidth=6;ctx.strokeText('SPACE · New ride',VW/2,VH*.92);ctx.fillStyle='#ffd166';ctx.fillText('SPACE · New ride',VW/2,VH*.92)}}
 function draw(){
+  syncTouchUI();
   if(loading||!GAME||!P)return;if(titleOn){time+=1/60;drawTitle();return}const sx=shake>0?rnd(-1,1)*shake*30:0,sy=(shake>0?rnd(-1,1)*shake*20:0)+(current().autoScroll?Math.sin(time*19)*1.6+(Math.sin(time*3.1)>.97?3:0):0);
   ctx.setTransform(S,0,0,S,sx*S,sy*S);drawBG();drawGate();drawFlag();drawObjectives();
   const list=[];
@@ -530,7 +622,7 @@ function draw(){
   list.push({l:P.l+.05,d:()=>{const s=heroSpr(),a=heroAnim(),thr=WEAPON[gun].throw&&P.shot>0,f=thr?clamp((1-P.shot/.3)*3,0,2.99):P.z>0?(fr(s,'jump')?.length>1?1:0):P.run;let lift=0;
     if(a=='run'){const fs=fr(s,'run'),im=img(fs[Math.floor(f)%fs.length]),ref=img(fs[0]),idle=img(fr(s,'idle')[0]);   // short "body up" frame floats instead of shrinking
       if(im&&ref&&idle)lift=Math.max(0,ref.naturalHeight-im.naturalHeight)*(SPRS[s].h*LSC[P.l]/idle.naturalHeight)}
-    const moving=K.KeyA||K.KeyD||K.ArrowLeft||K.ArrowRight,al=P.inv>0&&Math.floor(time*12)%2?.45:1;
+    const moving=held('KeyA')||held('KeyD')||held('ArrowLeft')||held('ArrowRight'),al=P.inv>0&&Math.floor(time*12)%2?.45:1;
     if(moving&&st=='play'){const n=P.sprint?5:2,gap=P.sprint?22:9;for(let i=n;i>=1;i--)sprite(s,a,f,P.x-P.face*i*gap,P.l,P.face,P.z,al*(P.sprint?.16:.12)*(1-i/(n+1)),0,'blur('+(P.sprint?3:1.5)+'px)',lift)}
     sprite(s,a,f,P.x,P.l,P.face,P.z,al,0,'',lift);
     if(current().mounted&&P.shot>0&&!WEAPON[gun].throw){const barrel=gun==='revolver'||gun==='dual'?32:75;ctx.save();ctx.translate(P.x-cam,LANE[P.l]-P.z-185*LSC[P.l]);ctx.scale(P.face,1);ctx.fillStyle='#bdb8a7';ctx.strokeStyle='#261b13';ctx.lineWidth=2;ctx.fillRect(35,-7,barrel,9);ctx.strokeRect(35,-7,barrel,9);ctx.fillStyle='#6e3d20';ctx.fillRect(32,0,16,19);ctx.restore()}
