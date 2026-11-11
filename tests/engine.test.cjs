@@ -10,12 +10,16 @@ const noop = () => {};
 const gradient = {addColorStop:noop};
 const saved = new Map();
 const context = new Proxy({}, {get:(o,k)=>k==='measureText'?s=>({width:String(s).length*13}):k==='createLinearGradient'||k==='createRadialGradient'?()=>gradient:noop,set:(o,k,v)=>(o[k]=v,true)});
-const button = {textContent:'',setAttribute:noop,addEventListener:noop};
+const touchMode=process.env.TOUCH_TEST==='1';
+const elements=new Map();
+const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',hidden:false,dataset:{},setAttribute:noop,setPointerCapture:noop,addEventListener:(n,f)=>handlers[id+':'+n]=f});return elements.get(id)};
+const touchCodes=['KeyA','KeyD','KeyW','KeyS','ShiftLeft','Space','KeyJ','KeyQ','KeyE'];
+const buttons=touchCodes.map(code=>Object.assign(element(code),{dataset:{touch:code}}));
 const cv = {style:{},getContext:()=>context,addEventListener:(name,fn)=>handlers['canvas:'+name]=fn};
-const sandbox = {URLSearchParams,console,innerWidth:1280,innerHeight:720,devicePixelRatio:1,performance:{now:()=>100},
+const sandbox = {URLSearchParams,console,navigator:{maxTouchPoints:touchMode?5:0},getComputedStyle:()=>({getPropertyValue:()=>0}),innerWidth:1280,innerHeight:720,devicePixelRatio:1,performance:{now:()=>100},
  localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v),removeItem:k=>saved.delete(k)},
  location:{pathname:'/maker/engine.html',search:'?mute',origin:'http://test'},
- document:{hidden:false,getElementById:id=>id==='c'?cv:button,write:noop,createElement:()=>({...cv}),addEventListener:(n,f)=>handlers['doc:'+n]=f,body:{insertAdjacentHTML:noop}},
+ document:{hidden:false,documentElement:{classList:{toggle:noop}},querySelectorAll:()=>buttons,getElementById:id=>id==='c'?cv:element(id),write:noop,createElement:()=>({...cv}),addEventListener:(n,f)=>handlers['doc:'+n]=f,body:{insertAdjacentHTML:noop}},
  Image:class{constructor(){this.complete=false;this.naturalWidth=0}},
  addEventListener:(n,f)=>handlers[n]=f,requestAnimationFrame:noop,setInterval:noop,
  fetch:async()=>({ok:true,json:async()=>structuredClone(data)}),
@@ -88,4 +92,36 @@ test('asset queue includes campaign art, mounted sprites, and all six lossless s
  assert.equal(assets.filter(x=>x.endsWith('.flac')).length,6);
  assert(assets.every(x=>!x.startsWith('/')&&!/^[a-z]+:/i.test(x)));
 });
+
+test('touch holds combine with keyboard and clear independently',()=>{
+ reset(0);run("K.KeyD=1;touchPointers.set(1,{code:'KeyD',button:touchButtons[1]});touchPointers.set(2,{code:'KeyJ',button:touchButtons[6]})");
+ assert.equal(run("held('KeyD')&&held('KeyJ')"),true);
+ run('releaseTouch({pointerId:1})');assert.equal(run("held('KeyD')"),true);
+ run('clearInput()');assert.equal(run("held('KeyD')||held('KeyJ')||touchPointers.size>0"),false);
+});
+test('touch actions do not leave keyboard keys stuck',()=>{
+ reset(0);run("music=1;sndLoaded=true;touchAction('KeyW');touchAction('Space');touchAction('KeyE')");
+ assert.equal(run('P.l'),0);assert.equal(run('P.vz'),data.player.jump);assert.equal(run('Object.keys(K).length'),0);
+});
+if(touchMode){
+ const press=(code,id)=>handlers[code+':pointerdown']({pointerId:id,pointerType:'touch',preventDefault:noop});
+ test('multi-touch movement sprint and fire survive partial release',()=>{
+  reset(0);run('music=1;sndLoaded=true;E=[]');press('KeyD',10);press('ShiftLeft',11);press('KeyJ',12);
+  const x=run('P.x');run('update(.05)');assert(run('P.x')>x);assert.equal(run('P.sprint'),true);assert(run('B.length')>0);
+  handlers['KeyJ:pointercancel']({pointerId:12});assert.equal(run("held('KeyJ')"),false);assert.equal(run("held('KeyD')"),true);
+  handlers['KeyD:lostpointercapture']({pointerId:10});assert.equal(run("held('KeyD')"),false);run('clearInput()');
+ });
+ test('touch is blocked while loading or paused and rotation clears holds',()=>{
+  reset(0);run('loading=true');press('KeyD',1);assert.equal(run('touchPointers.size'),0);
+  run('loading=false;setPaused(true)');press('KeyD',2);assert.equal(run('touchPointers.size'),0);
+  run('setPaused(false)');press('KeyD',3);sandbox.innerWidth=390;sandbox.innerHeight=844;run('touchOrientation()');
+  assert.equal(run('paused'),true);assert.equal(run('touchPointers.size'),0);
+  sandbox.innerWidth=1280;sandbox.innerHeight=720;run('touchOrientation()');assert.equal(run('paused'),true);
+ });
+ test('same action held by two fingers releases only after both lift',()=>{
+  reset(0);press('KeyJ',40);press('KeyJ',41);handlers['KeyJ:pointerup']({pointerId:40});assert.equal(run("held('KeyJ')"),true);
+  handlers['KeyJ:pointerup']({pointerId:41});assert.equal(run("held('KeyJ')"),false);
+ });
+}
+
 console.log(`${passed} regression checks passed.`);
