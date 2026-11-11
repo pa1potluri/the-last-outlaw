@@ -1,5 +1,7 @@
 # The Last Outlaw
 
+💻 Desktop/laptop only: keyboard and mouse
+
 A desktop browser western action game by PKP Studio.
 
 [▶ Play on itch.io](https://pkp-studio.itch.io/the-last-outlaw)

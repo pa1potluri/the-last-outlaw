@@ -101,3 +101,29 @@ Current working folder: `D:\TheLastOutlaw_v3\outputs\TheLastOutlaw_v2_FIXED`.
 - `outputs/the-last-outlaw-itch.zip` has `index.html` at its root. Packaging
   excludes `.git`, `tests`, `outputs`, Python files, batch files, and other ZIPs.
   Upload it to itch.io as an HTML game. This remains a keyboard game.
+
+
+## Desktop-only notice (2026-11-12)
+
+Small touch devices with a coarse primary pointer now see a full-screen keyboard
+notice over the existing title artwork. The early gate places all subsequent
+game markup in an inert template, preventing game scripts, level data, sprites,
+and audio from loading. Devices with a fine primary pointer keep the original
+engine path, including touch-enabled laptops using a mouse or trackpad.
+The gate uses the physical screen's shorter side (at most 1024 pixels), so
+landscape phones and larger tablets remain covered.
+
+Validation: all 36 engine regressions and 3 Python launcher tests passed.
+`node tests/device-gate.test.cjs` passed in headless Chrome with Playwright:
+390x844 phone, 844x390 landscape phone, 1366x1024 tablet, 1280x720 desktop,
+narrow desktop, and a touch laptop with a fine primary pointer. Both index and
+direct engine entry points were checked on mobile. Network requests were limited
+to HTML and the title WebP; there was no game canvas or game API on mobile.
+The desktop title screenshot was pixel-identical to main at 46f58f2, and keyboard
+startup worked. The existing automated combat simulation completed all 15 levels
+with normal health, ammo, enemies, and checkpoint rules (automated targeting and
+lane assignment, with intro cards skipped).
+
+The itch ZIP was rebuilt with index.html at its root, including the README.md
+platform notice and the unchanged art/audio. Tests and development files are
+excluded as before. The unfinished area/mobile-touch branch remains unmerged.

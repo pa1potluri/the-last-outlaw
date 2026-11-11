@@ -18,8 +18,22 @@ canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%
 #loadingBar::-moz-progress-bar{background:#eeb45e;border-radius:5px}
 #loadingDetail{margin:16px 0 0;line-height:1.5;color:#fff3d4}
 #loadingRetry{margin-top:18px;padding:10px 22px;border:1px solid #b68a43;border-radius:6px;background:#ffe2a2;color:#24170e;font:bold 18px Georgia;cursor:pointer}
+/* Only the early touch-device gate creates this notice. */
+#desktopOnlyNotice{position:fixed;inset:0;z-index:20;display:grid;place-items:center;box-sizing:border-box;padding:24px;background:linear-gradient(#120d0a44,#120d0ab8),url('../art/_incoming/title_outlaw.webp') center/cover no-repeat,#120d0a}
+#desktopOnlyNotice p{max-width:460px;margin:0;padding:28px 24px;border:1px solid #b68a43;border-radius:12px;background:#24170eeb;box-shadow:0 12px 50px #0009;color:#ffe2a2;text-align:center;font:bold clamp(22px,5vw,30px)/1.5 Georgia,serif}
 </style></head>
 <body>
+<script>
+// A coarse primary pointer excludes touch-enabled PCs using a mouse/trackpad.
+// Use the physical screen so phones in landscape and tablets in wide embeds
+// stay blocked, without treating a narrow desktop window as a mobile device.
+if(typeof navigator!=='undefined'&&navigator.maxTouchPoints>0&&
+   matchMedia('(pointer: coarse)').matches&&Math.min(screen.width,screen.height)<=1024){
+ document.write('<section id="desktopOnlyNotice" aria-label="Keyboard required"><p>🤠 The Last Outlaw needs a keyboard. Please play on a laptop or PC.</p></section><template id="mobileGameDisabled">');
+ // The remaining game markup/scripts are parsed inside an inert template.
+ // No game code, sprites, level data or audio are loaded on these devices.
+}
+</script>
 <section id="loadingScreen" aria-label="Loading The Last Outlaw" aria-busy="true">
  <div class="loadingPanel">
   <h1 id="loadingText" role="status" aria-live="polite">Loading… 0%</h1>
