@@ -1,5 +1,56 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0; url=maker/engine.html?game=sundown_trail">
-<title>The Last Outlaw</title><script>location.replace("maker/engine.html?game=sundown_trail");</script>
-</head><body><a href="maker/engine.html?game=sundown_trail">Play The Last Outlaw</a></body></html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Last Outlaw</title>
+<link rel="preload" as="image" href="art/_incoming/title_outlaw.webp">
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#120d0a;color:#f1e3c6;font-family:Georgia,serif}
+#game{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+#loadingScreen{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:linear-gradient(#120d0a44,#120d0ab8),url('art/_incoming/title_outlaw.webp') center/contain no-repeat,#120d0a}
+#loadingScreen[hidden]{display:none}
+.loadingPanel{width:min(460px,80vw);box-sizing:border-box;padding:28px;text-align:center;border:1px solid #b68a43;border-radius:12px;background:#24170eeb;box-shadow:0 12px 50px #0009}
+.loadingPanel h1{margin:0 0 20px;color:#ffe2a2;font-size:clamp(24px,4vw,36px)}
+#loadingBar{display:block;width:100%;height:20px;accent-color:#eeb45e}
+#loadingBar::-webkit-progress-bar{background:#120d0a;border-radius:5px}
+#loadingBar::-webkit-progress-value{background:#eeb45e;border-radius:5px}
+#loadingBar::-moz-progress-bar{background:#eeb45e;border-radius:5px}
+#loadingDetail{margin:16px 0 0;line-height:1.5;color:#fff3d4}
+#loadingRetry{margin-top:18px;padding:10px 22px;border:1px solid #b68a43;border-radius:6px;background:#ffe2a2;color:#24170e;font:bold 18px Georgia;cursor:pointer}
+
+</style></head><body>
+<section id="loadingScreen" aria-label="Loading The Last Outlaw" aria-busy="true">
+ <div class="loadingPanel">
+  <h1 id="loadingText" role="status" aria-live="polite">Loading… 0%</h1>
+  <progress id="loadingBar" max="100" value="0" aria-label="Game asset loading progress">0%</progress>
+  <p id="loadingDetail">Getting your ride ready…</p>
+  <button id="loadingRetry" type="button" hidden>Reload</button>
+ </div>
+</section>
+
+<iframe id="game" title="The Last Outlaw game" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<noscript>JavaScript is required to play The Last Outlaw.</noscript>
+<script>
+const game=document.getElementById('game'),screen=document.getElementById('loadingScreen');
+document.getElementById('loadingRetry').addEventListener('click',()=>location.reload());
+addEventListener('message',event=>{
+ if(event.origin!==location.origin||event.source!==game.contentWindow||event.data?.type!=='outlaw:loading')return;
+ const state=event.data;
+ if(state.error){
+  document.getElementById('loadingText').textContent='Loading failed';
+  document.getElementById('loadingDetail').textContent=state.error+'. Reload to try again.';
+  document.getElementById('loadingRetry').hidden=false;
+  screen.setAttribute('aria-busy','false');return;
+ }
+ if(Number.isFinite(state.percent)){
+  const percent=Math.max(0,Math.min(100,state.percent));
+  document.getElementById('loadingText').textContent='Loading… '+percent+'%';
+  const bar=document.getElementById('loadingBar');bar.value=percent;bar.textContent=percent+'%';
+  document.getElementById('loadingDetail').textContent=state.detail;
+ }
+ if(state.ready){screen.hidden=true;screen.setAttribute('aria-busy','false');game.contentWindow.focus()}
+});
+// Paint the root loader before requesting the engine or any game manifests.
+requestAnimationFrame(()=>requestAnimationFrame(()=>{
+ game.src='maker/engine.html'+(location.search||'?game=sundown_trail');
+}));
+</script></body></html>

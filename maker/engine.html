@@ -8,7 +8,7 @@ canvas{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%
 #keyboardNotice{display:none;position:fixed;bottom:24px;left:16px;right:16px;text-align:center;font:16px/1.5 Georgia}
 @media(max-aspect-ratio:1/1){#keyboardNotice{display:block}}
 
-#loadingScreen{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:linear-gradient(#120d0a44,#120d0ab8),url('../art/_incoming/title_outlaw.webp') center/cover no-repeat,#120d0a}
+#loadingScreen{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:linear-gradient(#120d0a44,#120d0ab8),url('../art/_incoming/title_outlaw.webp') center/contain no-repeat,#120d0a}
 #loadingScreen[hidden]{display:none}
 .loadingPanel{width:min(460px,80vw);box-sizing:border-box;padding:28px;text-align:center;border:1px solid #b68a43;border-radius:12px;background:#24170eeb;box-shadow:0 12px 50px #0009}
 .loadingPanel h1{margin:0 0 20px;color:#ffe2a2;font-size:clamp(24px,4vw,36px)}
@@ -101,7 +101,7 @@ const safeName=/^[A-Za-z0-9_-]+$/.test(gameName)?gameName:"sundown_trail";
 const asset=p=>p?ROOT+p:"";
 let HOR=640,LANE=[815,860,905],LSC=[.9,.95,1];
 function resize(){const d=Math.min(devicePixelRatio||1,1.5),ratio=1600/VH,w=Math.min(touchDevice&&!touchPortrait()?Math.max(1,innerWidth-300-(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-left'))||0)-(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safe-right'))||0)):innerWidth,innerHeight*ratio),h=w/ratio;
-  cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.width=w+'px';cv.style.height=h+'px';S=cv.height/VH;VW=cv.width/S;}
+  cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.width=w+'px';cv.style.height=h+'px';S=Math.min(cv.width/1600,cv.height/VH);VW=1600;}
 addEventListener('resize',resize);resize();
 const IMG={},IMG_PROMISE={};
 function loadImage(file){
@@ -817,11 +817,16 @@ function assetReferences(value, refs=new Set()){
  else if(value&&typeof value==='object')for(const child of Object.values(value))assetReferences(child,refs);
  return refs;
 }
+function notifyLoader(state){
+ // Only the same-origin root shell consumes these messages; direct engine URLs still work.
+ if(window.parent&&window.parent!==window)window.parent.postMessage({type:'outlaw:loading',...state},location.origin);
+}
 function loadingProgress(done,total){
  const percent=Math.floor(done/total*100),label='Loading… '+percent+'%';
  document.getElementById('loadingText').textContent=label;
  const bar=document.getElementById('loadingBar');bar.value=percent;bar.textContent=percent+'%';
  document.getElementById('loadingDetail').textContent=done+' / '+total+' assets ready';
+ notifyLoader({percent,detail:done+' / '+total+' assets ready'});
 }
 async function preloadImage(file){await loadImage(file);}
 async function preloadGame(data){
@@ -857,11 +862,15 @@ async function loadGame(){
   document.getElementById('loadingScreen').hidden=true;
   document.getElementById('loadingScreen').setAttribute('aria-busy','false');
   loading=false;
+  draw();
+  await new Promise(resolve=>requestAnimationFrame(resolve));
+  notifyLoader({ready:true});
  }catch(error){
   document.getElementById('loadingText').textContent='Loading failed';
   document.getElementById('loadingDetail').textContent=error.message+'. Reload to try again.';
   document.getElementById('loadingScreen').setAttribute('aria-busy','false');
   document.getElementById('loadingRetry').hidden=false;
+  notifyLoader({error:error.message});
  }
 }
 document.getElementById('loadingRetry').addEventListener('click',()=>location.reload());

@@ -400,3 +400,36 @@ Still required before release:
 6. Report itch.io upload settings: HTML game, ZIP played in browser, Mobile Friendly, landscape dimensions/orientation, fullscreen option. Official reference: https://itch.io/docs/creators/html5 . Verify exact available labels before final guidance.
 
 Browser test tooling: bundled playwright is at C:/Users/PKP/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright. Headless Chrome needed an approved sandbox escalation to launch. A task-owned Python HTTP server was started at 127.0.0.1:8842; check whether it is still running before starting another.
+
+
+## Instant root loading and frame fit — 12 November 2026
+
+- Root `index.html` now paints the existing title art, Loading… 0% and progress
+  bar before requesting the engine. It hosts a full-size same-origin iframe,
+  mirrors real completed-asset percentages/errors, and stays visible until the
+  engine explicitly draws its ready frame. No redirect or blank handover.
+- Both loaders contain the title image without cropping. The canvas retains its
+  full 1600×941 logical playfield with a uniform scale bounded by both backing
+  dimensions, including fractional device pixels. Existing letterboxing and
+  phone control rails remain. Gameplay, assets, and controls are unchanged.
+- Validation: 38 desktop engine regressions, 41 touch-host regressions, and all
+  3 launcher tests passed. New `tests/frame-loading.test.cjs` passed in headless
+  Chrome at 960×540 and 1280×720 desktop and 740×360 touch phone emulation.
+  It checks the root loader with the engine request held, real progress with a
+  sound request held, blocked early input, ready handoff, nested embed paths,
+  full canvas bounds, keyboard and actual CDP multi-touch move/sprint/shoot,
+  jump, gun button, pause, 1920×1080 resize, the Fullscreen API, all 15 scene
+  renders, direct engine entry, and failed-download retry. The existing campaign
+  simulation reached the ending in both Standard and Hard with normal combat
+  rules (automatic targeting/lane assignment; no human playthrough claimed).
+- Run: `node tests/frame-loading.test.cjs` with Playwright installed (or the
+  bundled Codex Playwright runtime). Optional GAME_ROOT and QA_OUTPUT variables
+  select the served build and screenshot/result directory. Browser evidence is
+  written under outputs/browser-loading by default and excluded from releases.
+- Release: `D:\TheLastOutlaw_v3\the-last-outlaw-LIVE.zip`, index.html at root;
+  excludes .git, tests, outputs, Python, batch, ZIPs, and development metadata.
+  The archive is byte-verified against source and tested after extraction.
+- Limits: local nested-iframe/Chrome emulation and headless fullscreen checks;
+  no physical phone or live itch.io upload was performed in this pass. Existing
+  art files were not modified. The prior mobile-paused/desktop-only history
+  above is historical; current main already supplies the phone thumb stick UI.

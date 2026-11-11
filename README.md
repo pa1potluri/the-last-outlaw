@@ -17,3 +17,9 @@ For local setup, controls, save behaviour and edition notes, see [README.txt](RE
 ## Work with me
 
 For collaborations and project enquiries, [connect with Pavan Potluri on LinkedIn](https://www.linkedin.com/in/pavanpotluri/).
+
+## Browser loading and display
+
+The root page shows title artwork and real loading progress immediately, then
+reveals the game in the same frame. The complete playfield fits the embed or
+fullscreen with letterboxing; phones retain their existing touch control rails.
