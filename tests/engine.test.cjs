@@ -12,8 +12,8 @@ const saved = new Map();
 const context = new Proxy({}, {get:(o,k)=>k==='measureText'?s=>({width:String(s).length*13}):k==='createLinearGradient'||k==='createRadialGradient'?()=>gradient:noop,set:(o,k,v)=>(o[k]=v,true)});
 const touchMode=process.env.TOUCH_TEST==='1';
 const elements=new Map();
-const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',hidden:false,style:{},dataset:{},setAttribute:noop,setPointerCapture:noop,addEventListener:(n,f)=>handlers[id+':'+n]=f});return elements.get(id)};
-const touchCodes=['KeyA','KeyD','KeyW','KeyS','ShiftLeft','Space','KeyJ','KeyQ','KeyE'];
+const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',hidden:false,style:{},dataset:{},getBoundingClientRect:()=>({left:0,top:0,width:120,height:120}),setAttribute:noop,setPointerCapture:noop,addEventListener:(n,f)=>handlers[id+':'+n]=f});return elements.get(id)};
+const touchCodes=['Space','KeyJ'];
 const buttons=touchCodes.map(code=>Object.assign(element(code),{dataset:{touch:code}}));
 const cv = {style:{},getBoundingClientRect:()=>({left:0,top:0,width:sandbox.innerWidth,height:sandbox.innerHeight}),getContext:()=>context,addEventListener:(name,fn)=>handlers['canvas:'+name]=fn};
 const sandbox = {URLSearchParams,console,navigator:{maxTouchPoints:touchMode?5:0},matchMedia:()=>({matches:touchMode}),getComputedStyle:()=>({getPropertyValue:()=>0}),innerWidth:1280,innerHeight:720,devicePixelRatio:1,performance:{now:()=>100},
@@ -94,7 +94,7 @@ test('asset queue includes campaign art, mounted sprites, and all six lossless s
 });
 
 test('touch holds combine with keyboard and clear independently',()=>{
- reset(0);run("K.KeyD=1;touchPointers.set(1,{code:'KeyD',button:touchButtons[1]});touchPointers.set(2,{code:'KeyJ',button:touchButtons[6]})");
+ reset(0);run("K.KeyD=1;touchPointers.set(1,{code:'KeyD',button:touchButtons[0]});touchPointers.set(2,{code:'KeyJ',button:touchButtons[1]})");
  assert.equal(run("held('KeyD')&&held('KeyJ')"),true);
  run('releaseTouch({pointerId:1})');assert.equal(run("held('KeyD')"),true);
  run('clearInput()');assert.equal(run("held('KeyD')||held('KeyJ')||touchPointers.size>0"),false);
@@ -120,16 +120,20 @@ if(touchMode){
   assert.equal(run('joy.id'),null);assert.equal(run("held('KeyD')||held('ShiftLeft')"),false);
  });
  const press=(code,id)=>handlers[code+':pointerdown']({pointerId:id,pointerType:'touch',preventDefault:noop});
+ const dragStick=id=>{
+  handlers['joyZone:pointerdown']({pointerId:id,pointerType:'touch',clientX:60,clientY:60,preventDefault:noop});
+  handlers['joyZone:pointermove']({pointerId:id,clientX:108,clientY:60});
+ };
  test('multi-touch movement sprint and fire survive partial release',()=>{
-  reset(0);run('music=1;sndLoaded=true;E=[]');press('KeyD',10);press('ShiftLeft',11);press('KeyJ',12);
+  reset(0);run('music=1;sndLoaded=true;E=[]');dragStick(10);press('KeyJ',12);
   const x=run('P.x');run('update(.05)');assert(run('P.x')>x);assert.equal(run('P.sprint'),true);assert(run('B.length')>0);
   handlers['KeyJ:pointercancel']({pointerId:12});assert.equal(run("held('KeyJ')"),false);assert.equal(run("held('KeyD')"),true);
-  handlers['KeyD:lostpointercapture']({pointerId:10});assert.equal(run("held('KeyD')"),false);run('clearInput()');
+  handlers['joyZone:lostpointercapture']({pointerId:10});assert.equal(run("held('KeyD')"),false);run('clearInput()');
  });
  test('touch is blocked while loading or paused and rotation clears holds',()=>{
-  reset(0);run('loading=true');press('KeyD',1);assert.equal(run('touchPointers.size'),0);
-  run('loading=false;setPaused(true)');press('KeyD',2);assert.equal(run('touchPointers.size'),0);
-  run('setPaused(false)');press('KeyD',3);sandbox.innerWidth=390;sandbox.innerHeight=844;run('touchOrientation()');
+  reset(0);run('loading=true');dragStick(1);assert.equal(run('touchPointers.size'),0);
+  run('loading=false;setPaused(true)');dragStick(2);assert.equal(run('touchPointers.size'),0);
+  run('setPaused(false)');dragStick(3);sandbox.innerWidth=390;sandbox.innerHeight=844;run('touchOrientation()');
   assert.equal(run('paused'),true);assert.equal(run('touchPointers.size'),0);
   sandbox.innerWidth=1280;sandbox.innerHeight=720;run('touchOrientation()');assert.equal(run('paused'),true);
  });

@@ -1,0 +1,453 @@
+{
+  "date": "2026-11-12",
+  "engine": {
+    "desktopChecksPassed": 38,
+    "touchChecksPassed": 44
+  },
+  "launcherChecksPassed": 3,
+  "sourceBrowser": {
+    "results": [
+      {
+        "width": 960,
+        "height": 540,
+        "touch": false,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 41.828125,
+          "y": 0,
+          "width": 1836.34375,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1600,
+            941
+          ],
+          "scale": 1.1475,
+          "backing": [
+            1836,
+            1080
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "touch": false,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 41.828125,
+          "y": 0,
+          "width": 1836.34375,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1600,
+            941
+          ],
+          "scale": 1.1475,
+          "backing": [
+            1836,
+            1080
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 740,
+        "height": 360,
+        "touch": true,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1672.888888888889,
+            941
+          ],
+          "scale": 1.7215727948990436,
+          "backing": [
+            2880,
+            1620
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "touch": true,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1672.888888888889,
+            941
+          ],
+          "scale": 1.7215727948990436,
+          "backing": [
+            2880,
+            1620
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 932,
+        "height": 430,
+        "touch": true,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1672.888888888889,
+            941
+          ],
+          "scale": 1.7215727948990436,
+          "backing": [
+            2880,
+            1620
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 800,
+        "height": 360,
+        "touch": true,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1672.888888888889,
+            941
+          ],
+          "scale": 1.7215727948990436,
+          "backing": [
+            2880,
+            1620
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "portraitRotation": true,
+        "joystickLanes": true,
+        "pointerCancellation": true,
+        "capturedRelease": true,
+        "noScroll": true,
+        "focusLoss": true,
+        "continueAndRestart": true,
+        "finePointerLaptop": true,
+        "errors": []
+      }
+    ],
+    "failedAssetRetry": true
+  },
+  "packagedBrowser": {
+    "results": [
+      {
+        "width": 960,
+        "height": 540,
+        "touch": false,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 41.828125,
+          "y": 0,
+          "width": 1836.34375,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1600,
+            941
+          ],
+          "scale": 1.1475,
+          "backing": [
+            1836,
+            1080
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "touch": false,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 41.828125,
+          "y": 0,
+          "width": 1836.34375,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1600,
+            941
+          ],
+          "scale": 1.1475,
+          "backing": [
+            1836,
+            1080
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 740,
+        "height": 360,
+        "touch": true,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1672.888888888889,
+            941
+          ],
+          "scale": 1.7215727948990436,
+          "backing": [
+            2880,
+            1620
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "touch": true,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1672.888888888889,
+            941
+          ],
+          "scale": 1.7215727948990436,
+          "backing": [
+            2880,
+            1620
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 932,
+        "height": 430,
+        "touch": true,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1672.888888888889,
+            941
+          ],
+          "scale": 1.7215727948990436,
+          "backing": [
+            2880,
+            1620
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 800,
+        "height": 360,
+        "touch": true,
+        "loading": true,
+        "input": true,
+        "allLevels": true,
+        "fullscreenFit": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080,
+          "viewport": [
+            1920,
+            1080
+          ],
+          "logical": [
+            1672.888888888889,
+            941
+          ],
+          "scale": 1.7215727948990436,
+          "backing": [
+            2880,
+            1620
+          ],
+          "scroll": [
+            1920,
+            1080
+          ]
+        },
+        "errors": []
+      },
+      {
+        "portraitRotation": true,
+        "joystickLanes": true,
+        "pointerCancellation": true,
+        "capturedRelease": true,
+        "noScroll": true,
+        "focusLoss": true,
+        "continueAndRestart": true,
+        "finePointerLaptop": true,
+        "errors": []
+      }
+    ],
+    "failedAssetRetry": true
+  },
+  "desktopPixels": {
+    "baseline": "12bc294",
+    "fixtures": [
+      "title",
+      "play",
+      "paused"
+    ],
+    "before": [
+      "2c78bf35e5103c7a5803ec399615b7dc66594f19065237af8c7111e7c6a8e5ef",
+      "c23b5ff2b9380c648709ef2dc7d71df75123b6bab364ed5bf6376bd83e9e6530",
+      "92a8810a5a836bfbfb0d107e3e824e470a77f975ee52934d6befdb63e633c69a"
+    ],
+    "after": [
+      "2c78bf35e5103c7a5803ec399615b7dc66594f19065237af8c7111e7c6a8e5ef",
+      "c23b5ff2b9380c648709ef2dc7d71df75123b6bab364ed5bf6376bd83e9e6530",
+      "92a8810a5a836bfbfb0d107e3e824e470a77f975ee52934d6befdb63e633c69a"
+    ],
+    "identical": true
+  },
+  "release": {
+    "archive": "outputs/the-last-outlaw-itch.zip",
+    "files": 312,
+    "bytes": 172597776,
+    "uncompressedBytes": 172722117,
+    "sha256": "b0cd92d8d84f8dd6eb60ad713a3c1c975ecbd319447eec6cc6766f5925acb4dc",
+    "entriesMatchSource": true,
+    "indexAtRoot": true
+  },
+  "limits": "Chrome emulation, no physical phone or Safari testing. Campaign simulation uses automated targeting/lane assignment."
+}

@@ -190,3 +190,45 @@ excluded as before. The unfinished area/mobile-touch branch remains unmerged.
 - Rebuilt D:\TheLastOutlaw_v3\the-last-outlaw-LIVE.zip with index.html at root
   and the existing release exclusions. All ZIP entries were byte-checked
   against source, and the extracted build passed browser QA.
+
+
+## Mobile release verification completed — 12 November 2026
+
+Resumed after the concurrent phone/layout work had finished on main at 66e774a.
+Retained the current minimal phone interface: stick for left/right, sprint and
+lane changes; Jump/Shoot buttons; WEAPON HUD tap to switch guns; MISSION HUD tap
+to interact. Portrait shows the rotate hint and pauses until manually resumed.
+Desktop keyboard/mouse controls and all art/audio files remain unchanged.
+
+- Corrected the engine test host to model the actual Jump/Shoot buttons and
+  joystick, replacing obsolete movement/sprint button fixtures.
+- Added real Chrome touch coverage for joystick lane flicks, pointer cancellation,
+  releases outside captured controls, no scrolling, portrait rotation and manual
+  resume, focus-loss cleanup, Continue/checkpoint restore, ending restart, and
+  fine-pointer touch laptops keeping the desktop layout.
+- Passed 38 desktop engine checks, 44 touch-host checks, and 3 launcher tests.
+  The expanded frame-loading browser suite passed against both the source and
+  the extracted final ZIP, including nested itch-style frames and 844x390.
+  The source suite also completed Standard and Hard campaign simulations.
+- Desktop title/gameplay/paused fixtures at 960x540 are pixel-identical to
+  12bc294. This is fixture evidence, not a claim about every possible frame.
+- Rebuilt the specifically requested outputs/the-last-outlaw-itch.zip:
+  312 files, index.html at root, 172,597,776 bytes (about 164.6 MiB), no tests,
+  development metadata, Python/batch files or nested archives. Every entry was
+  byte-verified against current source, CRC-checked and browser-tested after
+  extraction. SHA-256:
+  b0cd92d8d84f8dd6eb60ad713a3c1c975ecbd319447eec6cc6766f5925acb4dc
+- Release evidence is recorded in tests/mobile-release-verification.json.
+  Detailed screenshots/results are in the active Codex chat workspace under
+  work/resume-final-qa and work/packaged-qa. The older LIVE ZIP outside this
+  project was not replaced; upload outputs/the-last-outlaw-itch.zip for this pass.
+- itch.io: select HTML Game, mark the ZIP as played in browser, enable Mobile
+  Friendly, choose landscape, keep Click to Play enabled, and leave Scrollbars
+  disabled. Use fullscreen launch or Fullscreen Button for in-page embeds.
+  Official settings reference: https://itch.io/docs/creators/html5 .
+- Limits: Chrome desktop and emulated phones, not physical phone/Safari testing;
+  campaign simulation uses automatic target/lane choices, not a human playthrough.
+
+This supersedes the earlier paused-work and desktop-only release status. The
+release commit is named "[codex] mobile touch controls"; check Git for its ID
+and origin/main synchronization rather than relying on older history entries.

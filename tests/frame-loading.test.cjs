@@ -92,6 +92,51 @@ try{
   }
   assert.deepEqual(errors,[]);results.push({width,height,touch,loading:true,input:true,allLevels:true,fullscreenFit:bounds,errors});await context.close();
  }
+
+ // Interrupted touch gestures and portrait rotation must not leave held controls.
+ const edgeContext=await browser.newContext({viewport:{width:844,height:390},hasTouch:true,isMobile:true});
+ const edge=await edgeContext.newPage(),edgeErrors=[];
+ edge.on('pageerror',e=>edgeErrors.push(e.message));
+ await edge.goto(url+'/nested/build/index.html?mute');
+ await edge.waitForFunction(()=>document.getElementById('loadingScreen').hidden,null,{timeout:180000});
+ const edgeGame=await(await edge.locator('#game').elementHandle()).contentFrame();
+ await edgeGame.locator('#touchDifficulty').tap();assert.equal(await edgeGame.evaluate(()=>difficulty),'hard');
+ await edgeGame.locator('#touchDifficulty').tap();await edgeGame.locator('#touchNew').tap();await edgeGame.locator('#touchJump').tap();
+ await edgeGame.waitForFunction(()=>st==='play');
+ await edgeGame.evaluate(()=>{requestAnimationFrame=()=>0});await edge.waitForTimeout(100);
+ await edgeGame.evaluate(()=>{E=[];clearInput();P.l=1;draw()});
+ const edgeCDP=await edgeContext.newCDPSession(edge),jr=await edgeGame.locator('#joyBase').boundingBox();
+ const point=(id,dx=0,dy=0)=>({id,x:jr.x+jr.width/2+dx,y:jr.y+jr.height/2+dy});
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[point(1)]});
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[point(1,0,-38)]});assert.equal(await edgeGame.evaluate(()=>P.l),0);
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[point(1,0,38)]});assert.equal(await edgeGame.evaluate(()=>P.l),1);
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[point(1,48)]});assert(await edgeGame.evaluate(()=>held('KeyD')&&held('ShiftLeft')));
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});assert(await edgeGame.evaluate(()=>joy.id===null&&touchPointers.size===0));
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[point(2)]});
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{id:2,x:400,y:80}]});assert(await edgeGame.evaluate(()=>held('KeyD')));
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});assert(await edgeGame.evaluate(()=>joy.id===null&&touchPointers.size===0));
+ assert(await edgeGame.evaluate(()=>scrollX===0&&scrollY===0&&document.documentElement.scrollWidth===innerWidth&&document.documentElement.scrollHeight===innerHeight));
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[point(3,48)]});
+ await edge.setViewportSize({width:390,height:844});await edgeGame.waitForFunction(()=>touchPortrait()&&paused);
+ assert(await edgeGame.locator('#rotateNotice').isVisible());assert(await edgeGame.evaluate(()=>joy.id===null&&touchPointers.size===0));
+ await edgeCDP.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+ await edge.screenshot({path:path.join(out,'portrait-390.png')});
+ await edge.setViewportSize({width:844,height:390});await edgeGame.waitForFunction(()=>!touchPortrait());
+ assert(await edgeGame.evaluate(()=>paused));await edgeGame.evaluate(()=>draw());await edgeGame.locator('#touchResume').tap();
+ await edgeGame.evaluate(()=>{joy.id=42;joySet('joyH','KeyD');dispatchEvent(new Event('blur'));draw()});assert(await edgeGame.evaluate(()=>paused&&joy.id===null&&touchPointers.size===0));
+ await edgeGame.locator('#touchResume').tap();
+ // Check real origin storage in this disposable context, separate from player saves.
+ await edgeGame.evaluate(()=>{start(1);st='play';cpHit=true;bounty=3456;saveProgress();savedRun=readSave();titleOn=true;draw()});
+ await edgeGame.locator('#touchContinue').tap();assert(await edgeGame.evaluate(()=>!titleOn&&lv===1&&bounty===3456&&P.x===current().checkpoint));
+ await edgeGame.evaluate(()=>{st='end';draw()});await edgeGame.locator('#touchNew').tap();assert(await edgeGame.evaluate(()=>lv===0&&st==='card'));
+ assert.deepEqual(edgeErrors,[]);await edgeContext.close();
+ const laptop=await browser.newContext({hasTouch:true,viewport:{width:1280,height:720}});
+ await laptop.addInitScript(()=>{const real=matchMedia.bind(window);window.matchMedia=q=>q==='(pointer: coarse)'?{matches:false}:real(q)});
+ const laptopPage=await laptop.newPage();await laptopPage.goto(url+'/nested/build/maker/engine.html?mute&test');await laptopPage.waitForFunction(()=>window.G&&!loading,null,{timeout:180000});
+ assert.equal(await laptopPage.evaluate(()=>touchDevice),false);assert.equal(await laptopPage.locator('#touchMenu').isVisible(),false);
+ await laptopPage.keyboard.press('Enter');assert.equal(await laptopPage.evaluate(()=>titleOn),false);await laptop.close();
+ results.push({portraitRotation:true,joystickLanes:true,pointerCancellation:true,capturedRelease:true,noScroll:true,focusLoss:true,continueAndRestart:true,finePointerLaptop:true,errors:edgeErrors});
+
  // Desktop output must remain byte-identical to the pre-change build.
  const desktop=await browser.newContext({viewport:{width:960,height:540}}),captures=[];
  for(const entry of ['/baseline/maker/engine.html?mute&test','/nested/build/maker/engine.html?mute&test']){
