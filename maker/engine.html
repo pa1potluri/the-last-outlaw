@@ -292,6 +292,8 @@ cv.addEventListener('pointerdown',e=>{
  const b=cv.getBoundingClientRect(),x=(e.clientX-b.left)*VW/b.width,y=(e.clientY-b.top)*VH/b.height;
  if(x>=24&&x<=324&&y>=108&&y<=202){e.preventDefault();touchAction('KeyQ')}
  else if(x>=24&&x<=344&&y>=280&&y<=318+objectiveStatus().length*28){e.preventDefault();touchAction('KeyE')}
+ // At a mission spot, a tap anywhere on the game (the ◆, the target, empty ground) does the mission action.
+ else if(nearbyObjective()){e.preventDefault();touchAction('KeyE')}
 });
 
 // On phones, keyboard hints are rewritten for the stick and buttons.
@@ -301,7 +303,7 @@ function touchText(t){
   .replace('J or click = shoot  ·  Shift = sprint','Tap Shoot to fire  ·  push the stick far to sprint')
   .replace('W / S = change lane','Flick the stick up / down to change lane')
   .replace('Space = jump over bullets','Tap Jump to leap over bullets')
-  .replace('Stand in their lane and press E.','Stand in their lane and tap MISSION.')
+  .replace('Stand in their lane and press E.','Stand on the ◆ and tap the screen.')
   .replace('Shift spurs your horse.','Push the stick far to spur your horse.');
 }
 
@@ -648,7 +650,7 @@ function drawObjectives(){
 }
 function drawObjectiveHUD(){if(st!=='play')return;const rows=objectiveStatus(),w=320,h=38+rows.length*28;ctx.save();ctx.fillStyle='rgba(30,18,8,.82)';ctx.beginPath();ctx.roundRect(24,280,w,h,10);ctx.fill();ctx.textAlign='left';ctx.fillStyle='#ffd166';ctx.font='bold 20px Georgia';ctx.fillText(touchDevice?'MISSION · TAP TO USE':'MISSION',40,308);
   rows.forEach((o,i)=>{ctx.fillStyle=o.done?'#91df98':'#fff3d4';fitText((o.done?'✓ ':'○ ')+o.text,19,w-32);ctx.fillText((o.done?'✓ ':'○ ')+o.text,40,336+i*28)});
-  const near=nearbyObjective();let message=near?(touchDevice?'Tap MISSION — ':'E — ')+near.label:'';
+  const near=nearbyObjective();let message=near?(touchDevice?'Tap the screen — ':'E — ')+near.label:'';
   if(!message&&P.x>len-650&&!canExit())message='Exit locked — finish your mission';
   if(!message&&canExit())message='Mission complete — ride to the exit →';
   if(message){ctx.textAlign='center';fitText(message,26,VW-80);ctx.lineWidth=6;ctx.strokeStyle='#24170e';ctx.strokeText(message,VW/2,VH-36);ctx.fillStyle='#ffe2a2';ctx.fillText(message,VW/2,VH-36)}
